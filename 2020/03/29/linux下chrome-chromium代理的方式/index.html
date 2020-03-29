@@ -62,7 +62,7 @@
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico?v=5.1.4">
 
 
-  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+  <link rel="mask-icon" href="/images/favicon.ico?v=5.1.4" color="#222">
 
 
 
@@ -91,7 +91,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="/29/linux下chrome-chromium代理的方式/e1.jpeg">
 <meta property="og:image" content="/29/linux下chrome-chromium代理的方式/e3.png">
-<meta property="og:updated_time" content="2020-03-29T15:11:23.091Z">
+<meta property="og:updated_time" content="2020-03-29T16:10:57.368Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="linux下chrome&amp;chromium代理的方式">
 <meta name="twitter:description" content="linux下chrome&amp;chromium代理的方式">
@@ -319,7 +319,7 @@
       
 
       
-        <p>我们在鸟上装完chrome，突然发现他不能像windows或者mac一样，在<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">```</span><br><span class="line">神马把SwitchyOmegaProxy本地下载下来，然后改后缀名为zip，然后再用chrome导入，</span><br></pre></td></tr></table></figure></p>
+        <p>我们在鸟上装完chrome，突然发现他不能像windows或者mac一样，在Settings里直接设置代理服务器，像我这种英语都能菜的抠脚chrome翻译简直良心，firefox真心永不来，去google试了几种方法，比如<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">神马把SwitchyOmegaProxy本地下载下来，然后改后缀名为zip，然后再用chrome导入，</span><br></pre></td></tr></table></figure></p>
 <p>你会发现着尼马神马方法，真怀疑他们怎么成功的，可能当时他们的版本的chrome可能好使，但是最新的可能不行，或者就是这群傻逼根本就不懂，估计也没成功，误人子弟～！！！！！！！</p>
 <hr>
 <p>接下来提供一种可行的办法，不行的话， 我吃屎<br>我们apt完chromium之后，<br>通过<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">man chromium</span><br></pre></td></tr></table></figure></p>
@@ -328,7 +328,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chromium ---proxy-server=&quot;socks5://127.0.0.1:1080&quot;</span><br></pre></td></tr></table></figure>
 <p>玩鸟的都知道啥意思把，仅用http啥的自己去设置，实在不懂的话就可以卸载了，<br>然后自动就弹出来个chromium，搜索 东西啥的就能google了，这时候你在登录google帐号，去chromestore去下载SwitchyOmegaProxy,你不能每次开浏览器都终端手动打把，所以直接在浏览器做好代理</p>
 <hr>
-<h2 id="补充一下"><a href="#补充一下" class="headerlink" title="补充一下"></a>补充一下</h2><p>最近发现，原来直接<figure class="highlight plain"><figcaption><span>---proxy-server</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">![image|683x500](e2.png) </span><br><span class="line">通过不断调试发现可以通过加```-no-sandbox```来实现，命令如下</span><br></pre></td></tr></table></figure></p>
+<h2 id="补充一下"><a href="#补充一下" class="headerlink" title="补充一下"></a>补充一下</h2><p>最近发现，原来直接<figure class="highlight plain"><figcaption><span>---proxy-server</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">![image|683x500](linux下chrome-chromium代理的方式/e2.png) </span><br><span class="line">通过不断调试发现可以通过加```-no-sandbox```来实现，命令如下</span><br></pre></td></tr></table></figure></p>
 <p>google-chrome-stable –proxy-server=”socks5://127.0.0.1:1080” –no-sandbox<br><code>`</code><br><img src="/29/linux下chrome-chromium代理的方式/e3.png" alt="image|590x500"></p>
 
       
