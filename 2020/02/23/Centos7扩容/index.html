@@ -81,25 +81,25 @@
 <meta name="keywords" content="centos,扩容">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Centos7扩容">
-<meta property="og:url" content="hexchristmas.github.io/2020/02/23/Centos7扩容/index.html">
+<meta property="og:url" content="https://hexchristmas.github.io/2020/02/23/Centos7扩容/index.html">
 <meta property="og:site_name" content="HexChristmas&#39;s Blog">
 <meta property="og:description" content="centos7扩容，扩容有风险，操作须谨慎。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="/23/Centos7扩容/q1.png">
-<meta property="og:image" content="/23/Centos7扩容/q2.png">
-<meta property="og:image" content="/23/Centos7扩容/q3.png">
-<meta property="og:image" content="/23/Centos7扩容/q4.png">
-<meta property="og:image" content="/23/Centos7扩容/q5.png">
-<meta property="og:image" content="/23/Centos7扩容/q6.png">
-<meta property="og:image" content="/23/Centos7扩容/q7.png">
-<meta property="og:image" content="/23/Centos7扩容/q8.png">
-<meta property="og:image" content="/23/Centos7扩容/q9.png">
-<meta property="og:image" content="/23/Centos7扩容/q10.png">
-<meta property="og:updated_time" content="2020-03-29T15:45:59.086Z">
+<meta property="og:image" content="https://hexchristmas.github.io/2020/02/23/Centos7扩容/q1.png">
+<meta property="og:image" content="https://hexchristmas.github.io/2020/02/23/Centos7扩容/q2.png">
+<meta property="og:image" content="https://hexchristmas.github.io/2020/02/23/Centos7扩容/q3.png">
+<meta property="og:image" content="https://hexchristmas.github.io/2020/02/23/Centos7扩容/q4.png">
+<meta property="og:image" content="https://hexchristmas.github.io/2020/02/23/Centos7扩容/q5.png">
+<meta property="og:image" content="https://hexchristmas.github.io/2020/02/23/Centos7扩容/q6.png">
+<meta property="og:image" content="https://hexchristmas.github.io/2020/02/23/Centos7扩容/q7.png">
+<meta property="og:image" content="https://hexchristmas.github.io/2020/02/23/Centos7扩容/q8.png">
+<meta property="og:image" content="https://hexchristmas.github.io/2020/02/23/Centos7扩容/q9.png">
+<meta property="og:image" content="https://hexchristmas.github.io/2020/02/23/Centos7扩容/q10.png">
+<meta property="og:updated_time" content="2020-03-29T15:45:59.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Centos7扩容">
 <meta name="twitter:description" content="centos7扩容，扩容有风险，操作须谨慎。">
-<meta name="twitter:image" content="/23/Centos7扩容/q1.png">
+<meta name="twitter:image" content="https://hexchristmas.github.io/2020/02/23/Centos7扩容/q1.png">
 
 
 
@@ -129,7 +129,7 @@
 
 
 
-  <link rel="canonical" href="hexchristmas.github.io/2020/02/23/Centos7扩容/">
+  <link rel="canonical" href="https://hexchristmas.github.io/2020/02/23/Centos7扩容/">
 
 
 
@@ -252,12 +252,12 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="hexchristmas.github.io/2020/02/23/Centos7扩容/">
+    <link itemprop="mainEntityOfPage" href="https://hexchristmas.github.io/2020/02/23/Centos7扩容/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Hex Christmas">
       <meta itemprop="description" content>
-      <meta itemprop="image" content="https://forum.1233z.cn/user_avatar/forum.1233z.cn/hexchristmas/120/88_2.png">
+      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -324,17 +324,17 @@
 
       
         <h1 id="Centos7扩容"><a href="#Centos7扩容" class="headerlink" title="Centos7扩容"></a>Centos7扩容</h1><p>只写了命令大概是怎么用的，我自己理解的解释没写，你们自己百度理解一下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fdisk -l /* 列出磁盘 */</span><br></pre></td></tr></table></figure></p>
-<p><img src="/23/Centos7扩容/q1.png" alt="WX20200228-210617|661x500"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fdisk /dev/vda /*vda即你要扩容的那块盘，进行分区*/</span><br></pre></td></tr></table></figure></p>
-<p><img src="/23/Centos7扩容/q2.png" alt="WX20200228-210726|538x500"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">partprobe /*为了让系统识别新的分区*/</span><br></pre></td></tr></table></figure></p>
-<p><img src="/23/Centos7扩容/q3.png" alt="WX20200228-210937|550x500"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pvcreate /dev/vda3 /*将物理硬盘初始化为物理卷*/</span><br></pre></td></tr></table></figure></p>
-<p><img src="/23/Centos7扩容/q4.png" alt="WX20200228-210937|550x500"> </p>
+<p><img src="/2020/02/23/Centos7扩容/q1.png" alt="WX20200228-210617|661x500"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fdisk /dev/vda /*vda即你要扩容的那块盘，进行分区*/</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2020/02/23/Centos7扩容/q2.png" alt="WX20200228-210726|538x500"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">partprobe /*为了让系统识别新的分区*/</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2020/02/23/Centos7扩容/q3.png" alt="WX20200228-210937|550x500"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pvcreate /dev/vda3 /*将物理硬盘初始化为物理卷*/</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2020/02/23/Centos7扩容/q4.png" alt="WX20200228-210937|550x500"> </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vgscan /*查看所有卷组,重点看卷组名称*/</span><br></pre></td></tr></table></figure>
-<p><img src="/23/Centos7扩容/q5.png" alt="WX20200228-211010|690x153"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vgextend centos  /dev/vda3 /*扩展卷组*/</span><br></pre></td></tr></table></figure></p>
-<p><img src="/23/Centos7扩容/q6.png" alt="WX20200228-211045|690x97"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vgdisplay /*显示卷组信息*/</span><br></pre></td></tr></table></figure></p>
-<p><img src="/23/Centos7扩容/q7.png" alt="WX20200228-211223|690x460"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lvextend -l+100%FREE /dev/mapper/centos-root /*扩展逻辑卷*/</span><br></pre></td></tr></table></figure></p>
-<p><img src="/23/Centos7扩容/q8.png" alt="WX20200228-211256|690x200"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xfs_growfs /dev/mapper/centos-root /*对挂载目录进行扩容*/</span><br></pre></td></tr></table></figure></p>
-<p><img src="/23/Centos7扩容/q9.png" alt="WX20200228-211318|690x276"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df -h</span><br></pre></td></tr></table></figure></p>
-<p><img src="/23/Centos7扩容/q10.png" alt="image|690x291"><br>步骤是这样的，测试的时候没扩容成功，你们研究这看一下，我觉得总体步骤是没问题的。</p>
+<p><img src="/2020/02/23/Centos7扩容/q5.png" alt="WX20200228-211010|690x153"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vgextend centos  /dev/vda3 /*扩展卷组*/</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2020/02/23/Centos7扩容/q6.png" alt="WX20200228-211045|690x97"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vgdisplay /*显示卷组信息*/</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2020/02/23/Centos7扩容/q7.png" alt="WX20200228-211223|690x460"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lvextend -l+100%FREE /dev/mapper/centos-root /*扩展逻辑卷*/</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2020/02/23/Centos7扩容/q8.png" alt="WX20200228-211256|690x200"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xfs_growfs /dev/mapper/centos-root /*对挂载目录进行扩容*/</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2020/02/23/Centos7扩容/q9.png" alt="WX20200228-211318|690x276"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df -h</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2020/02/23/Centos7扩容/q10.png" alt="image|690x291"><br>步骤是这样的，测试的时候没扩容成功，你们研究这看一下，我觉得总体步骤是没问题的。</p>
 
       
     </div>
@@ -357,8 +357,8 @@
   <p><span>文章作者:</span>Hex Christmas</p>
   <p><span>发布时间:</span>2020年02月23日 - 22:54:00</p>
   <p><span>最后更新:</span>2020年03月29日 - 23:45:59</p>
-  <p><span>原始链接:</span><a href="/2020/02/23/Centos7扩容/" title="Centos7扩容">hexchristmas.github.io/2020/02/23/Centos7扩容/</a>
-    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="hexchristmas.github.io/2020/02/23/Centos7扩容/" aria-label="复制成功！"></i></span>
+  <p><span>原始链接:</span><a href="/2020/02/23/Centos7扩容/" title="Centos7扩容">https://hexchristmas.github.io/2020/02/23/Centos7扩容/</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://hexchristmas.github.io/2020/02/23/Centos7扩容/" aria-label="复制成功！"></i></span>
   </p>
   <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
 </div>
@@ -483,8 +483,6 @@
       <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-            
-              <img class="site-author-image" itemprop="image" src="https://forum.1233z.cn/user_avatar/forum.1233z.cn/hexchristmas/120/88_2.png" alt="Hex Christmas">
             
               <p class="site-author-name" itemprop="name">Hex Christmas</p>
               <p class="site-description motion-element" itemprop="description">Security Researcher</p>
