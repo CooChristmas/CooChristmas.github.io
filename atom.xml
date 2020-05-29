@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://hexchristmas.github.io/"/>
-  <updated>2020-05-29T02:10:00.459Z</updated>
+  <updated>2020-05-29T03:34:50.800Z</updated>
   <id>https://hexchristmas.github.io/</id>
   
   <author>
@@ -17,11 +17,31 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>危险的HTTP请求OPTIONS</title>
+    <link href="https://hexchristmas.github.io/2020/05/29/%E5%8D%B1%E9%99%A9%E7%9A%84HTTP%E8%AF%B7%E6%B1%82OPTIONS/"/>
+    <id>https://hexchristmas.github.io/2020/05/29/危险的HTTP请求OPTIONS/</id>
+    <published>2020-05-29T03:25:55.000Z</published>
+    <updated>2020-05-29T03:34:50.800Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="危险的HTTP请求OPTIONS"><a href="#危险的HTTP请求OPTIONS" class="headerlink" title="危险的HTTP请求OPTIONS"></a>危险的HTTP请求OPTIONS</h1><h2 id="为什么要写这个？"><a href="#为什么要写这个？" class="headerlink" title="为什么要写这个？"></a>为什么要写这个？</h2><p>危险的HTTP请求这个看似很简单，也的确很简单，但是我遇到的很多客户都会问有关这个的一些非常愚蠢的问题<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1. 为什么请求方式一样，请求内容也差不多一个告警是中危，一个告警是低危？</span><br><span class="line">2. WebDAV是什么？我们业务中没有遇到啊？</span><br><span class="line">3. 我们业务中都需要啊？使用了这么多年也没发生什么问题</span><br></pre></td></tr></table></figure></p><p>你不解释明白了，人家就觉得你技术不行，很可能转身就要投诉你，WTF？</p><h2 id="什么是WebDav？"><a href="#什么是WebDav？" class="headerlink" title="什么是WebDav？"></a>什么是WebDav？</h2><p>它是基于HTTP1.1协议的通信协议，可用于处理Web服务器的文件,如果攻击者可以访问这些功能，那么这些方法就可以为攻击者攻击提供很好的途径，WebDav是HTTP Method统一的叫法，HTTP可以使用除GET和POST以外的其他办法比如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">-PUT        /*将文件上传到指定位置*/</span><br><span class="line">-DELETE     /*删除指定的资源*/</span><br><span class="line">-COPY       /*将指定的文件复制到指定的位置*/</span><br><span class="line">-MOVE       /*将指定的文件移动到指定的位置*/</span><br><span class="line">-SEARCH     /*在目录路径中搜索资源*/  </span><br><span class="line">-PROPFIND   /*检索有关指定资源的信息*/</span><br></pre></td></tr></table></figure></p><p>我们测试一下<br><img src="/2020/05/29/危险的HTTP请求OPTIONS/2.png" alt><br>可以看到实际上是允许使用一些十分危险的请求的<br>此时攻击者直接就会在服务器上传shell.<br>我们尝试PUT一个一句话，我们会看到201创建成功的状态码<br><img src="/2020/05/29/危险的HTTP请求OPTIONS/3.png" alt><br>我们可以直接上传反向shell<br><img src="/2020/05/29/危险的HTTP请求OPTIONS/1.png" alt></p><h2 id="tips"><a href="#tips" class="headerlink" title="tips"></a>tips</h2><ol><li>如果存在这个安全问题，可以尝试使用PUT上传shell</li><li>如果直接上传shell报后缀名不被允许，你可以先以shell.txt方式上传再用MOVE更改后缀名，如果没有MOVE你可以使用COPY</li><li>如果都不行，你还可以试试上传jar文件或者一个包含请求头的html文件</li><li>不一定每个目录都有执行权限，所以我们在攻击中的需要进行递归权限检查，比如说davtest</li></ol><h2 id="修复方法"><a href="#修复方法" class="headerlink" title="修复方法"></a>修复方法</h2><p>在配置文件仅允许GET和POST的方法，其他危险的方法禁用即可</p>]]></content>
+    
+    <summary type="html">
+    
+      危险的HTTP请求这个看似很简单，也的确很简单，但是我遇到的很多客户都会问有关这个的一些非常愚蠢的问题
+    
+    </summary>
+    
+    
+      <category term="Web安全" scheme="https://hexchristmas.github.io/tags/Web%E5%AE%89%E5%85%A8/"/>
+    
+  </entry>
+  
+  <entry>
     <title>centos7升级内核</title>
     <link href="https://hexchristmas.github.io/2020/05/29/centos7%E5%8D%87%E7%BA%A7%E5%86%85%E6%A0%B8/"/>
     <id>https://hexchristmas.github.io/2020/05/29/centos7升级内核/</id>
     <published>2020-05-29T02:09:16.000Z</published>
-    <updated>2020-05-29T02:10:00.459Z</updated>
+    <updated>2020-05-29T02:19:41.212Z</updated>
     
     <content type="html"><![CDATA[<h1 id="centos7升级内核"><a href="#centos7升级内核" class="headerlink" title="centos7升级内核"></a>centos7升级内核</h1><h2 id="centos7默认是没有无线网卡的，但是我的程序又只能在cenos7上跑-升级内核５-14就自动把无线网卡装上了"><a href="#centos7默认是没有无线网卡的，但是我的程序又只能在cenos7上跑-升级内核５-14就自动把无线网卡装上了" class="headerlink" title="centos7默认是没有无线网卡的，但是我的程序又只能在cenos7上跑,升级内核５.14就自动把无线网卡装上了"></a>centos7默认是没有无线网卡的，但是我的程序又只能在cenos7上跑,升级内核５.14就自动把无线网卡装上了</h2><h2 id="安装过程"><a href="#安装过程" class="headerlink" title="安装过程"></a>安装过程</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">yum -y update</span><br><span class="line">rpm --import https://www.elrepo.org/RPM-GPG-KEY-elrepo.org</span><br><span class="line">rpm -Uvh http://www.elrepo.org/elrepo-release-7.0-3.el7.elrepo.noarch.rpm</span><br><span class="line">yum --enablerepo=elrepo-kernel install kernel-ml</span><br><span class="line">awk -F\<span class="string">' '</span><span class="variable">$1</span>==<span class="string">"menuentry "</span> &#123;<span class="built_in">print</span> i++ <span class="string">" : "</span> <span class="variable">$2</span>&#125;<span class="string">' /etc/grub2.cfg //列出系统中可用的内核</span></span><br><span class="line"><span class="string">grub2-set-default 1 //将5.14内核设置为默认内核，你的５.14内核序号不一定是１</span></span><br></pre></td></tr></table></figure>]]></content>
     
@@ -433,28 +453,6 @@
       <category term="chrome" scheme="https://hexchristmas.github.io/tags/chrome/"/>
     
       <category term="proxy" scheme="https://hexchristmas.github.io/tags/proxy/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>update,upgrade,dist-upgrade区别</title>
-    <link href="https://hexchristmas.github.io/2019/07/13/update-upgrade-dist-upgrade%E5%8C%BA%E5%88%AB/"/>
-    <id>https://hexchristmas.github.io/2019/07/13/update-upgrade-dist-upgrade区别/</id>
-    <published>2019-07-13T15:12:09.000Z</published>
-    <updated>2020-04-09T11:10:57.497Z</updated>
-    
-    <content type="html"><![CDATA[<p>刚刚和公司一老哥，讨论debian更新，特意man了一下，贴出来，可以作为知识补充<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">update：  </span><br><span class="line"></span><br><span class="line">update is used to resynchronize the packageindex files from their sources. The indexes of available packages are fetchedfrom the location(s) specified in /etc/apt/sources.list. For example, whenusing a Debian archive, this command retrieves and scans the Packages.gz files,so that information about new and updated packages is available. An updateshould always be performed before an upgrade or dist-upgrade. Please be awarethat the overall progress meter will be incorrect as the size of the packagefiles cannot be known in advance.</span><br><span class="line"></span><br><span class="line">upgrade：</span><br><span class="line"></span><br><span class="line">upgrade is used to install the newestversions of all packages currently installed on the system from the sources enumerated in /etc/apt/sources.list.Packages currently installed with new versions available are retrieved and upgraded; under no circumstancesare currently installed packages removed, or packages not already installed retrieved and installed. Newversions of currently installed packages that cannot be upgraded without changing the install statusof another package will be left at their current version. An update must be performed first so that apt-getknows that new versions of packages are available.</span><br><span class="line"></span><br><span class="line">dist-upgrade:</span><br><span class="line"></span><br><span class="line"> dist-upgrade in addition to performing the function of upgrade, alsointelligently handles changing dependencies with new versions of packages; apt-get has a&quot;smart&quot; conflict resolution system, and it will attempt to upgrade the most important packages at the expense of lessimportant ones if necessary. The /etc/apt/sources.list file contains a list of locations from which toretrieve desired package files. See also apt_preferences(5) for a mechanism for overriding the generalsettings for individual packages.</span><br></pre></td></tr></table></figure></p><p>上面内容均是从apt-get的man文档里面截取下来的，从英文内容我们可以知道：</p><p><code>update</code>：当执行<code>apt-get update</code>时，<code>update</code>重点更新的是来自软件源的软件包的索引记录（即index files）。</p><p><code>upgrade</code>：当执行<code>apt-get upgrade```时，upgrade是根据```update</code>更新的索引记录来下载并更新软件包。</p><p><code>dist-upgrade</code>:当执行<code>apt-get dist-upgrade</code>时，除了拥有upgrade的全部功能外，dist-upgrade会比upgrade更智能地处理需要更新的软件包的依赖关系。</p>]]></content>
-    
-    <summary type="html">
-    
-      刚刚和公司一老哥，讨论debian更新，特意man了一下，贴出来，可以作为知识补充
-    
-    </summary>
-    
-    
-      <category term="debian" scheme="https://hexchristmas.github.io/tags/debian/"/>
-    
-      <category term="ubuntu" scheme="https://hexchristmas.github.io/tags/ubuntu/"/>
     
   </entry>
   
