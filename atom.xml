@@ -39,20 +39,6 @@
   </entry>
   
   <entry>
-    <title>ApacheShardingShpereUIYAML解析远程代码执行漏洞复现及分析</title>
-    <link href="https://hexchristmas.github.io/p/undefined.html"/>
-    <id>https://hexchristmas.github.io/p/undefined.html</id>
-    <published>2020-05-29T09:36:17.000Z</published>
-    <updated>2020-05-29T09:36:17.502Z</updated>
-    
-    <summary type="html">
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
     <title>危险的HTTP请求OPTIONS</title>
     <link href="https://hexchristmas.github.io/p/30625.html"/>
     <id>https://hexchristmas.github.io/p/30625.html</id>
@@ -397,9 +383,9 @@
     </summary>
     
     
-      <category term="virtualbox" scheme="https://hexchristmas.github.io/tags/virtualbox/"/>
-    
       <category term="debian" scheme="https://hexchristmas.github.io/tags/debian/"/>
+    
+      <category term="virtualbox" scheme="https://hexchristmas.github.io/tags/virtualbox/"/>
     
   </entry>
   
@@ -443,6 +429,30 @@
     
     
       <category term="google hack usage" scheme="https://hexchristmas.github.io/tags/google-hack-usage/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>linux下chrome&amp;chromium代理的方式</title>
+    <link href="https://hexchristmas.github.io/p/64ff310e.html"/>
+    <id>https://hexchristmas.github.io/p/64ff310e.html</id>
+    <published>2019-07-21T15:10:00.000Z</published>
+    <updated>2020-04-09T11:10:57.497Z</updated>
+    
+    <content type="html"><![CDATA[<p>我们在鸟上装完chrome，突然发现他不能像windows或者mac一样，在Settings里直接设置代理服务器，像我这种英语都能菜的抠脚chrome翻译简直良心，firefox真心永不来，去google试了几种方法，比如<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">神马把SwitchyOmegaProxy本地下载下来，然后改后缀名为zip，然后再用chrome导入，</span><br></pre></td></tr></table></figure></p><p>你会发现着尼马神马方法，真怀疑他们怎么成功的，可能当时他们的版本的chrome可能好使，但是最新的可能不行，或者就是这群傻逼根本就不懂，估计也没成功，误人子弟～！！！！！！！</p><hr><p>接下来提供一种可行的办法，不行的话， 我吃屎<br>我们apt完chromium之后，<br>通过<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">man chromium</span><br></pre></td></tr></table></figure></p><p>我们在很显眼的地方还到proxy-server神马神马<br><img src="/p/64ff310e.htm/e1.jpeg" alt="2019-08-04-165826_1920x2160_scrot|444x500"><br>主要看上边那个图，下边的是我另一块屏幕，这都不重要对吧，<br>能看懂的人自然知道咋弄，其实不懂的也可以直接百度翻译对吧，translate.baidu.com 貌似是这么写，进不去去百度一下把，我也不知道写的对不对，<br>不懂的我直接贴出神仙的命令，看好，只写一遍</p><hr><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chromium ---proxy-server=&quot;socks5://127.0.0.1:1080&quot;</span><br></pre></td></tr></table></figure><p>玩鸟的都知道啥意思把，仅用http啥的自己去设置，实在不懂的话就可以卸载了，<br>然后自动就弹出来个chromium，搜索 东西啥的就能google了，这时候你在登录google帐号，去chromestore去下载SwitchyOmegaProxy,你不能每次开浏览器都终端手动打把，所以直接在浏览器做好代理</p><hr><h2 id="补充一下"><a href="#补充一下" class="headerlink" title="补充一下"></a>补充一下</h2><p>最近发现，原来直接chromium —proxy-server=”socks5://127.0.0.1:1080”会出现这个问题<br><img src="/p/64ff310e.htm/e2.png" alt="image|683x500"><br>通过不断调试发现可以通过加-no-sandbox来实现，命令如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">google-chrome-stable --proxy-server=&quot;socks5://127.0.0.1:1080&quot; --no-sandbox</span><br></pre></td></tr></table></figure></p><p><img src="/p/64ff310e.htm/e3.png" alt="image"></p>]]></content>
+    
+    <summary type="html">
+    
+      linux下chrome&amp;chromium代理的方式
+    
+    </summary>
+    
+    
+      <category term="linux" scheme="https://hexchristmas.github.io/tags/linux/"/>
+    
+      <category term="chrome" scheme="https://hexchristmas.github.io/tags/chrome/"/>
+    
+      <category term="proxy" scheme="https://hexchristmas.github.io/tags/proxy/"/>
     
   </entry>
   
