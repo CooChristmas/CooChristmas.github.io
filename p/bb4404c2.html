@@ -312,46 +312,75 @@
       
 
       
-        <h1 id="Manjaro-i3配置命令及相关优化"><a href="#Manjaro-i3配置命令及相关优化" class="headerlink" title="Manjaro i3配置命令及相关优化"></a>Manjaro i3配置命令及相关优化</h1><h2 id="进入不了安装盘，安装完登录输入完密码黑屏，输入neofetch突然卡住，进入manjaro-manager-settings卡住"><a href="#进入不了安装盘，安装完登录输入完密码黑屏，输入neofetch突然卡住，进入manjaro-manager-settings卡住" class="headerlink" title="进入不了安装盘，安装完登录输入完密码黑屏，输入neofetch突然卡住，进入manjaro manager settings卡住"></a>进入不了安装盘，安装完登录输入完密码黑屏，输入neofetch突然卡住，进入manjaro manager settings卡住</h2><p>对于进入不了安装盘，先进系统，引导界面，<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">按e，把driver=free改成driver=intel，</span><br></pre></td></tr></table></figure></p>
-<p>在driver=intel追加一下内容<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xdriver=mesa acpi_osi=! acpi_osi=&quot;Windows 2009&quot;</span><br></pre></td></tr></table></figure></p>
-<p>对于安装完登录输入完密码黑屏，输入neofetch突然卡住，进入manjaro manager settings卡住，使用vim或者vi或者nano对/etc/default/grub找到<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GRUB_CMDLINE_LINUX_DEFAULT=&quot;splash quiet &quot;</span><br></pre></td></tr></table></figure></p>
-<p>在后边追加<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xdriver=mesa acpi_osi=! acpi_osi=&quot;Windows 2009&quot;</span><br></pre></td></tr></table></figure></p>
-<p>保存退出，为什么追加这个？告诉硬件，我是windows你别在闹屁了<br>在你这样安装完，你的无线和蓝牙可能用不了，这时候你需要插网线或者勇手机开热点，配置更新源更新再去Manjaro Setting manager安装无线网卡</p>
-<h2 id="配置pacman源"><a href="#配置pacman源" class="headerlink" title="配置pacman源"></a>配置pacman源</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo pacman-mirrors -i -c China -m rank</span><br></pre></td></tr></table></figure>
+        <h1>Manjaro i3配置命令及相关优化</h1>
+<h2 id="进入不了安装盘，安装完登录输入完密码黑屏，输入neofetch突然卡住，进入manjaro-manager-settings卡住">进入不了安装盘，安装完登录输入完密码黑屏，输入neofetch突然卡住，进入manjaro manager settings卡住</h2>
+<p>对于进入不了安装盘，先进系统，引导界面，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">按e，把driver=free改成driver=intel，</span><br></pre></td></tr></table></figure>
+<p>在driver=intel追加一下内容</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xdriver=mesa acpi_osi=! acpi_osi=&quot;Windows 2009&quot;</span><br></pre></td></tr></table></figure>
+<p>对于安装完登录输入完密码黑屏，输入neofetch突然卡住，进入manjaro manager settings卡住，使用vim或者vi或者nano对/etc/default/grub找到</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GRUB_CMDLINE_LINUX_DEFAULT=&quot;splash quiet &quot;</span><br></pre></td></tr></table></figure>
+<p>在后边追加</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xdriver=mesa acpi_osi=! acpi_osi=&quot;Windows 2009&quot;</span><br></pre></td></tr></table></figure>
+<p>保存退出，为什么追加这个？告诉硬件，我是windows你别在闹屁了<br>
+在你这样安装完，你的无线和蓝牙可能用不了，这时候你需要插网线或者勇手机开热点，配置更新源更新再去Manjaro Setting manager安装无线网卡</p>
+<h2 id="配置pacman源">配置pacman源</h2>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo pacman-mirrors -i -c China -m rank</span><br></pre></td></tr></table></figure>
 <p>不知道什么规则，我直接全选了</p>
-<h2 id="配置archlinuxcn"><a href="#配置archlinuxcn" class="headerlink" title="配置archlinuxcn"></a>配置archlinuxcn</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo nano /etc/pacman.conf</span><br></pre></td></tr></table></figure>
+<h2 id="配置archlinuxcn">配置archlinuxcn</h2>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo nano /etc/pacman.conf</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[archlinuxcn]</span><br><span class="line"></span><br><span class="line">SigLevel = Optional TrustedOnly</span><br><span class="line"></span><br><span class="line">Server = http://repo.archlinuxcn.org/$arch</span><br></pre></td></tr></table></figure>
-<p>选择最快的源列表<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo pacman-mirrors -g</span><br></pre></td></tr></table></figure></p>
+<p>选择最快的源列表</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo pacman-mirrors -g</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo pacman -Syyu</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo pacman -S archlinuxcn-keyring</span><br></pre></td></tr></table></figure>
-<h2 id="安装yaourt"><a href="#安装yaourt" class="headerlink" title="安装yaourt"></a>安装yaourt</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo pacman -S yaourt</span><br></pre></td></tr></table></figure>
+<h2 id="安装yaourt">安装yaourt</h2>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo pacman -S yaourt</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">## 安装搜狗输入法</span><br></pre></td></tr></table></figure>
-<p>sudo pacman -S fcitx-sogoupinyin<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">```</span><br><span class="line">sudo pacman -S fcitx-im</span><br></pre></td></tr></table></figure></p>
+<p>sudo pacman -S fcitx-sogoupinyin</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">```</span><br><span class="line">sudo pacman -S fcitx-im</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo pacman -S fcitx-configtool</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo nano ~/.profile</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">export GTK_IM_MODULE=fcitx</span><br><span class="line">export QT_IM_MODULE=fcitx</span><br><span class="line">export XMODIFIERS=&quot;@im=fcitx&quot;</span><br></pre></td></tr></table></figure>
-<h2 id="安装V2ray"><a href="#安装V2ray" class="headerlink" title="安装V2ray"></a>安装V2ray</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo pacman -S v2ray</span><br></pre></td></tr></table></figure>
-<p>如果你在安装archlinuxcn遇到问题，以下命令可帮你解决问题<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo rm -rf /etc/pacman.d/gnupg</span><br></pre></td></tr></table></figure></p>
+<h2 id="安装V2ray">安装V2ray</h2>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo pacman -S v2ray</span><br></pre></td></tr></table></figure>
+<p>如果你在安装archlinuxcn遇到问题，以下命令可帮你解决问题</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo rm -rf /etc/pacman.d/gnupg</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo pacman-key --init</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo pacman-key --populate archlinux</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo pacman-key --refresh-keys</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo pacman -Sc</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo pacman -Syu</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo pacman -S archlinuxcn-keyring</span><br></pre></td></tr></table></figure>
-<h2 id="字体安装"><a href="#字体安装" class="headerlink" title="字体安装"></a>字体安装</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo pacman -S ttf-dejavu adobe-source-han-sans-otc-fonts adobe-source-code-pro-fonts wqy-bitmapfont wqy-microhei wqy-zenhei wqy-microhei-lite</span><br></pre></td></tr></table></figure>
-<h2 id="安装chrome"><a href="#安装chrome" class="headerlink" title="安装chrome"></a>安装chrome</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo pacman -S google-chrome</span><br></pre></td></tr></table></figure>
-<h2 id="安装Firefox"><a href="#安装Firefox" class="headerlink" title="安装Firefox"></a>安装Firefox</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo pacman -S firefox firefox-i18n-zh-cn</span><br></pre></td></tr></table></figure>
-<h2 id="安装pycharm-社区版"><a href="#安装pycharm-社区版" class="headerlink" title="安装pycharm 社区版"></a>安装pycharm 社区版</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo pacman -S pycharm</span><br></pre></td></tr></table></figure>
-<p>安装zsh<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo pacman -S zsh</span><br></pre></td></tr></table></figure></p>
+<h2 id="字体安装">字体安装</h2>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo pacman -S ttf-dejavu adobe-source-han-sans-otc-fonts adobe-source-code-pro-fonts wqy-bitmapfont wqy-microhei wqy-zenhei wqy-microhei-lite</span><br></pre></td></tr></table></figure>
+<h2 id="安装chrome">安装chrome</h2>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo pacman -S google-chrome</span><br></pre></td></tr></table></figure>
+<h2 id="安装Firefox">安装Firefox</h2>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo pacman -S firefox firefox-i18n-zh-cn</span><br></pre></td></tr></table></figure>
+<h2 id="安装pycharm-社区版">安装pycharm 社区版</h2>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo pacman -S pycharm</span><br></pre></td></tr></table></figure>
+<p>安装zsh</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo pacman -S zsh</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chsh -s /bin/zsh #默认启动zsh</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">## 安装完你发现conky貌似有口口口这样的缺少字体</span><br></pre></td></tr></table></figure>
-<p>/usr/share/conky/conky_maia    #桌面右侧的状态栏<br>/usr/share/conky/conky1.10_shortcuts_maia    #桌面左侧的快捷键显示栏<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">修改conky_maia支持中文</span><br></pre></td></tr></table></figure></p>
-<p>font = ‘WenQuanYi Micro Hei:size=8’,<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">或者</span><br></pre></td></tr></table></figure></p>
-<p>font = ‘WenQuanYi Zen Hei:size=8’,<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">## 安装powerline</span><br></pre></td></tr></table></figure></p>
-<p>pacman -S ttf-dejavu-sans-mono-powerline python-powerline  powerline  powerline-common<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">```</span><br><span class="line">pacman -S python-pip git</span><br></pre></td></tr></table></figure></p>
-<p>pip show powerline-status<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">编辑~/.bashrc文件，在文件末尾加上</span><br></pre></td></tr></table></figure></p>
-<p>powerline-daemon -q<br>POWERLINE_BASH_CONTINUATION=1<br>POWERLINE_BASH_SELECT=1<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">```</span><br><span class="line">. /usr/lib/python3.6/site-packages/powerline/bindings/bash/powerline.sh #注意. 和 /usr之间有个空格。</span><br></pre></td></tr></table></figure></p>
-<p>编辑~/.vimrc文件，将一下内容添加到文件中<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">set rtp+=/usr/lib/python3.6/site-packages/powerline/bindings/vim/</span><br><span class="line">set laststatus=2</span><br><span class="line">set t_Co=256</span><br></pre></td></tr></table></figure></p>
+<p>/usr/share/conky/conky_maia    #桌面右侧的状态栏<br>
+/usr/share/conky/conky1.10_shortcuts_maia    #桌面左侧的快捷键显示栏</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">修改conky_maia支持中文</span><br></pre></td></tr></table></figure>
+<p>font = ‘WenQuanYi Micro Hei:size=8’,</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">或者</span><br></pre></td></tr></table></figure>
+<p>font = ‘WenQuanYi Zen Hei:size=8’,</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">## 安装powerline</span><br></pre></td></tr></table></figure>
+<p>pacman -S ttf-dejavu-sans-mono-powerline python-powerline  powerline  powerline-common</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">```</span><br><span class="line">pacman -S python-pip git</span><br></pre></td></tr></table></figure>
+<p>pip show powerline-status</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">编辑~/.bashrc文件，在文件末尾加上</span><br></pre></td></tr></table></figure>
+<p>powerline-daemon -q<br>
+POWERLINE_BASH_CONTINUATION=1<br>
+POWERLINE_BASH_SELECT=1</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">```</span><br><span class="line">. /usr/lib/python3.6/site-packages/powerline/bindings/bash/powerline.sh #注意. 和 /usr之间有个空格。</span><br></pre></td></tr></table></figure>
+<p>编辑~/.vimrc文件，将一下内容添加到文件中</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">set rtp+=/usr/lib/python3.6/site-packages/powerline/bindings/vim/</span><br><span class="line">set laststatus=2</span><br><span class="line">set t_Co=256</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -514,7 +543,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">32</span>
+                  <span class="site-state-item-count">33</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -567,7 +596,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Manjaro-i3配置命令及相关优化"><span class="nav-number">1.</span> <span class="nav-text">Manjaro i3配置命令及相关优化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#进入不了安装盘，安装完登录输入完密码黑屏，输入neofetch突然卡住，进入manjaro-manager-settings卡住"><span class="nav-number">1.1.</span> <span class="nav-text">进入不了安装盘，安装完登录输入完密码黑屏，输入neofetch突然卡住，进入manjaro manager settings卡住</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置pacman源"><span class="nav-number">1.2.</span> <span class="nav-text">配置pacman源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置archlinuxcn"><span class="nav-number">1.3.</span> <span class="nav-text">配置archlinuxcn</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装yaourt"><span class="nav-number">1.4.</span> <span class="nav-text">安装yaourt</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装V2ray"><span class="nav-number">1.5.</span> <span class="nav-text">安装V2ray</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字体安装"><span class="nav-number">1.6.</span> <span class="nav-text">字体安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装chrome"><span class="nav-number">1.7.</span> <span class="nav-text">安装chrome</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装Firefox"><span class="nav-number">1.8.</span> <span class="nav-text">安装Firefox</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装pycharm-社区版"><span class="nav-number">1.9.</span> <span class="nav-text">安装pycharm 社区版</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">Manjaro i3配置命令及相关优化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#进入不了安装盘，安装完登录输入完密码黑屏，输入neofetch突然卡住，进入manjaro-manager-settings卡住"><span class="nav-number">1.1.</span> <span class="nav-text">进入不了安装盘，安装完登录输入完密码黑屏，输入neofetch突然卡住，进入manjaro manager settings卡住</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置pacman源"><span class="nav-number">1.2.</span> <span class="nav-text">配置pacman源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置archlinuxcn"><span class="nav-number">1.3.</span> <span class="nav-text">配置archlinuxcn</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装yaourt"><span class="nav-number">1.4.</span> <span class="nav-text">安装yaourt</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装V2ray"><span class="nav-number">1.5.</span> <span class="nav-text">安装V2ray</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字体安装"><span class="nav-number">1.6.</span> <span class="nav-text">字体安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装chrome"><span class="nav-number">1.7.</span> <span class="nav-text">安装chrome</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装Firefox"><span class="nav-number">1.8.</span> <span class="nav-text">安装Firefox</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装pycharm-社区版"><span class="nav-number">1.9.</span> <span class="nav-text">安装pycharm 社区版</span></a></li></ol></li></ol></div>
             
 
           </div>

@@ -316,17 +316,31 @@
       
 
       
-        <h1 id="危险的HTTP请求OPTIONS"><a href="#危险的HTTP请求OPTIONS" class="headerlink" title="危险的HTTP请求OPTIONS"></a>危险的HTTP请求OPTIONS</h1><h2 id="为什么要写这个？"><a href="#为什么要写这个？" class="headerlink" title="为什么要写这个？"></a>为什么要写这个？</h2><p>危险的HTTP请求这个看似很简单，也的确很简单，但是我遇到的很多客户都会问有关这个的一些非常愚蠢的问题<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1. 为什么请求方式一样，请求内容也差不多一个告警是中危，一个告警是低危？</span><br><span class="line">2. WebDAV是什么？我们业务中没有遇到啊？</span><br><span class="line">3. 我们业务中都需要啊？使用了这么多年也没发生什么问题</span><br></pre></td></tr></table></figure></p>
+        <h1>危险的HTTP请求OPTIONS</h1>
+<h2 id="为什么要写这个？">为什么要写这个？</h2>
+<p>危险的HTTP请求这个看似很简单，也的确很简单，但是我遇到的很多客户都会问有关这个的一些非常愚蠢的问题</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1. 为什么请求方式一样，请求内容也差不多一个告警是中危，一个告警是低危？</span><br><span class="line">2. WebDAV是什么？我们业务中没有遇到啊？</span><br><span class="line">3. 我们业务中都需要啊？使用了这么多年也没发生什么问题</span><br></pre></td></tr></table></figure>
 <p>你不解释明白了，人家就觉得你技术不行，很可能转身就要投诉你，WTF？</p>
-<h2 id="什么是WebDav？"><a href="#什么是WebDav？" class="headerlink" title="什么是WebDav？"></a>什么是WebDav？</h2><p>它是基于HTTP1.1协议的通信协议，可用于处理Web服务器的文件,如果攻击者可以访问这些功能，那么这些方法就可以为攻击者攻击提供很好的途径，WebDav是HTTP Method统一的叫法，HTTP可以使用除GET和POST以外的其他办法比如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">-PUT        /*将文件上传到指定位置*/</span><br><span class="line">-DELETE     /*删除指定的资源*/</span><br><span class="line">-COPY       /*将指定的文件复制到指定的位置*/</span><br><span class="line">-MOVE       /*将指定的文件移动到指定的位置*/</span><br><span class="line">-SEARCH     /*在目录路径中搜索资源*/  </span><br><span class="line">-PROPFIND   /*检索有关指定资源的信息*/</span><br></pre></td></tr></table></figure></p>
-<p>我们测试一下<br><img src="/p/30625/2.png" alt><br>可以看到实际上是允许使用一些十分危险的请求的<br>此时攻击者直接就会在服务器上传shell.<br>我们尝试PUT一个一句话，我们会看到201创建成功的状态码<br><img src="/p/30625/3.png" alt><br>我们可以直接上传反向shell<br><img src="/p/30625/1.png" alt></p>
-<h2 id="tips"><a href="#tips" class="headerlink" title="tips"></a>tips</h2><ol>
+<h2 id="什么是WebDav？">什么是WebDav？</h2>
+<p>它是基于HTTP1.1协议的通信协议，可用于处理Web服务器的文件,如果攻击者可以访问这些功能，那么这些方法就可以为攻击者攻击提供很好的途径，WebDav是HTTP Method统一的叫法，HTTP可以使用除GET和POST以外的其他办法比如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">-PUT        /*将文件上传到指定位置*/</span><br><span class="line">-DELETE     /*删除指定的资源*/</span><br><span class="line">-COPY       /*将指定的文件复制到指定的位置*/</span><br><span class="line">-MOVE       /*将指定的文件移动到指定的位置*/</span><br><span class="line">-SEARCH     /*在目录路径中搜索资源*/  </span><br><span class="line">-PROPFIND   /*检索有关指定资源的信息*/</span><br></pre></td></tr></table></figure>
+<p>我们测试一下<br>
+<img src="/p/30625/2.png" alt><br>
+可以看到实际上是允许使用一些十分危险的请求的<br>
+此时攻击者直接就会在服务器上传shell.<br>
+我们尝试PUT一个一句话，我们会看到201创建成功的状态码<br>
+<img src="/p/30625/3.png" alt><br>
+我们可以直接上传反向shell<br>
+<img src="/p/30625/1.png" alt></p>
+<h2 id="tips">tips</h2>
+<ol>
 <li>如果存在这个安全问题，可以尝试使用PUT上传shell</li>
 <li>如果直接上传shell报后缀名不被允许，你可以先以shell.txt方式上传再用MOVE更改后缀名，如果没有MOVE你可以使用COPY</li>
 <li>如果都不行，你还可以试试上传jar文件或者一个包含请求头的html文件</li>
 <li>不一定每个目录都有执行权限，所以我们在攻击中的需要进行递归权限检查，比如说davtest</li>
 </ol>
-<h2 id="修复方法"><a href="#修复方法" class="headerlink" title="修复方法"></a>修复方法</h2><p>在配置文件仅允许GET和POST的方法，其他危险的方法禁用即可</p>
+<h2 id="修复方法">修复方法</h2>
+<p>在配置文件仅允许GET和POST的方法，其他危险的方法禁用即可</p>
 
       
     </div>
@@ -455,7 +469,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">32</span>
+                  <span class="site-state-item-count">33</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -508,7 +522,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#危险的HTTP请求OPTIONS"><span class="nav-number">1.</span> <span class="nav-text">危险的HTTP请求OPTIONS</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么要写这个？"><span class="nav-number">1.1.</span> <span class="nav-text">为什么要写这个？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是WebDav？"><span class="nav-number">1.2.</span> <span class="nav-text">什么是WebDav？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tips"><span class="nav-number">1.3.</span> <span class="nav-text">tips</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修复方法"><span class="nav-number">1.4.</span> <span class="nav-text">修复方法</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">危险的HTTP请求OPTIONS</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么要写这个？"><span class="nav-number">1.1.</span> <span class="nav-text">为什么要写这个？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是WebDav？"><span class="nav-number">1.2.</span> <span class="nav-text">什么是WebDav？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tips"><span class="nav-number">1.3.</span> <span class="nav-text">tips</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修复方法"><span class="nav-number">1.4.</span> <span class="nav-text">修复方法</span></a></li></ol></li></ol></div>
             
 
           </div>

@@ -77,18 +77,18 @@
 
 
 
-<meta name="description" content="centos7升级内核centos7默认是没有无线网卡的，但是我的程序又只能在cenos7上跑,升级内核５.14就自动把无线网卡装上了安装过程123456yum -y updaterpm --import https://www.elrepo.org/RPM-GPG-KEY-elrepo.orgrpm -Uvh http://www.elrepo.org/elrepo-release-7.0-3.">
+<meta name="description" content="centos7升级内核 centos7默认是没有无线网卡的，但是我的程序又只能在cenos7上跑,升级内核５.14就自动把无线网卡装上了 安装过程 123456yum -y updaterpm --import https://www.elrepo.org/RPM-GPG-KEY-elrepo.orgrpm -Uvh http://www.elrepo.org/elrepo-release-7.0">
 <meta name="keywords" content="cetnos">
 <meta property="og:type" content="article">
 <meta property="og:title" content="centos7升级内核">
 <meta property="og:url" content="https://hexchristmas.github.io/p/5279.html">
 <meta property="og:site_name" content="HexChristmas&#39;s Blog">
-<meta property="og:description" content="centos7升级内核centos7默认是没有无线网卡的，但是我的程序又只能在cenos7上跑,升级内核５.14就自动把无线网卡装上了安装过程123456yum -y updaterpm --import https://www.elrepo.org/RPM-GPG-KEY-elrepo.orgrpm -Uvh http://www.elrepo.org/elrepo-release-7.0-3.">
+<meta property="og:description" content="centos7升级内核 centos7默认是没有无线网卡的，但是我的程序又只能在cenos7上跑,升级内核５.14就自动把无线网卡装上了 安装过程 123456yum -y updaterpm --import https://www.elrepo.org/RPM-GPG-KEY-elrepo.orgrpm -Uvh http://www.elrepo.org/elrepo-release-7.0">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2020-05-29T02:19:41.212Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="centos7升级内核">
-<meta name="twitter:description" content="centos7升级内核centos7默认是没有无线网卡的，但是我的程序又只能在cenos7上跑,升级内核５.14就自动把无线网卡装上了安装过程123456yum -y updaterpm --import https://www.elrepo.org/RPM-GPG-KEY-elrepo.orgrpm -Uvh http://www.elrepo.org/elrepo-release-7.0-3.">
+<meta name="twitter:description" content="centos7升级内核 centos7默认是没有无线网卡的，但是我的程序又只能在cenos7上跑,升级内核５.14就自动把无线网卡装上了 安装过程 123456yum -y updaterpm --import https://www.elrepo.org/RPM-GPG-KEY-elrepo.orgrpm -Uvh http://www.elrepo.org/elrepo-release-7.0">
 
 
 
@@ -308,7 +308,10 @@
       
 
       
-        <h1 id="centos7升级内核"><a href="#centos7升级内核" class="headerlink" title="centos7升级内核"></a>centos7升级内核</h1><h2 id="centos7默认是没有无线网卡的，但是我的程序又只能在cenos7上跑-升级内核５-14就自动把无线网卡装上了"><a href="#centos7默认是没有无线网卡的，但是我的程序又只能在cenos7上跑-升级内核５-14就自动把无线网卡装上了" class="headerlink" title="centos7默认是没有无线网卡的，但是我的程序又只能在cenos7上跑,升级内核５.14就自动把无线网卡装上了"></a>centos7默认是没有无线网卡的，但是我的程序又只能在cenos7上跑,升级内核５.14就自动把无线网卡装上了</h2><h2 id="安装过程"><a href="#安装过程" class="headerlink" title="安装过程"></a>安装过程</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">yum -y update</span><br><span class="line">rpm --import https://www.elrepo.org/RPM-GPG-KEY-elrepo.org</span><br><span class="line">rpm -Uvh http://www.elrepo.org/elrepo-release-7.0-3.el7.elrepo.noarch.rpm</span><br><span class="line">yum --enablerepo=elrepo-kernel install kernel-ml</span><br><span class="line">awk -F\<span class="string">' '</span><span class="variable">$1</span>==<span class="string">"menuentry "</span> &#123;<span class="built_in">print</span> i++ <span class="string">" : "</span> <span class="variable">$2</span>&#125;<span class="string">' /etc/grub2.cfg //列出系统中可用的内核</span></span><br><span class="line"><span class="string">grub2-set-default 1 //将5.14内核设置为默认内核，你的５.14内核序号不一定是１</span></span><br></pre></td></tr></table></figure>
+        <h1>centos7升级内核</h1>
+<h2 id="centos7默认是没有无线网卡的，但是我的程序又只能在cenos7上跑-升级内核５-14就自动把无线网卡装上了">centos7默认是没有无线网卡的，但是我的程序又只能在cenos7上跑,升级内核５.14就自动把无线网卡装上了</h2>
+<h2 id="安装过程">安装过程</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">yum -y update</span><br><span class="line">rpm --import https://www.elrepo.org/RPM-GPG-KEY-elrepo.org</span><br><span class="line">rpm -Uvh http://www.elrepo.org/elrepo-release-7.0-3.el7.elrepo.noarch.rpm</span><br><span class="line">yum --enablerepo=elrepo-kernel install kernel-ml</span><br><span class="line">awk -F\<span class="string">' '</span><span class="variable">$1</span>==<span class="string">"menuentry "</span> &#123;<span class="built_in">print</span> i++ <span class="string">" : "</span> <span class="variable">$2</span>&#125;<span class="string">' /etc/grub2.cfg //列出系统中可用的内核</span></span><br><span class="line"><span class="string">grub2-set-default 1 //将5.14内核设置为默认内核，你的５.14内核序号不一定是１</span></span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -437,7 +440,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">32</span>
+                  <span class="site-state-item-count">33</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -490,7 +493,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#centos7升级内核"><span class="nav-number">1.</span> <span class="nav-text">centos7升级内核</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#centos7默认是没有无线网卡的，但是我的程序又只能在cenos7上跑-升级内核５-14就自动把无线网卡装上了"><span class="nav-number">1.1.</span> <span class="nav-text">centos7默认是没有无线网卡的，但是我的程序又只能在cenos7上跑,升级内核５.14就自动把无线网卡装上了</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装过程"><span class="nav-number">1.2.</span> <span class="nav-text">安装过程</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">centos7升级内核</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#centos7默认是没有无线网卡的，但是我的程序又只能在cenos7上跑-升级内核５-14就自动把无线网卡装上了"><span class="nav-number">1.1.</span> <span class="nav-text">centos7默认是没有无线网卡的，但是我的程序又只能在cenos7上跑,升级内核５.14就自动把无线网卡装上了</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装过程"><span class="nav-number">1.2.</span> <span class="nav-text">安装过程</span></a></li></ol></li></ol></div>
             
 
           </div>
