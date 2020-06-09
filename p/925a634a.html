@@ -85,13 +85,13 @@
 <meta property="og:site_name" content="HexChristmas&#39;s Blog">
 <meta property="og:description" content="因为公司项目要求，所以在debian和arch上部署了kvm，但是当时部署的没截图，所以只写一下部署过程，大概率不会遇到什么错误。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://hexchristmas.github.io/p/925a634a.htm/a.png">
-<meta property="og:image" content="https://hexchristmas.github.io/p/925a634a.htm/b.png">
+<meta property="og:image" content="https://hexchristmas.github.io/p/925a634a/a.png">
+<meta property="og:image" content="https://hexchristmas.github.io/p/925a634a/b.png">
 <meta property="og:updated_time" content="2020-04-09T11:10:57.493Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Archlinux&amp;Debian安装kvm">
 <meta name="twitter:description" content="因为公司项目要求，所以在debian和arch上部署了kvm，但是当时部署的没截图，所以只写一下部署过程，大概率不会遇到什么错误。">
-<meta name="twitter:image" content="https://hexchristmas.github.io/p/925a634a.htm/a.png">
+<meta name="twitter:image" content="https://hexchristmas.github.io/p/925a634a/a.png">
 
 
 
@@ -324,12 +324,12 @@
 <h2 id="如何创建一个虚拟机？"><a href="#如何创建一个虚拟机？" class="headerlink" title="如何创建一个虚拟机？"></a>如何创建一个虚拟机？</h2><h3 id="直接用命令创建"><a href="#直接用命令创建" class="headerlink" title="直接用命令创建"></a>直接用命令创建</h3><p>创建磁盘映像：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">qemu-img create -f qcow2 -o size=35G,preallocation=&quot;metadata&quot; /kvm/windows7\ test1/wintest1.qcow2</span><br></pre></td></tr></table></figure></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">virt-install -n wintest1 \</span><br><span class="line">&gt; -r 1536 --vcpus=1 \</span><br><span class="line">&gt; -c /kvm/iso/cn_windows_7_professional_with_sp1_vl_build_x86_dvd_u_677939.iso \</span><br><span class="line">&gt; --os-type=windows \ #设定操作系统标签</span><br><span class="line">&gt; --disk path=/kvm/windows7 \ test1/wintest1.qcow2,device=disk,bus=sata,size=35,format=qcow2 \</span><br><span class="line">&gt; --network network=default</span><br></pre></td></tr></table></figure>
 <p>这里边参数大概是这样：<br>-n 虚拟机名称<br>-r 向外映射的端口<br>-c 镜像端口<br>–os-type 你安装的镜像类型和vmware类似<br>–disk path 你的磁盘位置<br>–network network=default 网络，默认是nat<br>这里还涉及到一些很细节的参数，安装想不起来了，想起来再来补充，这是安装win7的，安装linux的也一样，举一反三，懂吧？</p>
-<h3 id="用virt-manager"><a href="#用virt-manager" class="headerlink" title="用virt-manager"></a>用virt-manager</h3><p>用图形化就比较简单了，点点点，你们自己去发掘。<br><img src="/p/925a634a.htm/a.png" alt="kvm-qemu|626x500"> </p>
+<h3 id="用virt-manager"><a href="#用virt-manager" class="headerlink" title="用virt-manager"></a>用virt-manager</h3><p>用图形化就比较简单了，点点点，你们自己去发掘。<br><img src="/p/925a634a/a.png" alt="kvm-qemu|626x500"> </p>
 <hr>
 <p>用命令创建需要啪啦啪啦敲一堆命令，推荐图形化简单一点。<br>其实这里还涉及到了kvm的网络配置，那块我还没研究，后续再来补充。</p>
 <hr>
 <h1 id="今天建kvm时候发现了一个很恶心的问题，"><a href="#今天建kvm时候发现了一个很恶心的问题，" class="headerlink" title="今天建kvm时候发现了一个很恶心的问题，"></a>今天建kvm时候发现了一个很恶心的问题，</h1><h2 id="error"><a href="#error" class="headerlink" title="error:"></a>error:</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">KVM cannot access storage file (as uid:107, gid:107)permission denied</span><br></pre></td></tr></table></figure>
-<p><img src="/p/925a634a.htm/b.png" alt="2020-03-05_15-32|509x500"> </p>
+<p><img src="/p/925a634a/b.png" alt="2020-03-05_15-32|509x500"> </p>
 <h2 id="slove"><a href="#slove" class="headerlink" title="slove"></a>slove</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/libvirt/qemu.conf</span><br></pre></td></tr></table></figure>
 <p>将<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">![image|548x500](c.jpeg)</span><br></pre></td></tr></table></figure></p>
 <p>sudo systemctl restart libvirt<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">![2020-03-05_15-32_1|690x444](d.png)</span><br><span class="line"># 如何将vmdk转qcow2？</span><br></pre></td></tr></table></figure></p>

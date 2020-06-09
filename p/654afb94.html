@@ -85,13 +85,13 @@
 <meta property="og:site_name" content="HexChristmas&#39;s Blog">
 <meta property="og:description" content="Git使用技巧git如何上传大于100M文件   123456echo &amp;quot;# xxxxxxxxxxx &amp;gt;&amp;gt; README.mdgit initgit add README.mdgit commit -m &amp;quot;first commit&amp;quot;git remote add origin https://github.com/xxxxx/xxxxxxx.gitgit p">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://hexchristmas.github.io/p/654afb94.htm/a.png">
-<meta property="og:image" content="https://hexchristmas.github.io/p/654afb94.htm/b.png">
+<meta property="og:image" content="https://hexchristmas.github.io/p/654afb94/a.png">
+<meta property="og:image" content="https://hexchristmas.github.io/p/654afb94/b.png">
 <meta property="og:updated_time" content="2020-04-09T11:10:57.493Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Git使用技巧">
 <meta name="twitter:description" content="Git使用技巧git如何上传大于100M文件   123456echo &amp;quot;# xxxxxxxxxxx &amp;gt;&amp;gt; README.mdgit initgit add README.mdgit commit -m &amp;quot;first commit&amp;quot;git remote add origin https://github.com/xxxxx/xxxxxxx.gitgit p">
-<meta name="twitter:image" content="https://hexchristmas.github.io/p/654afb94.htm/a.png">
+<meta name="twitter:image" content="https://hexchristmas.github.io/p/654afb94/a.png">
 
 
 
@@ -311,7 +311,7 @@
       
 
       
-        <h1 id="Git使用技巧"><a href="#Git使用技巧" class="headerlink" title="Git使用技巧"></a>Git使用技巧</h1><h2 id="git如何上传大于100M文件"><a href="#git如何上传大于100M文件" class="headerlink" title="git如何上传大于100M文件"></a>git如何上传大于100M文件</h2><p><img src="/p/654afb94.htm/a.png" alt="image|549x500"> </p>
+        <h1 id="Git使用技巧"><a href="#Git使用技巧" class="headerlink" title="Git使用技巧"></a>Git使用技巧</h1><h2 id="git如何上传大于100M文件"><a href="#git如何上传大于100M文件" class="headerlink" title="git如何上传大于100M文件"></a>git如何上传大于100M文件</h2><p><img src="/p/654afb94/a.png" alt="image|549x500"> </p>
 <hr>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">echo &quot;# xxxxxxxxxxx &gt;&gt; README.md</span><br><span class="line">git init</span><br><span class="line">git add README.md</span><br><span class="line">git commit -m &quot;first commit&quot;</span><br><span class="line">git remote add origin https://github.com/xxxxx/xxxxxxx.git</span><br><span class="line">git push -u origin master</span><br></pre></td></tr></table></figure>
 <p>这些基本操作就不用说了吧，下面进入关键步骤</p>
@@ -322,7 +322,7 @@
 <p>假如你想上传到不都是mp4，怎么办？你还想上传其他格式比如(pdf docx ppt )，继续track 你想上传的文件类型，然后commit信息，再举个例子，我想同时上传一个大于100MB的pdf和mp4<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git track &quot;*.mp4&quot; </span><br><span class="line">git add .gitattributes</span><br><span class="line">git track &quot;*.pdf&quot; </span><br><span class="line">git add .gitattributes</span><br></pre></td></tr></table></figure></p>
 <p>简单的不能在简单了吧，，，，<br>然后就是上传文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git add 233.mp4</span><br><span class="line">git lfs ls-files //这个关注一下，你执行完命令你得看看这个大于100M文件是不是在lfs控制下如果输入完显示空白你得在仔细检查一下是不是哪有错误</span><br><span class="line">git commit -m &quot;2333&quot;</span><br><span class="line">git push -u origin master</span><br></pre></td></tr></table></figure></p>
 <p>最后补充一下如果你不小心track错了咋整？<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git lfs untrack &quot;*.mp4&quot; //你可以用untrack取消跟踪</span><br></pre></td></tr></table></figure></p>
-<p>成功上传大概这个样子<br><img src="/p/654afb94.htm/b.png" alt="image|648x439"> </p>
+<p>成功上传大概这个样子<br><img src="/p/654afb94/b.png" alt="image|648x439"> </p>
 
       
     </div>
