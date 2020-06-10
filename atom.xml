@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://hexchristmas.github.io/"/>
-  <updated>2020-06-10T09:38:41.151Z</updated>
+  <updated>2020-06-10T11:43:55.287Z</updated>
   <id>https://hexchristmas.github.io/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://hexchristmas.github.io/p/574.html"/>
     <id>https://hexchristmas.github.io/p/574.html</id>
     <published>2020-06-10T08:59:49.000Z</published>
-    <updated>2020-06-10T09:38:41.151Z</updated>
+    <updated>2020-06-10T11:43:55.287Z</updated>
     
     <content type="html"><![CDATA[<h1>ATT&amp;CK矩阵自己的理解和思考</h1><h2 id="什么是ATT-CK">什么是ATT&amp;CK</h2><blockquote><p>会随着自己的理解，不断对每块内容，每个文字进行更新，大家如果有什么不同见解或者更好对见解可以提issues</p></blockquote><p>ATT&amp;CK(Adversarial Tactics, Techniques, and Common Knowledge),翻译过来就是<code>对抗策略，技巧和常识</code>。按名字可能不太好理解，它是由一家做美国军方做威胁建模公司MITRE提出的，ATT&amp;CK与其他的模型并不相同，比如说CVSS它是侧重漏洞评估，还比如说DREAD它是侧重风险评估，而ATT&amp;CK完全站在攻击者的视角来描述攻击中各阶段用到的技术模型。</p><h2 id="ATT-CK分类">ATT&amp;CK分类</h2><table><thead><tr><th>技术域(TechnologyDomains)</th><th>平台(PlatformsDefined)</th></tr></thead><tbody><tr><td>Enterprise</td><td>Linux,macos,Windows</td></tr><tr><td>Mobile</td><td>Android,ios</td></tr></tbody></table><h2 id="设计理念">设计理念</h2><ul><li>基于攻击者的视角</li><li>通过红队经验案例中使用和出现的攻击手法</li><li>抽象化可以更好的将攻击手段和防守措施联系起来</li></ul><h2 id="ATT-CK抽象化模型">ATT&amp;CK抽象化模型</h2><blockquote><p>为什么要有这个，我觉得因为安全本身就是比较乱的，这一块哪一块的，攻击者在攻击时候思路大多数都是杂乱无章的，打到内网不知道该做什么，如何做，所以这个抽象模型把每一次完整的攻击梳理出来，用的什么工具，什么样的技术，怎么样的战术策略，所以这个抽象化模型可以理解为红队攻击手法模型，用来突破企业的安全防御，对于企业安全运营可以用来评估自己安全运营中心成熟度</p></blockquote><p><img src="/p/574/2.jpg" alt></p><hr><p><strong>这张关系图是官方的，下面的是我自己理解的</strong><br><img src="/p/574/1.png" alt></p><h3 id="战术-Tactics">战术 (Tactics)</h3><p>战术在ATT&amp;CK中可以理解为红队使用攻击手法的标签(持久性，发现信息，横向移动，执行文件和泄露数据… …)，每个标签的战术目标也是不同的，战术目标其实就是采取行动的原因，比如说执行被定义为战术，表示可以在本地或远程执行恶意代码的技术，这种战术通常与初始攻击结合使用，用来获取拿到权限后执行命令，以及横向移动的访问权限</p><h3 id="技术-Techniques">技术 (Techniques)</h3><p>技术在ATT&amp;CK中可以理解为红队实现战术目标的方式，比如说攻击者可能会用凭据转储对用来获取网络中可被控制的访问权限</p><h3 id="组-Groups">组 (Groups)</h3><p>组的概念其实是区别于团队和个人，ATT&amp;CK主要关注APT组织和其他黑客组织，例如有经济目的的黑客组织</p><h3 id="软件-Software">软件 (Software)</h3><p>ATT&amp;CK针对攻击者入侵过程中会使用不同的软件把软件分为三大类：</p><ul><li>渗透测试工具，如burpSuite、nmap、metasploit、mimikatz等</li><li>系统自带的实用程序，如widows的netstat，tasklist，powershell</li><li>恶意软件，旨在被攻击者用于恶意目的的商业，闭源或开源软件，如plugx、chopstick</li></ul>]]></content>
     
