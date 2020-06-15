@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/57.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/32.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/16.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/57.ico?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="勒索病毒,应急响应,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="HexChristmas's Blog" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="某国企上午来突然接到通知，总部中了勒索病毒，一次勒索病毒的应急响应">
+<meta name="keywords" content="勒索病毒,应急响应">
+<meta property="og:type" content="article">
+<meta property="og:title" content="某国企勒索病毒应急响应">
+<meta property="og:url" content="https://hexchristmas.github.io/p/6b6e.html">
+<meta property="og:site_name" content="HexChristmas&#39;s Blog">
+<meta property="og:description" content="某国企上午来突然接到通知，总部中了勒索病毒，一次勒索病毒的应急响应">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://hexchristmas.github.io/p/6b6e/2.png">
+<meta property="og:image" content="https://hexchristmas.github.io/p/6b6e/1.png">
+<meta property="og:image" content="https://hexchristmas.github.io/p/6b6e/3.png">
+<meta property="og:image" content="https://hexchristmas.github.io/p/6b6e/5.png">
+<meta property="og:image" content="https://hexchristmas.github.io/p/6b6e/6.png">
+<meta property="og:image" content="https://hexchristmas.github.io/p/6b6e/4.png">
+<meta property="og:image" content="https://hexchristmas.github.io/p/6b6e/9.png">
+<meta property="og:image" content="https://hexchristmas.github.io/p/6b6e/8.png">
+<meta property="og:image" content="https://hexchristmas.github.io/p/6b6e/7.png">
+<meta property="og:updated_time" content="2020-06-15T11:47:59.647Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="某国企勒索病毒应急响应">
+<meta name="twitter:description" content="某国企上午来突然接到通知，总部中了勒索病毒，一次勒索病毒的应急响应">
+<meta name="twitter:image" content="https://hexchristmas.github.io/p/6b6e/2.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://hexchristmas.github.io/p/6b6e.html">
+
+
+
+
+
+  <title>某国企勒索病毒应急响应 | HexChristmas's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+<a href="https://github.com/HexChristmas" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">HexChristmas's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hexchristmas.github.io/p/6b6e.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Hex Christmas">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="HexChristmas's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">某国企勒索病毒应急响应</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-06-15T19:42:57+08:00">
+                2020-06-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+              <div class="post-description">
+                  某国企上午来突然接到通知，总部中了勒索病毒，一次勒索病毒的应急响应
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1>某国企勒索病毒应急响应</h1>
+<h2 id="整体排查思路">整体排查思路</h2>
+<ul>
+<li>先看日志，要和勒索争分夺秒，你得看这台终端怎么中的毒，哪个IP过来的</li>
+<li>看对外连接，有没有攻击其他人</li>
+<li>看异常进程，父进程，签名，启动项，注册表，dll调用,计划任务,驱动</li>
+<li>关键目录文件排查，感染时间，文件后缀，解密联系方式</li>
+</ul>
+<hr>
+<h5 id="应急开始一定要记住，不要使用删除以及更改文件属性的命令，建议在桌面建立sample文件夹，作为我们存放样本的文件夹">应急开始一定要记住，不要使用删除以及更改文件属性的命令，建议在桌面建立sample文件夹，作为我们存放样本的文件夹</h5>
+<h2 id="检测阶段">检测阶段</h2>
+<p>某国企上午来突然接到通知，总部中了勒索病毒，迅速通知受害主机相关人员对其断网隔离。电话和客户了解以下现场大概情况，由于受害主机是终端PC查明勒索病毒如何进来的，是否有扩散，扩散什么程度，直接重装系统即可。某日上午，远程终端进行排查，发现前一天晚上22:32分左右，来自于安徽的一台终端机器对北京终端进行<strong>3389</strong>爆破，安徽终端密码为0，这你就没办法了对吧。终端PC装有360天擎，但是当我远程过去的时候，360天擎处于关闭状态，应该是攻击者利用某种手段把天擎关闭掉了，并破坏了天擎主动防御模块。</p>
+<h3 id="日志">日志</h3>
+<p>因为甲方这边只有天擎，没有态势感知之类的设备，一切只能看咱自己经验了<br>
+诶，由于分析日志全是在客户机器上日志什么的都没拿出来，没法给大家分享，我就说说我如何现场百度<strong>logparse</strong> 用法现场分析各种日志</p>
+<h4 id="logparse">logparse</h4>
+<p>你在应急的时候像<strong>logparse</strong>，<strong>autoruns</strong>,<strong>processexplore</strong>,<strong>processmonitor</strong>,还有其他的各种工具是应该直接打包压缩，准备随时传给客户到机器上的</p>
+<blockquote>
+<p><a href="https://www.microsoft.com/en-us/download/details.aspx?id=24659" target="_blank" rel="noopener">https://www.microsoft.com/en-us/download/details.aspx?id=24659</a></p>
+</blockquote>
+<p>上面是下载地址，安装也是比较简单的直接双击打开，点击点击点击即可</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C:\Program Files (x86)\Log Parser 2.2\LogParser.exe //logparse的路径</span><br></pre></td></tr></table></figure>
+<p>我用到的命令组合</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">LogParser.exe -i:EVT &quot;SELECT TimeGenerated,EXTRACT_TOKEN(Strings,0,&apos;|&apos;) AS USERNAME,EXTRACT_TOKEN(Strings,2,&apos;|&apos;) AS SERVICE_NAME,EXTRACT_TOKEN(Strings,5,&apos;|&apos;) AS Client_IP FROM &apos;日志的路径.evtx&apos; WHERE EventID=675&quot; &gt; 1.csv</span><br><span class="line">___________</span><br><span class="line">/*字段说明*/</span><br><span class="line">-i:EVT: 指定evtx类型的日志格式，当然也可以有CSV格式的还有IIW3C格式的</span><br><span class="line">TimeGenerated,EXTRACT_TOKEN: 时间戳字段</span><br><span class="line">USERNAME,EXTRACT_TOKEN： 用户名字段</span><br><span class="line">SERVICE_NAME,EXTRACT_TOKEN： 服务名字段</span><br></pre></td></tr></table></figure>
+<p>然后用excle打开csv文件，对其进行处理得到以下表格中的数据，用来后续进行排查</p>
+<table>
+<thead>
+<tr>
+<th>外网IP</th>
+<th>内网IP</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>220.*.184.157</td>
+<td>9.<em>.</em>.241</td>
+</tr>
+<tr>
+<td>95.*.252.94</td>
+<td>9.<em>.</em>.88</td>
+</tr>
+<tr>
+<td>112.*.100.151</td>
+<td>9.<em>.</em>.13</td>
+</tr>
+<tr>
+<td>119.1*.58.165</td>
+<td>9.<em>.</em>.25</td>
+</tr>
+<tr>
+<td>218.1*9.86.210</td>
+<td>9.<em>.</em>.8</td>
+</tr>
+<tr>
+<td>141.9*.81.191</td>
+<td>9.<em>.</em>.50</td>
+</tr>
+<tr>
+<td>2.187.7*.96</td>
+<td>9.<em>.</em>.51</td>
+</tr>
+<tr>
+<td>61.14*.213.18</td>
+<td>9.*.97.123</td>
+</tr>
+<tr>
+<td>193.1*.16.246</td>
+<td>9.<em>.</em>.122</td>
+</tr>
+<tr>
+<td>61.1*7.103.187</td>
+<td>9.*.20.34</td>
+</tr>
+<tr>
+<td>125.*7.40.217</td>
+<td>89.*.62.91</td>
+</tr>
+<tr>
+<td>125.1*7.174.145</td>
+<td>193.1*8.16.250</td>
+</tr>
+<tr>
+<td>193.*8.16.252</td>
+<td>11.*.97.123</td>
+</tr>
+</tbody>
+</table>
+<p>这些机器都是由另一位安服同志排查的，所以后来情况也没和我同步，诶，所以我就不清楚了</p>
+<h3 id="确定感染时间">确定感染时间</h3>
+<p>勒索感染时间为早上5:27分<br>
+<img src="/p/6b6e/2.png" alt></p>
+<h3 id="感染后缀名">感染后缀名</h3>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C4H</span><br></pre></td></tr></table></figure>
+<h3 id="解密联系方式">解密联系方式</h3>
+<p><img src="/p/6b6e/1.png" alt></p>
+<h3 id="敏感目录文件">敏感目录文件</h3>
+<p>我们在用户的<strong>temp</strong>目录下发现了一个名称叫做<strong>tmp61DD.tmp.bat</strong>的<strong>bat</strong>文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off</span><br><span class="line">vssadmin.exe Delete Shadows /All /Quiet</span><br><span class="line">reg delete <span class="string">"HKEY_CURRENT_USER\Software\Microsoft\Terminal Server Client\Default"</span> /va /f</span><br><span class="line">reg delete <span class="string">"HKEY_CURRENT_USER\Software\Microsoft\Terminal Server Client\Servers"</span> /f</span><br><span class="line">reg add <span class="string">"HKEY_CURRENT_USER\Software\Microsoft\Terminal Server Client\Servers"</span></span><br><span class="line"><span class="built_in">cd</span> %userprofile%\documents\</span><br><span class="line">attrib Default.rdp -s -h</span><br><span class="line">del Default.rdp</span><br><span class="line"><span class="keyword">for</span> /F <span class="string">"tokens=*"</span> %1 <span class="keyword">in</span> (<span class="string">'wevtutil.exe el'</span>) DO wevtutil.exe cl <span class="string">"%1"</span>%</span><br></pre></td></tr></table></figure>
+<p>在<strong>C:\Users\lazy\Videos&gt;<strong>目录下发现了黑客爆破的工具</strong>hydra</strong>,NS估计也是黑客的工具，但是被加密了也分析不出来<br>
+<img src="/p/6b6e/3.png" alt></p>
+<h3 id="进程分析">进程分析</h3>
+<p>我们祭出了<strong>AutoRuns</strong>,<strong>ProcessExplorer</strong>,<strong>ProcessMonitor</strong>,这三个工具应该是我们应急的过程中常用的三剑客，其实火绒剑就足够了，但是不太喜欢用这个<br>
+我们用<strong>autoruns</strong>发现了一个很可疑的东西，就是暴风一键激活的工具，而且2016年就有了，这就很可能构成APT，但是甲方不太重视这里边我们忽略后边在说<br>
+<img src="/p/6b6e/5.png" alt><br>
+用<strong>ProcessExplorer</strong>发现这个终端一直在请求一个矿池和勒索的IP，那个截图我找不到了<br>
+<img src="/p/6b6e/6.png" alt><br>
+我们从注册表中看到<br>
+<img src="/p/6b6e/4.png" alt><br>
+然后，我们在进程中嗨发现iexplore.exe这个程序也不对劲，疑似是dll劫持，截图找不到了<br>
+<img src="/p/6b6e/9.png" alt><br>
+于是我把所有程序都丢到<strong>virustotal</strong>,发现确实有问题，<br>
+<img src="/p/6b6e/8.png" alt><br>
+然后我们发现这个勒索的命名都非常奇怪，叫做</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$360Honeypot</span><br><span class="line">$360LockFile</span><br></pre></td></tr></table></figure>
+<p>有没有觉得很熟悉？DLP(数据防泄漏？)这黑客竟然以这个命名，我觉得十分的奇怪，不深究了</p>
+<h2 id="抑制阶段">抑制阶段</h2>
+<p>因为是终端机器，所以也没必要升级打补丁恢复数据什么的直接重装系统就行<br>
+但是，如果你是碰到的服务器被勒索了，那还是一步一步做把</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1. 对系统进行补丁更新，封堵病毒传播途径；</span><br><span class="line">2. 制定严格的口令策略，避免弱口令；</span><br><span class="line">3. 结合备份的网站日志对网站应用进行全面代码审计，找出攻击者利用的漏洞入口进行封堵；</span><br><span class="line">4. 配合全流量设备对全网中存在的威胁进行分析，排查问题；</span><br></pre></td></tr></table></figure>
+<h3 id="样本取证">样本取证</h3>
+<p>取证的样本大概就是这样<br>
+<img src="/p/6b6e/7.png" alt></p>
+<h2 id="根除阶段">根除阶段</h2>
+<p>重装系统</p>
+<h2 id="相关安全建议">相关安全建议</h2>
+<ol>
+<li>使用强密码</li>
+<li>别什么垃圾软件都用，激活买个序列号比啥不强，或者搭个KMS服务器比啥不强，用什么暴风激活</li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+<div>
+    
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script type="text/javascript" src="http://jslibs.wuxubj.cn/sweetalert_mini/jquery-1.7.1.min.js"></script>
+  <script src="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.mini.css">
+
+  <p><span>本文标题:</span>某国企勒索病毒应急响应</p>
+  <p><span>文章作者:</span>Hex Christmas</p>
+  <p><span>发布时间:</span>2020年06月15日 - 19:42:57</p>
+  <p><span>最后更新:</span>2020年06月15日 - 19:47:59</p>
+  <p><span>原始链接:</span><a href="/p/6b6e.html" title="某国企勒索病毒应急响应">https://hexchristmas.github.io/p/6b6e.html</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://hexchristmas.github.io/p/6b6e.html" aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    clipboard.on('success', $(function(){
+      $(".fa-clipboard").click(function(){
+        swal({   
+          title: "",   
+          text: '复制成功',   
+          html: false,
+          timer: 500,   
+          showConfirmButton: false
+        });
+      });
+    }));  
+</script>
+
+
+    
+</div>
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/勒索病毒/" rel="tag"><i class="fa fa-tag"></i> 勒索病毒</a>
+          
+            <a href="/tags/应急响应/" rel="tag"><i class="fa fa-tag"></i> 应急响应</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/p/574.html" rel="next" title="ATT&CK矩阵自己的理解和思考">
+                <i class="fa fa-chevron-left"></i> ATT&CK矩阵自己的理解和思考
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="Hex Christmas">
+            
+              <p class="site-author-name" itemprop="name">Hex Christmas</p>
+              <p class="site-description motion-element" itemprop="description">Security Researcher</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">35</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tag/index.html">
+                  <span class="site-state-item-count">45</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">某国企勒索病毒应急响应</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#整体排查思路"><span class="nav-number">1.1.</span> <span class="nav-text">整体排查思路</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#应急开始一定要记住，不要使用删除以及更改文件属性的命令，建议在桌面建立sample文件夹，作为我们存放样本的文件夹"><span class="nav-number">1.1.0.0.1.</span> <span class="nav-text">应急开始一定要记住，不要使用删除以及更改文件属性的命令，建议在桌面建立sample文件夹，作为我们存放样本的文件夹</span></a></li></ol></li></ol></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#检测阶段"><span class="nav-number">1.2.</span> <span class="nav-text">检测阶段</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#日志"><span class="nav-number">1.2.1.</span> <span class="nav-text">日志</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#logparse"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">logparse</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#确定感染时间"><span class="nav-number">1.2.2.</span> <span class="nav-text">确定感染时间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#感染后缀名"><span class="nav-number">1.2.3.</span> <span class="nav-text">感染后缀名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解密联系方式"><span class="nav-number">1.2.4.</span> <span class="nav-text">解密联系方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#敏感目录文件"><span class="nav-number">1.2.5.</span> <span class="nav-text">敏感目录文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进程分析"><span class="nav-number">1.2.6.</span> <span class="nav-text">进程分析</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#抑制阶段"><span class="nav-number">1.3.</span> <span class="nav-text">抑制阶段</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#样本取证"><span class="nav-number">1.3.1.</span> <span class="nav-text">样本取证</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#根除阶段"><span class="nav-number">1.4.</span> <span class="nav-text">根除阶段</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#相关安全建议"><span class="nav-number">1.5.</span> <span class="nav-text">相关安全建议</span></a></li></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hex Christmas</span>
+
+  
+</div>
+<!--
+
+ <div class="powered-by">{#
+  }由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动
+
+
+  <span class="post-meta-divider">|</span>
+
+
+<div class="theme-info">{#
+  <div class="theme-info">{#
+  }主题 &mdash; {#
+  }<a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">{#
+    }NexT.Gemini v5.1.4
+
+
+-->
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
