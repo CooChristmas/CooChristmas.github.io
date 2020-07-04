@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://hexchristmas.github.io/"/>
-  <updated>2020-06-28T19:18:11.106Z</updated>
+  <updated>2020-07-04T08:29:26.280Z</updated>
   <id>https://hexchristmas.github.io/</id>
   
   <author>
@@ -15,6 +15,26 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>减脂健身-GIF动图</title>
+    <link href="https://hexchristmas.github.io/p/3767.html"/>
+    <id>https://hexchristmas.github.io/p/3767.html</id>
+    <published>2020-07-04T08:28:12.000Z</published>
+    <updated>2020-07-04T08:29:26.280Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote><p>看大多数运动都是1组20，3组，所以根据自己情况来，可以拉着同事一起做，hihi</p></blockquote><h3 id="基础深蹲">基础深蹲</h3><p><img src="/p/3767/1.gif" alt></p><h3 id="囚徒深蹲">囚徒深蹲</h3><p><img src="/p/3767/2.gif" alt></p><h3 id="跳跃深蹲">跳跃深蹲</h3><p><img src="/p/3767/3.gif" alt></p>]]></content>
+    
+    <summary type="html">
+    
+      咱们搞IT的大部分都是坐着，容易积累脂肪，久而久之就都变成了大猪蹄，您瞧瞧
+    
+    </summary>
+    
+    
+      <category term="healthy" scheme="https://hexchristmas.github.io/tags/healthy/"/>
+    
+  </entry>
   
   <entry>
     <title>应急响应-关于dll劫持理解和思考</title>
@@ -94,9 +114,9 @@
     </summary>
     
     
-      <category term="应急响应" scheme="https://hexchristmas.github.io/tags/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/"/>
-    
       <category term="勒索病毒" scheme="https://hexchristmas.github.io/tags/%E5%8B%92%E7%B4%A2%E7%97%85%E6%AF%92/"/>
+    
+      <category term="应急响应" scheme="https://hexchristmas.github.io/tags/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/"/>
     
   </entry>
   
@@ -218,9 +238,9 @@
     </summary>
     
     
-      <category term="mongodb" scheme="https://hexchristmas.github.io/tags/mongodb/"/>
-    
       <category term="应急响应" scheme="https://hexchristmas.github.io/tags/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/"/>
+    
+      <category term="mongodb" scheme="https://hexchristmas.github.io/tags/mongodb/"/>
     
   </entry>
   
@@ -423,28 +443,6 @@
       <category term="Debian" scheme="https://hexchristmas.github.io/tags/Debian/"/>
     
       <category term="wireguard" scheme="https://hexchristmas.github.io/tags/wireguard/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Centos7扩容</title>
-    <link href="https://hexchristmas.github.io/p/ef9b8f0e.html"/>
-    <id>https://hexchristmas.github.io/p/ef9b8f0e.html</id>
-    <published>2020-02-23T14:54:00.000Z</published>
-    <updated>2020-04-09T11:10:57.493Z</updated>
-    
-    <content type="html"><![CDATA[<h1>Centos7扩容</h1><p>只写了命令大概是怎么用的，我自己理解的解释没写，你们自己百度理解一下</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fdisk -l /* 列出磁盘 */</span><br></pre></td></tr></table></figure><p><img src="/p/ef9b8f0e/q1.png" alt="WX20200228-210617|661x500"></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fdisk /dev/vda /*vda即你要扩容的那块盘，进行分区*/</span><br></pre></td></tr></table></figure><p><img src="/p/ef9b8f0e/q2.png" alt="WX20200228-210726|538x500"></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">partprobe /*为了让系统识别新的分区*/</span><br></pre></td></tr></table></figure><p><img src="/p/ef9b8f0e/q3.png" alt="WX20200228-210937|550x500"></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pvcreate /dev/vda3 /*将物理硬盘初始化为物理卷*/</span><br></pre></td></tr></table></figure><p><img src="/p/ef9b8f0e/q4.png" alt="WX20200228-210937|550x500"></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vgscan /*查看所有卷组,重点看卷组名称*/</span><br></pre></td></tr></table></figure><p><img src="/p/ef9b8f0e/q5.png" alt="WX20200228-211010|690x153"></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vgextend centos  /dev/vda3 /*扩展卷组*/</span><br></pre></td></tr></table></figure><p><img src="/p/ef9b8f0e/q6.png" alt="WX20200228-211045|690x97"></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vgdisplay /*显示卷组信息*/</span><br></pre></td></tr></table></figure><p><img src="/p/ef9b8f0e/q7.png" alt="WX20200228-211223|690x460"></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lvextend -l+100%FREE /dev/mapper/centos-root /*扩展逻辑卷*/</span><br></pre></td></tr></table></figure><p><img src="/p/ef9b8f0e/q8.png" alt="WX20200228-211256|690x200"></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xfs_growfs /dev/mapper/centos-root /*对挂载目录进行扩容*/</span><br></pre></td></tr></table></figure><p><img src="/p/ef9b8f0e/q9.png" alt="WX20200228-211318|690x276"></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df -h</span><br></pre></td></tr></table></figure><p><img src="/p/ef9b8f0e/q10.png" alt="image|690x291"><br>步骤是这样的，测试的时候没扩容成功，你们研究这看一下，我觉得总体步骤是没问题的。</p>]]></content>
-    
-    <summary type="html">
-    
-      centos7扩容，扩容有风险，操作须谨慎。
-    
-    </summary>
-    
-    
-      <category term="centos" scheme="https://hexchristmas.github.io/tags/centos/"/>
-    
-      <category term="扩容" scheme="https://hexchristmas.github.io/tags/%E6%89%A9%E5%AE%B9/"/>
     
   </entry>
   
