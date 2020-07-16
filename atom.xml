@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://hexchristmas.github.io/"/>
-  <updated>2020-07-04T08:29:26.280Z</updated>
+  <updated>2020-07-16T02:56:17.238Z</updated>
   <id>https://hexchristmas.github.io/</id>
   
   <author>
@@ -17,11 +17,31 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>solaris安装记录</title>
+    <link href="https://hexchristmas.github.io/p/1a31.html"/>
+    <id>https://hexchristmas.github.io/p/1a31.html</id>
+    <published>2020-07-16T02:54:58.000Z</published>
+    <updated>2020-07-16T02:56:17.238Z</updated>
+    
+    <content type="html"><![CDATA[<h1>Solaris10安装</h1><blockquote><p>Solaris是unix的衍生版，支持x86,amd64,sparc架构，sparc只能安装在sun服务器上</p></blockquote><h2 id="Solaris10获取">Solaris10获取</h2><p>点击下面链接，登陆自己的Orcale账号即可下载<br><a href="https://www.oracle.com/solaris/solaris10/downloads/solaris10-get-jsp-downloads.html" target="_blank" rel="noopener">https://www.oracle.com/solaris/solaris10/downloads/solaris10-get-jsp-downloads.html</a></p><h3 id="架构怎么选择？">架构怎么选择？</h3><p>前边已经介绍了，我们选择<code>x86</code>即可<br><img src="/p/1a31/9.png" alt><br>你下载完之后就应该是这样<br><img src="/p/1a31/10.png" alt></p><h2 id="安装">安装</h2><p>我这里选用的虚拟机是<code>Mac</code>的<code>Paralles Desktop</code>,怎么选镜像啥的就不写了<br>建立完虚拟机，启动之后，选择第一个<br><img src="/p/1a31/1.png" alt><br>然后选择第一个，当然30秒自动也会选择第一个<br><img src="/p/1a31/2.png" alt><br>然后就是一系列，选键盘制式，语言什么的，都是一键化操作<br><img src="/p/1a31/3.png" alt><br><img src="/p/1a31/4.png" alt><br><img src="/p/1a31/5.png" alt><br><img src="/p/1a31/6.png" alt><br><img src="/p/1a31/7.png" alt><br>到这块，稍等1分钟左右，让他配置一下东西，配置完就进入console了<br><img src="/p/1a31/8.png" alt><br>账户是<code>root</code>，密码就是刚刚你自己设置的</p><h2 id="配置ssh">配置ssh</h2><p><code>solaris</code>服务管理命令和centos和debian是不一样的<br>编辑ssh配置文件</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/ssh/sshd_config</span><br></pre></td></tr></table></figure><p>将</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PermitRootLogin no</span><br></pre></td></tr></table></figure><p>改为</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PermitRootLogin yes</span><br></pre></td></tr></table></figure><p>重启ssh服务</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">svcadm restart ssh</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      由于某业务需求，最近搞起了solaris，记录一下安装过程
+    
+    </summary>
+    
+    
+      <category term="solaris" scheme="https://hexchristmas.github.io/tags/solaris/"/>
+    
+  </entry>
+  
+  <entry>
     <title>减脂健身-GIF动图</title>
     <link href="https://hexchristmas.github.io/p/3767.html"/>
     <id>https://hexchristmas.github.io/p/3767.html</id>
     <published>2020-07-04T08:28:12.000Z</published>
-    <updated>2020-07-04T08:29:26.280Z</updated>
+    <updated>2020-07-04T08:29:36.713Z</updated>
     
     <content type="html"><![CDATA[<blockquote><p>看大多数运动都是1组20，3组，所以根据自己情况来，可以拉着同事一起做，hihi</p></blockquote><h3 id="基础深蹲">基础深蹲</h3><p><img src="/p/3767/1.gif" alt></p><h3 id="囚徒深蹲">囚徒深蹲</h3><p><img src="/p/3767/2.gif" alt></p><h3 id="跳跃深蹲">跳跃深蹲</h3><p><img src="/p/3767/3.gif" alt></p>]]></content>
     
@@ -419,30 +439,6 @@
       <category term="archlinux" scheme="https://hexchristmas.github.io/tags/archlinux/"/>
     
       <category term="netease-cloud-music" scheme="https://hexchristmas.github.io/tags/netease-cloud-music/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Debian&amp;Archlinux部署Wireguard</title>
-    <link href="https://hexchristmas.github.io/p/55b99319.html"/>
-    <id>https://hexchristmas.github.io/p/55b99319.html</id>
-    <published>2020-03-03T14:52:22.000Z</published>
-    <updated>2020-04-09T11:10:57.493Z</updated>
-    
-    <content type="html"><![CDATA[<h1>Debian&amp;Archlinux部署Wireguard</h1><p>wireguard远程办公其实还是蛮爽的，安装比较简单</p><h2 id="安装">安装</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install wireguard</span><br></pre></td></tr></table></figure><h2 id="配置">配置</h2><p>然后把你们网管给你的私钥放在<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">```</span><br><span class="line">sudo vim /etc/wireguard/wg0.conf</span><br></pre></td></tr></table></figure></p><p>配置文件大概这样</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">echo &quot;</span><br><span class="line">[Interface]</span><br><span class="line">PrivateKey = $(cat client_privatekey)</span><br><span class="line">Address = 10.0.0.2/24</span><br><span class="line">DNS = 8.8.8.8</span><br><span class="line">MTU = 1420</span><br><span class="line"></span><br><span class="line">[Peer]</span><br><span class="line">PublicKey = $(cat server_publickey)</span><br><span class="line">Endpoint = 1.2.3.4:50814</span><br><span class="line">AllowedIPs = 0.0.0.0/0, ::0/0</span><br><span class="line">PersistentKeepalive = 25 &quot; &gt; client.conf</span><br></pre></td></tr></table></figure><p>你的ifconfig信息大概这样</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">➜  ifconfig                                                              ✔  23:29:15</span><br><span class="line">lo0: flags=8049&lt;UP,LOOPBACK,RUNNING,MULTICAST&gt; mtu 16384</span><br><span class="line">options=1203&lt;RXCSUM,TXCSUM,TXSTATUS,SW_TIMESTAMP&gt;</span><br><span class="line">inet 127.0.0.1 netmask 0xff000000</span><br><span class="line">inet6 ::1 prefixlen 128</span><br><span class="line">inet6 fe80::1%lo0 prefixlen 64 scopeid 0x1</span><br><span class="line">nd6 options=201&lt;PERFORMNUD,DAD&gt;</span><br><span class="line">gif0: flags=8010&lt;POINTOPOINT,MULTICAST&gt; mtu 1280</span><br><span class="line">stf0: flags=0&lt;&gt; mtu 1280</span><br><span class="line">XHC20: flags=0&lt;&gt; mtu 0</span><br><span class="line">en0: flags=8863&lt;UP,BROADCAST,SMART,RUNNING,SIMPLEX,MULTICAST&gt; mtu 1500</span><br><span class="line">options=6b&lt;RXCSUM,TXCSUM,VLAN_HWTAGGING,TSO4,TSO6&gt;</span><br><span class="line">ether 80:fa:5b:64:6e:a6</span><br><span class="line">nd6 options=201&lt;PERFORMNUD,DAD&gt;</span><br><span class="line">media: autoselect (&lt;unknown type&gt;)</span><br><span class="line">status: inactive</span><br><span class="line">en1: flags=8963&lt;UP,BROADCAST,SMART,RUNNING,PROMISC,SIMPLEX,MULTICAST&gt; mtu 1500</span><br><span class="line">ether 18:4f:32:f4:7e:a3</span><br><span class="line">inet6 fe80::1c97:67ed:68fb:d0ee%en1 prefixlen 64 secured scopeid 0x6</span><br><span class="line">inet6 2408:8207:c9a:2db0:1b:b572:56e0:4cac prefixlen 64 autoconf secured</span><br><span class="line">inet6 2408:8207:c9a:2db0:a0f4:631b:7637:1b83 prefixlen 64 autoconf temporary</span><br><span class="line">inet 10.10.10.5 netmask 0xffffff00 broadcast 10.10.10.255nd6 options=201&lt;PERFORMNUD,DAD&gt;</span><br><span class="line">media: autoselect</span><br><span class="line">status: active</span><br><span class="line">p2p0: flags=8843&lt;UP,BROADCAST,RUNNING,SIMPLEX,MULTICAST&gt; mtu 2304</span><br><span class="line">ether 0a:4f:32:f4:7e:a3</span><br><span class="line">media: autoselect</span><br><span class="line">status: inactive</span><br><span class="line">awdl0: flags=8943&lt;UP,BROADCAST,RUNNING,PROMISC,SIMPLEX,MULTICAST&gt; mtu 1484</span><br><span class="line">ether 5a:14:bb:ea:17:7a</span><br><span class="line">inet6 fe80::5814:bbff:feea:177a%awdl0 prefixlen 64 scopeid 0x8</span><br><span class="line">nd6 options=201&lt;PERFORMNUD,DAD&gt;</span><br><span class="line">media: autoselect</span><br><span class="line">status: active</span><br><span class="line">utun0: flags=8051&lt;UP,POINTOPOINT,RUNNING,MULTICAST&gt; mtu 2000</span><br><span class="line">inet6 fe80::2c3b:78b4:b948:a51f%utun0 prefixlen 64 scopeid 0x9</span><br><span class="line">nd6 options=201&lt;PERFORMNUD,DAD&gt;</span><br><span class="line">utun1: flags=8051&lt;UP,POINTOPOINT,RUNNING,MULTICAST&gt; mtu 1380</span><br><span class="line">inet6 fe80::83f5:8460:590a:6ae1%utun1 prefixlen 64 scopeid 0xa</span><br><span class="line">nd6 options=201&lt;PERFORMNUD,DAD&gt;</span><br><span class="line">vnic0: flags=8843&lt;UP,BROADCAST,RUNNING,SIMPLEX,MULTICAST&gt; mtu 1500</span><br><span class="line">options=3&lt;RXCSUM,TXCSUM&gt;</span><br><span class="line">ether 00:1c:42:00:00:08</span><br><span class="line">inet 10.211.55.2 netmask 0xffffff00 broadcast 10.211.55.255</span><br><span class="line">media: autoselect</span><br><span class="line">status: active</span><br><span class="line">vnic1: flags=8843&lt;UP,BROADCAST,RUNNING,SIMPLEX,MULTICAST&gt; mtu 1500</span><br><span class="line">options=3&lt;RXCSUM,TXCSUM&gt;</span><br><span class="line">ether 00:1c:42:00:00:09</span><br><span class="line">inet 10.37.129.2 netmask 0xffffff00 broadcast 10.37.129.255</span><br><span class="line">media: autoselect</span><br><span class="line">status: active</span><br></pre></td></tr></table></figure><h2 id="启动">启动</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wg-qucik up wg0</span><br><span class="line">wg-quick down wg0</span><br></pre></td></tr></table></figure><h1>Archlinux Wireguard</h1><h2 id="问题">问题</h2><p>我后来尝试在manjaro上部署wireguard，但是wireguard告诉我，不支持我的内核，窝头。。。<br><img src="/p/55b99319/1.jpeg" alt="lALPD2eDJ_4-MKnNA-TNBCI_1058_996|531x500"></p><h3 id="解决方法">解决方法</h3><p>当我执行以下命令检查内核模块的时候,告诉我没有。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">modprobe wireguard &amp;&amp; lsmod | grep wireguard</span><br></pre></td></tr></table></figure><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">modprobe: FATAL: Module wireguard not found</span><br></pre></td></tr></table></figure><p>查看内核版本</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uanme -a</span><br></pre></td></tr></table></figure><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Linux lazy 5.3.18-1-MANJARO #1 SMP PREEMPT Wed Dec 18 18:34:35 UTC 2019 x86_64 GNU/Linux</span><br></pre></td></tr></table></figure><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install linux-headers</span><br></pre></td></tr></table></figure><p>他会提示一些内核版本，你需装符合你内核版本的linux-header即可<br><img src="/p/55b99319/2.png" alt="2020-02-28_23-52|650x270"><br>这次再去启动，就没有问题了<br><img src="/p/55b99319/3.jpeg" alt="lALPD2eDJ_4-MKrNA5fNBB0_1053_919|572x500"></p>]]></content>
-    
-    <summary type="html">
-    
-      wireguard远程办公其实还是蛮爽的，安装比较简单
-    
-    </summary>
-    
-    
-      <category term="Archlinux" scheme="https://hexchristmas.github.io/tags/Archlinux/"/>
-    
-      <category term="Debian" scheme="https://hexchristmas.github.io/tags/Debian/"/>
-    
-      <category term="wireguard" scheme="https://hexchristmas.github.io/tags/wireguard/"/>
     
   </entry>
   
