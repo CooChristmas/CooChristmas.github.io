@@ -85,14 +85,14 @@
 <meta property="og:site_name" content="HexChristmas&#39;s Blog">
 <meta property="og:description" content="危险的HTTP请求这个看似很简单，也的确很简单，但是我遇到的很多客户都会问有关这个的一些非常愚蠢的问题">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://hexchristmas.github.io/p/2.png">
-<meta property="og:image" content="https://hexchristmas.github.io/p/3.png">
-<meta property="og:image" content="https://hexchristmas.github.io/p/1.png">
+<meta property="og:image" content="https://hexchristmas.github.io/p/30625/2.png">
+<meta property="og:image" content="https://hexchristmas.github.io/p/30625/3.png">
+<meta property="og:image" content="https://hexchristmas.github.io/p/30625/1.png">
 <meta property="og:updated_time" content="2020-05-29T03:37:33.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="危险的HTTP请求OPTIONS">
 <meta name="twitter:description" content="危险的HTTP请求这个看似很简单，也的确很简单，但是我遇到的很多客户都会问有关这个的一些非常愚蠢的问题">
-<meta name="twitter:image" content="https://hexchristmas.github.io/p/2.png">
+<meta name="twitter:image" content="https://hexchristmas.github.io/p/30625/2.png">
 
 
 
@@ -325,13 +325,13 @@
 <p>它是基于HTTP1.1协议的通信协议，可用于处理Web服务器的文件,如果攻击者可以访问这些功能，那么这些方法就可以为攻击者攻击提供很好的途径，WebDav是HTTP Method统一的叫法，HTTP可以使用除GET和POST以外的其他办法比如：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">-PUT        /*将文件上传到指定位置*/</span><br><span class="line">-DELETE     /*删除指定的资源*/</span><br><span class="line">-COPY       /*将指定的文件复制到指定的位置*/</span><br><span class="line">-MOVE       /*将指定的文件移动到指定的位置*/</span><br><span class="line">-SEARCH     /*在目录路径中搜索资源*/  </span><br><span class="line">-PROPFIND   /*检索有关指定资源的信息*/</span><br></pre></td></tr></table></figure>
 <p>我们测试一下<br>
-<img src="//hexchristmas.github.io/p/2.png" alt><br>
+<img src="/p/30625/2.png" alt><br>
 可以看到实际上是允许使用一些十分危险的请求的<br>
 此时攻击者直接就会在服务器上传shell.<br>
 我们尝试PUT一个一句话，我们会看到201创建成功的状态码<br>
-<img src="//hexchristmas.github.io/p/3.png" alt><br>
+<img src="/p/30625/3.png" alt><br>
 我们可以直接上传反向shell<br>
-<img src="//hexchristmas.github.io/p/1.png" alt></p>
+<img src="/p/30625/1.png" alt></p>
 <h2 id="tips">tips</h2>
 <ol>
 <li>如果存在这个安全问题，可以尝试使用PUT上传shell</li>

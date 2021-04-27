@@ -85,21 +85,21 @@
 <meta property="og:site_name" content="HexChristmas&#39;s Blog">
 <meta property="og:description" content="CVE-2010-2883漏洞已经出来很久了，很多人已经分析复现过了，最近在搞pwn这块，准备把栈溢出弄一下，是adobereader中的一个0day，由于CoolType.dll中堆栈缓冲区溢出错误使攻击者通过pdf中的ttf字体在SING表中具有长字段PDF文档进行转换，当用户安全意识比较低的时候打开了具有恶意代码的pdf文件就有可能造成任意代码执行或拒绝服务。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://hexchristmas.github.io/p/3.png">
-<meta property="og:image" content="https://hexchristmas.github.io/p/4.png">
-<meta property="og:image" content="https://hexchristmas.github.io/p/5.png">
-<meta property="og:image" content="https://hexchristmas.github.io/p/6.png">
-<meta property="og:image" content="https://hexchristmas.github.io/p/7.png">
-<meta property="og:image" content="https://hexchristmas.github.io/p/8.png">
-<meta property="og:image" content="https://hexchristmas.github.io/p/9.png">
-<meta property="og:image" content="https://hexchristmas.github.io/p/10.png">
-<meta property="og:image" content="https://hexchristmas.github.io/p/11.png">
-<meta property="og:image" content="https://hexchristmas.github.io/p/12.png">
+<meta property="og:image" content="https://hexchristmas.github.io/p/8b44/3.png">
+<meta property="og:image" content="https://hexchristmas.github.io/p/8b44/4.png">
+<meta property="og:image" content="https://hexchristmas.github.io/p/8b44/5.png">
+<meta property="og:image" content="https://hexchristmas.github.io/p/8b44/6.png">
+<meta property="og:image" content="https://hexchristmas.github.io/p/8b44/7.png">
+<meta property="og:image" content="https://hexchristmas.github.io/p/8b44/8.png">
+<meta property="og:image" content="https://hexchristmas.github.io/p/8b44/9.png">
+<meta property="og:image" content="https://hexchristmas.github.io/p/8b44/10.png">
+<meta property="og:image" content="https://hexchristmas.github.io/p/8b44/11.png">
+<meta property="og:image" content="https://hexchristmas.github.io/p/8b44/12.png">
 <meta property="og:updated_time" content="2020-04-17T17:42:30.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CVE-2010-2883栈溢出漏洞分析及复现">
 <meta name="twitter:description" content="CVE-2010-2883漏洞已经出来很久了，很多人已经分析复现过了，最近在搞pwn这块，准备把栈溢出弄一下，是adobereader中的一个0day，由于CoolType.dll中堆栈缓冲区溢出错误使攻击者通过pdf中的ttf字体在SING表中具有长字段PDF文档进行转换，当用户安全意识比较低的时候打开了具有恶意代码的pdf文件就有可能造成任意代码执行或拒绝服务。">
-<meta name="twitter:image" content="https://hexchristmas.github.io/p/3.png">
+<meta name="twitter:image" content="https://hexchristmas.github.io/p/8b44/3.png">
 
 
 
@@ -361,24 +361,24 @@
 </table>
 <h2 id="0x04-漏洞分析">0x04 漏洞分析</h2>
 <h3 id="CoolType-dll，定位到出现漏洞的位置">CoolType.dll，定位到出现漏洞的位置</h3>
-<p><img src="//hexchristmas.github.io/p/3.png" alt></p>
+<p><img src="/p/8b44/3.png" alt></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line">.text:0803DBF2                 push    ebp</span><br><span class="line">.text:0803DBF3                 sub     esp, 104h       ; 分配空间</span><br><span class="line">.text:0803DBF9                 lea     ebp, [esp-4]    ; strcat将执行结果保存在ebp中</span><br><span class="line">.text:0803DBFD                 mov     eax, ___security_cookie</span><br><span class="line">.text:0803DC02                 xor     eax, ebp</span><br><span class="line">.text:0803DC04                 mov     [ebp+108h+var_4], eax</span><br><span class="line">.text:0803DC0A                 push    4Ch</span><br><span class="line">.text:0803DC0C                 mov     eax, offset loc_81847C4</span><br><span class="line">.text:0803DC11                 call    __EH_prolog3_catch</span><br><span class="line">.text:0803DC16                 mov     eax, [ebp+108h+arg_C]</span><br><span class="line">.text:0803DC1C                 mov     edi, [ebp+108h+arg_0]</span><br><span class="line">.text:0803DC22                 mov     ebx, [ebp+108h+arg_4]</span><br><span class="line">.text:0803DC28                 mov     [ebp+108h+var_130], edi</span><br><span class="line">.text:0803DC2B                 mov     [ebp+108h+var_138], eax</span><br><span class="line">.text:0803DC2E                 call    sub_8041626</span><br><span class="line">.text:0803DC33                 xor     esi, esi</span><br><span class="line">.text:0803DC35                 cmp     dword ptr [edi+8], 3</span><br><span class="line">.text:0803DC39 ;   try &#123;</span><br><span class="line">.text:0803DC39                 mov     [ebp+108h+var_10C], esi</span><br><span class="line">.text:0803DC3C                 jz      loc_803DDF9</span><br><span class="line">.text:0803DC42                 mov     [ebp+108h+var_124], esi</span><br><span class="line">.text:0803DC45                 mov     [ebp+108h+var_120], esi</span><br><span class="line">.text:0803DC48                 cmp     dword ptr [edi+0Ch], 1</span><br><span class="line">.text:0803DC48 ;   &#125; // starts at 803DC39</span><br><span class="line">.text:0803DC4C ;   try &#123;</span><br><span class="line">.text:0803DC4C                 mov     byte ptr [ebp+108h+var_10C], 1</span><br><span class="line">.text:0803DC50                 jnz     loc_803DDA2</span><br><span class="line">.text:0803DC56                 push    offset aName    ; &quot;name&quot;</span><br><span class="line">.text:0803DC5B                 push    edi             ; int</span><br><span class="line">.text:0803DC5C                 lea     ecx, [ebp+108h+var_124]</span><br><span class="line">.text:0803DC5F                 mov     [ebp+108h+var_119], 0</span><br><span class="line">.text:0803DC63                 call    sub_802178F</span><br><span class="line">.text:0803DC68                 cmp     [ebp+108h+var_124], esi</span><br><span class="line">.text:0803DC6B                 jnz     short loc_803DCD6</span><br><span class="line">.text:0803DC6D                 push    offset aSing    ; &quot;SING&quot;</span><br><span class="line">.text:0803DC72                 push    edi             ; int</span><br><span class="line">.text:0803DC73                 lea     ecx, [ebp+108h+var_12C] ; 指向虚表的指针</span><br><span class="line">.text:0803DC76                 call    sub_8021ABE     ; 处理sing表</span><br><span class="line">.text:0803DC7B                 mov     eax, [ebp+108h+var_12C]</span><br><span class="line">.text:0803DC7E                 cmp     eax, esi        ; 判断是否为空</span><br><span class="line">.text:0803DC7E ;   &#125; // starts at 803DC4C</span><br><span class="line">.text:0803DC80 ;   try &#123;</span><br><span class="line">.text:0803DC80                 mov     byte ptr [ebp+108h+var_10C], 2</span><br><span class="line">.text:0803DC84                 jz      short loc_803DCBD ; 不跳转</span><br><span class="line">.text:0803DC86                 mov     ecx, [eax]      ; 版本号</span><br><span class="line">.text:0803DC88                 and     ecx, 0FFFFh</span><br><span class="line">.text:0803DC8E                 jz      short loc_803DC98 ; 跳转</span><br><span class="line">.text:0803DC90                 cmp     ecx, 100h</span><br><span class="line">.text:0803DC96                 jnz     short loc_803DCB9</span><br><span class="line">.text:0803DC98</span><br><span class="line">.text:0803DC98 loc_803DC98:                            ; CODE XREF: sub_803DBF2+9C↑j</span><br><span class="line">.text:0803DC98                 add     eax, 10h        ; 寻找uniqueName，相对sing表入口偏移0x10</span><br><span class="line">.text:0803DC9B                 push    eax             ; char *</span><br><span class="line">.text:0803DC9C                 lea     eax, [ebp+108h+var_108] ; 目的地址是一段固定大小的栈空间，就是前面申请的空间</span><br><span class="line">.text:0803DC9F                 push    eax             ; char *</span><br><span class="line">.text:0803DCA0                 mov     [ebp+108h+var_108], 0 </span><br><span class="line">.text:0803DCA4                 call    strcat ;造成溢出</span><br></pre></td></tr></table></figure>
 <h3 id="PdfStreamDumper分析pdf样本">PdfStreamDumper分析pdf样本</h3>
-<p><img src="//hexchristmas.github.io/p/4.png" alt><br>
+<p><img src="/p/8b44/4.png" alt><br>
 我们可以看到sing数据是0x11C开始的,sing数据长度是0x1DDF，sing从真实数据偏移0x10为uniqueName域,入口偏移0x11c为sing表的真实数据，也就是从00 00 01 00开始的部分偏移0x10就能找到uniqueName域(uniqueName域是个28字节大小的结构)，执行strcat后，会将58 E0 8D AD起始的复制到ebp指定的地址中，直到遇到NULL字符串终止符，也就是strcat进行字符串拼接时没有进行长度判断，导致栈溢出</p>
 <h3 id="010edit确定偏移位">010edit确定偏移位</h3>
-<p><img src="//hexchristmas.github.io/p/5.png" alt><br>
+<p><img src="/p/8b44/5.png" alt><br>
 在线offset 11ch发现<br>
-<img src="//hexchristmas.github.io/p/6.png" alt><br>
+<img src="/p/8b44/6.png" alt><br>
 从0x10开始偏移，字段是uniqueName，大小为28字节，以x00结尾<br>
-<img src="//hexchristmas.github.io/p/7.png" alt></p>
+<img src="/p/8b44/7.png" alt></p>
 <h2 id="od动态调试">od动态调试</h2>
 <p>先打开adobe reader,再打开od,attach到adobe reader进程上，f9运行，由于我们刚刚分析到sing地址在0803DC6D被引用，所以在0803DC6D下断点<br>
-<img src="//hexchristmas.github.io/p/8.png" alt><br>
+<img src="/p/8b44/8.png" alt><br>
 将带有恶意程序到样本用reader打开，程序就会停在断点上面<br>
-<img src="//hexchristmas.github.io/p/9.png" alt><br>
+<img src="/p/8b44/9.png" alt><br>
 我们可以看到ecx是指向0012EB00，到数据窗口查询指针存放到数据<br>
-<img src="//hexchristmas.github.io/p/10.png" alt></p>
+<img src="/p/8b44/10.png" alt></p>
 <table>
 <thead>
 <tr>
@@ -417,8 +417,8 @@
 </table>
 <p>我们可以看到在ttf字体文件中，从0字节偏移的位置有一个表目录，这个表目录第一个字段命是sfnt version，用来声明ttf格式版本的，我们看描述可以知道1.0版本的ttf字体文件是以0x00010000来表示版本的，075E3B70处的数数据正好是0x00010000，那么我们就可以判断ecx中保存的是sing的版本好<br>
 调用call指令，实际上这个call实际上是处理sing的表，单步，单步<br>
-<img src="//hexchristmas.github.io/p/11.png" alt><br>
-<img src="//hexchristmas.github.io/p/12.png" alt></p>
+<img src="/p/8b44/11.png" alt><br>
+<img src="/p/8b44/12.png" alt></p>
 
       
     </div>

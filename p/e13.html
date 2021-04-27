@@ -85,20 +85,20 @@
 <meta property="og:site_name" content="HexChristmas&#39;s Blog">
 <meta property="og:description" content="记录自己折腾archlinux的一些操作，我尽量能把我踩的坑都回忆起来，因为有一段时间没有折腾了，也许以后也不会折腾了，专注于安全研究。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://hexchristmas.github.io/p/11.png">
-<meta property="og:image" content="https://hexchristmas.github.io/p/1.png">
-<meta property="og:image" content="https://hexchristmas.github.io/p/10.png">
-<meta property="og:image" content="https://hexchristmas.github.io/p/7.gif">
-<meta property="og:image" content="https://hexchristmas.github.io/p/4.gif">
-<meta property="og:image" content="https://hexchristmas.github.io/p/5.gif">
-<meta property="og:image" content="https://hexchristmas.github.io/p/6.gif">
-<meta property="og:image" content="https://hexchristmas.github.io/p/8.gif">
-<meta property="og:image" content="https://hexchristmas.github.io/p/9.gif">
+<meta property="og:image" content="https://hexchristmas.github.io/p/e13/11.png">
+<meta property="og:image" content="https://hexchristmas.github.io/p/e13/1.png">
+<meta property="og:image" content="https://hexchristmas.github.io/p/e13/10.png">
+<meta property="og:image" content="https://hexchristmas.github.io/p/e13/7.gif">
+<meta property="og:image" content="https://hexchristmas.github.io/p/e13/4.gif">
+<meta property="og:image" content="https://hexchristmas.github.io/p/e13/5.gif">
+<meta property="og:image" content="https://hexchristmas.github.io/p/e13/6.gif">
+<meta property="og:image" content="https://hexchristmas.github.io/p/e13/8.gif">
+<meta property="og:image" content="https://hexchristmas.github.io/p/e13/9.gif">
 <meta property="og:updated_time" content="2020-06-10T01:15:08.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="archlinux安装">
 <meta name="twitter:description" content="记录自己折腾archlinux的一些操作，我尽量能把我踩的坑都回忆起来，因为有一段时间没有折腾了，也许以后也不会折腾了，专注于安全研究。">
-<meta name="twitter:image" content="https://hexchristmas.github.io/p/11.png">
+<meta name="twitter:image" content="https://hexchristmas.github.io/p/e13/11.png">
 
 
 
@@ -323,19 +323,19 @@
 
       
         <h1>archlinux安装</h1>
-<p><img src="//hexchristmas.github.io/p/11.png" alt></p>
+<p><img src="/p/e13/11.png" alt></p>
 <h2 id="emmm-about-install">emmm_about_install</h2>
 <blockquote>
 <p>archlinux安装区别于debian、ubuntu、centos，如果你有折腾过以上linux发行版的经验的这篇文章可能对于你比较简单，arch没有一键图形化的安装，从网络，分区，引导，到桌面都需要你自己去装，而且archlinux它是一个对于debian用户来说新的包管理器pacman，pacman要比你想象终端包管理器强大但多，arch的wiki应该是世界上最好的<strong>linux知识库</strong>，当然这种说法并不准确，但我确实认为它是最好的wiki</p>
 </blockquote>
 <p>在准备开始前，建议你制作一个WinPE方便你恢复系统，由于你可能并不是十分熟练物理机安装arch，所以最后选择一整块没有数据的硬盘，避免你操作意外，在执行命令的时候一定要小心，仔细，当然如果你熟练linux，你也可以准备一块Linux live，我尽量能把我踩的坑都回忆起来，因为有一段时间没有折腾了，也许以后也不会折腾了。</p>
 <h2 id="ArchLinux">ArchLinux</h2>
-<p><img src="//hexchristmas.github.io/p/1.png" alt></p>
+<p><img src="/p/e13/1.png" alt></p>
 <h2 id="网络">网络</h2>
 <p>建议使用有线，先插网线在开机，就不用使用wifi-menu这个东西了，这个东西实话讲我一直也没弄明白，你插上网线在ping，就能看到网络通了</p>
 <h4 id="编辑pacman的源">编辑pacman的源</h4>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/pacman.d/mirrorlist</span><br></pre></td></tr></table></figure>
-<p><img src="//hexchristmas.github.io/p/10.png" alt><br>
+<p><img src="/p/e13/10.png" alt><br>
 将China的源移到到最前</p>
 <h2 id="分区">分区</h2>
 <p>对于分区，老生常谈的问题了，笔者刚开始折腾的时候也是各种踩坑，踩来踩去才把分区理解的差不多，如果你们对于分区划分，每个分区划多大合适可以看一下我写个</p>
@@ -363,27 +363,27 @@
 <p>知道大家可能都是第一次折腾，怕出错，我可能尽量的写详细，写的通俗易懂一些。</p>
 <h3 id="找到要装arch的磁盘名称">找到要装arch的磁盘名称</h3>
 <p>因为我就一块硬盘<br>
-<img src="//hexchristmas.github.io/p/7.gif" alt></p>
+<img src="/p/e13/7.gif" alt></p>
 <h3 id="各种分区工具">各种分区工具</h3>
 <p>磁盘分区工具挺多的，比如说<strong>cfdisk,parted,fdisk</strong></p>
 <blockquote>
 <p>cfdisk 完全是图形化操作。比较简单，这里我其实是把swap划分出来了，是为了大家能看懂</p>
 </blockquote>
 <h4 id="EFI">EFI</h4>
-<p><img src="//hexchristmas.github.io/p/4.gif" alt></p>
+<p><img src="/p/e13/4.gif" alt></p>
 <h4 id="swap">swap</h4>
-<p><img src="//hexchristmas.github.io/p/5.gif" alt></p>
+<p><img src="/p/e13/5.gif" alt></p>
 <h4 id>/</h4>
-<p><img src="//hexchristmas.github.io/p/6.gif" alt></p>
+<p><img src="/p/e13/6.gif" alt></p>
 <blockquote>
 <p>parted 这个有点难了，不过熟能生巧，刚开始操作你可能看不懂，理解一下就差不多，这里一样也是把swap给大家划分出来</p>
 </blockquote>
 <h4 id="EFI，swap，">EFI，swap，/</h4>
-<p><img src="//hexchristmas.github.io/p/8.gif" alt></p>
+<p><img src="/p/e13/8.gif" alt></p>
 <blockquote>
 <p>fdisk 这个工具也是一样不简单，不过也一样熟能生巧，+1G，就是在2048基础上加上1G，它是一段一段的，可以去百度了解一下</p>
 </blockquote>
-<p><img src="//hexchristmas.github.io/p/9.gif" alt></p>
+<p><img src="/p/e13/9.gif" alt></p>
 <h2 id="挂载分区">挂载分区</h2>
 <p>挂载**/<strong>分区到</strong>/mnt**</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mount /dev/sda3 /mnt</span><br></pre></td></tr></table></figure>

@@ -85,14 +85,14 @@
 <meta property="og:site_name" content="HexChristmas&#39;s Blog">
 <meta property="og:description" content="wireguard远程办公其实还是蛮爽的，安装比较简单">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://hexchristmas.github.io/p/1.jpeg">
-<meta property="og:image" content="https://hexchristmas.github.io/p/2.png">
-<meta property="og:image" content="https://hexchristmas.github.io/p/3.jpeg">
+<meta property="og:image" content="https://hexchristmas.github.io/p/55b99319/1.jpeg">
+<meta property="og:image" content="https://hexchristmas.github.io/p/55b99319/2.png">
+<meta property="og:image" content="https://hexchristmas.github.io/p/55b99319/3.jpeg">
 <meta property="og:updated_time" content="2020-04-09T11:10:57.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Debian&amp;Archlinux部署Wireguard">
 <meta name="twitter:description" content="wireguard远程办公其实还是蛮爽的，安装比较简单">
-<meta name="twitter:image" content="https://hexchristmas.github.io/p/1.jpeg">
+<meta name="twitter:image" content="https://hexchristmas.github.io/p/55b99319/1.jpeg">
 
 
 
@@ -331,7 +331,7 @@
 <h1>Archlinux Wireguard</h1>
 <h2 id="问题">问题</h2>
 <p>我后来尝试在manjaro上部署wireguard，但是wireguard告诉我，不支持我的内核，窝头。。。<br>
-<img src="//hexchristmas.github.io/p/1.jpeg" alt="lALPD2eDJ_4-MKnNA-TNBCI_1058_996|531x500"></p>
+<img src="/p/55b99319/1.jpeg" alt="lALPD2eDJ_4-MKnNA-TNBCI_1058_996|531x500"></p>
 <h3 id="解决方法">解决方法</h3>
 <p>当我执行以下命令检查内核模块的时候,告诉我没有。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">modprobe wireguard &amp;&amp; lsmod | grep wireguard</span><br></pre></td></tr></table></figure>
@@ -341,9 +341,9 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Linux lazy 5.3.18-1-MANJARO #1 SMP PREEMPT Wed Dec 18 18:34:35 UTC 2019 x86_64 GNU/Linux</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install linux-headers</span><br></pre></td></tr></table></figure>
 <p>他会提示一些内核版本，你需装符合你内核版本的linux-header即可<br>
-<img src="//hexchristmas.github.io/p/2.png" alt="2020-02-28_23-52|650x270"><br>
+<img src="/p/55b99319/2.png" alt="2020-02-28_23-52|650x270"><br>
 这次再去启动，就没有问题了<br>
-<img src="//hexchristmas.github.io/p/3.jpeg" alt="lALPD2eDJ_4-MKrNA5fNBB0_1053_919|572x500"></p>
+<img src="/p/55b99319/3.jpeg" alt="lALPD2eDJ_4-MKrNA5fNBB0_1053_919|572x500"></p>
 
       
     </div>
