@@ -85,14 +85,14 @@
 <meta property="og:site_name" content="HexChristmas&#39;s Blog">
 <meta property="og:description" content="最近在写go的项目，git上有现成的轮子，拿来二次开发一下,在它基础上在造就行，没想到go 1.15.6弃用了X.509证书。。。。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://hexchristmas.github.io/p/b374.htm/1.png">
-<meta property="og:image" content="https://hexchristmas.github.io/p/b374.htm/2.png">
-<meta property="og:image" content="https://hexchristmas.github.io/p/b374.htm/3.png">
+<meta property="og:image" content="https://hexchristmas.github.io/p/1.png">
+<meta property="og:image" content="https://hexchristmas.github.io/p/2.png">
+<meta property="og:image" content="https://hexchristmas.github.io/p/3.png">
 <meta property="og:updated_time" content="2020-12-09T08:58:17.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="关于go+自建gitlab因证书问题无法go mod问题">
 <meta name="twitter:description" content="最近在写go的项目，git上有现成的轮子，拿来二次开发一下,在它基础上在造就行，没想到go 1.15.6弃用了X.509证书。。。。">
-<meta name="twitter:image" content="https://hexchristmas.github.io/p/b374.htm/1.png">
+<meta name="twitter:image" content="https://hexchristmas.github.io/p/1.png">
 
 
 
@@ -325,11 +325,11 @@
 </blockquote>
 <h3 id="0x01-detail">0x01 detail</h3>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">x509: certificate relies on legacy Common Name field, use SANs or temporarily <span class="built_in">enable</span> Common Name matching with GODEBUG=x509ignoreCN=0</span><br></pre></td></tr></table></figure>
-<p><img src="/p/b374.htm/1.png" alt></p>
+<p><img src="//hexchristmas.github.io/p/1.png" alt></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">x509: certificate signed by unknown authority)</span><br></pre></td></tr></table></figure>
-<p><img src="/p/b374.htm/2.png" alt></p>
+<p><img src="//hexchristmas.github.io/p/2.png" alt></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SSL certificate problem: unable to get <span class="built_in">local</span> issuer certificate</span><br></pre></td></tr></table></figure>
-<p><img src="/p/b374.htm/3.png" alt></p>
+<p><img src="//hexchristmas.github.io/p/3.png" alt></p>
 <h3 id="0x02-solve">0x02 solve</h3>
 <p>想解决这个问题，有两种方法，一种是直接把轮子嵌套进去，另一种就是解决证书问题，好在<code>gitlab</code>咱们自己可以维护，前者工作量太大了， 我们只能硬着头皮解决证书问题。</p>
 <ul>
