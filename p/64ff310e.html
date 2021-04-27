@@ -85,14 +85,14 @@
 <meta property="og:site_name" content="HexChristmas&#39;s Blog">
 <meta property="og:description" content="linux下chrome&amp;chromium代理的方式">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://hexchristmas.github.io/p/e1.jpeg">
-<meta property="og:image" content="https://hexchristmas.github.io/linux%E4%B8%8Bchrome-chromium%E4%BB%A3%E7%90%86%E7%9A%84%E6%96%B9%E5%BC%8F/e2.png">
-<meta property="og:image" content="https://hexchristmas.github.io/p/e3.png">
+<meta property="og:image" content="https://hexchristmas.github.io/p/64ff310e.htm/e1.jpeg">
+<meta property="og:image" content="https://hexchristmas.github.io/p/64ff310e.htm/e2.png">
+<meta property="og:image" content="https://hexchristmas.github.io/p/64ff310e.htm/e3.png">
 <meta property="og:updated_time" content="2020-04-09T11:10:57.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="linux下chrome&amp;chromium代理的方式">
 <meta name="twitter:description" content="linux下chrome&amp;chromium代理的方式">
-<meta name="twitter:image" content="https://hexchristmas.github.io/p/e1.jpeg">
+<meta name="twitter:image" content="https://hexchristmas.github.io/p/64ff310e.htm/e1.jpeg">
 
 
 
@@ -325,7 +325,7 @@
 通过</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">man chromium</span><br></pre></td></tr></table></figure>
 <p>我们在很显眼的地方还到proxy-server神马神马<br>
-<img src="//hexchristmas.github.io/p/e1.jpeg" alt="2019-08-04-165826_1920x2160_scrot|444x500"><br>
+<img src="/p/64ff310e.htm/e1.jpeg" alt="2019-08-04-165826_1920x2160_scrot|444x500"><br>
 主要看上边那个图，下边的是我另一块屏幕，这都不重要对吧，<br>
 能看懂的人自然知道咋弄，其实不懂的也可以直接百度翻译对吧，<a href="http://translate.baidu.com" target="_blank" rel="noopener">translate.baidu.com</a> 貌似是这么写，进不去去百度一下把，我也不知道写的对不对，<br>
 不懂的我直接贴出神仙的命令，看好，只写一遍</p>
@@ -336,10 +336,10 @@
 <hr>
 <h2 id="补充一下">补充一下</h2>
 <p>最近发现，原来直接chromium —proxy-server=&quot;socks5://127.0.0.1:1080&quot;会出现这个问题<br>
-<img src="/linux%E4%B8%8Bchrome-chromium%E4%BB%A3%E7%90%86%E7%9A%84%E6%96%B9%E5%BC%8F/e2.png" alt="image|683x500"><br>
+<img src="/p/64ff310e.htm/e2.png" alt="image|683x500"><br>
 通过不断调试发现可以通过加-no-sandbox来实现，命令如下</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">google-chrome-stable --proxy-server=&quot;socks5://127.0.0.1:1080&quot; --no-sandbox</span><br></pre></td></tr></table></figure>
-<p><img src="//hexchristmas.github.io/p/e3.png" alt="image"></p>
+<p><img src="/p/64ff310e.htm/e3.png" alt="image"></p>
 
       
     </div>

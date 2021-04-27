@@ -85,21 +85,21 @@
 <meta property="og:site_name" content="HexChristmas&#39;s Blog">
 <meta property="og:description" content="每个细节都是红队不可缺少的，虽然小但在一些时候也是一把利剑">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://hexchristmas.github.io/p/9.png">
-<meta property="og:image" content="https://hexchristmas.github.io/p/10.png">
-<meta property="og:image" content="https://hexchristmas.github.io/p/1.png">
-<meta property="og:image" content="https://hexchristmas.github.io/p/2.png">
-<meta property="og:image" content="https://hexchristmas.github.io/p/3.png">
-<meta property="og:image" content="https://hexchristmas.github.io/p/4.png">
-<meta property="og:image" content="https://hexchristmas.github.io/p/5.png">
-<meta property="og:image" content="https://hexchristmas.github.io/p/6.png">
-<meta property="og:image" content="https://hexchristmas.github.io/p/7.png">
-<meta property="og:image" content="https://hexchristmas.github.io/p/8.png">
+<meta property="og:image" content="https://hexchristmas.github.io/p/80bb.htm/9.png">
+<meta property="og:image" content="https://hexchristmas.github.io/p/80bb.htm/10.png">
+<meta property="og:image" content="https://hexchristmas.github.io/p/80bb.htm/1.png">
+<meta property="og:image" content="https://hexchristmas.github.io/p/80bb.htm/2.png">
+<meta property="og:image" content="https://hexchristmas.github.io/p/80bb.htm/3.png">
+<meta property="og:image" content="https://hexchristmas.github.io/p/80bb.htm/4.png">
+<meta property="og:image" content="https://hexchristmas.github.io/p/80bb.htm/5.png">
+<meta property="og:image" content="https://hexchristmas.github.io/p/80bb.htm/6.png">
+<meta property="og:image" content="https://hexchristmas.github.io/p/80bb.htm/7.png">
+<meta property="og:image" content="https://hexchristmas.github.io/p/80bb.htm/8.png">
 <meta property="og:updated_time" content="2020-07-24T07:15:41.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="权限维持-windows账户隐藏">
 <meta name="twitter:description" content="每个细节都是红队不可缺少的，虽然小但在一些时候也是一把利剑">
-<meta name="twitter:image" content="https://hexchristmas.github.io/p/9.png">
+<meta name="twitter:image" content="https://hexchristmas.github.io/p/80bb.htm/9.png">
 
 
 
@@ -327,34 +327,34 @@
 <h2 id="对注册表赋予权限">对注册表赋予权限</h2>
 <p>默认情况下，只有system权限才可以对<code>HKEY_LOCAL_MACHINE\SAM\SAM\</code>进行修改<br>
 我们将<code>Administrator</code>用户完全控制以及读取勾成允许<br>
-<img src="//hexchristmas.github.io/p/9.png" alt><br>
+<img src="/p/80bb.htm/9.png" alt><br>
 然后查看——&gt;刷新，<br>
-<img src="//hexchristmas.github.io/p/10.png" alt></p>
+<img src="/p/80bb.htm/10.png" alt></p>
 <h2 id="新建隐藏账户">新建隐藏账户</h2>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">net user test$ test123 /add</span><br><span class="line">net localgroup administrator test$ /add</span><br></pre></td></tr></table></figure>
-<p><img src="//hexchristmas.github.io/p/1.png" alt><br>
+<p><img src="/p/80bb.htm/1.png" alt><br>
 但此时我们在控制面板的账户管理是可以看到这个隐藏账户的<br>
-<img src="//hexchristmas.github.io/p/2.png" alt></p>
+<img src="/p/80bb.htm/2.png" alt></p>
 <h2 id="导出注册表">导出注册表</h2>
 <p>找到用户名的注册表</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">HKEY_LOCAL_MACHINE\SAM\SAM\Domains\Account\Users\Names</span><br></pre></td></tr></table></figure>
 <p>我们找到test用户的注册表将它导出为<code>aaa.reg</code><br>
-<img src="//hexchristmas.github.io/p/3.png" alt><br>
+<img src="/p/80bb.htm/3.png" alt><br>
 然后我们在找到用户名为test默认类型为<code>0x3F0</code>的注册表将它导出为<code>bbb.reg</code></p>
 <p>然后我们导出<code>Administrator</code>的注册表，默认他的默认类型是<code>0x1F4</code>,然后我们用记事本打开<code>bbb.reg</code>和<code>ccc.reg</code><br>
-<img src="//hexchristmas.github.io/p/4.png" alt><br>
+<img src="/p/80bb.htm/4.png" alt><br>
 我们发现F值有所不同，那么我们其实就是这一点进行账户隐藏，我们将<code>ccc.reg</code>中的F值替换到<code>bbb.reg</code>的F值那块，</p>
 <h2 id="删除创建的用户">删除创建的用户</h2>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net user test$ /del</span><br></pre></td></tr></table></figure>
-<p><img src="//hexchristmas.github.io/p/5.png" alt></p>
+<p><img src="/p/80bb.htm/5.png" alt></p>
 <h2 id="导入注册表">导入注册表</h2>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">regedit /s aaa.reg</span><br><span class="line">regedit /s bbb.reg</span><br></pre></td></tr></table></figure>
-<p><img src="//hexchristmas.github.io/p/6.png" alt><br>
+<p><img src="/p/80bb.htm/6.png" alt><br>
 然后我们使用<code>net user</code>查看用户<br>
-<img src="//hexchristmas.github.io/p/7.png" alt><br>
+<img src="/p/80bb.htm/7.png" alt><br>
 我们发现是看不见的，但是</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net user test$</span><br></pre></td></tr></table></figure>
-<p><img src="//hexchristmas.github.io/p/8.png" alt><br>
+<p><img src="/p/80bb.htm/8.png" alt><br>
 我们发现还是可以看到的</p>
 
       

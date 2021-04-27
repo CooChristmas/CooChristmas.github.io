@@ -85,14 +85,14 @@
 <meta property="og:site_name" content="HexChristmas&#39;s Blog">
 <meta property="og:description" content="记录学习web安全各种漏洞的原理，利用，危害，修复方式，本来想单个帖子写的，想了想还是放到一起吧">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://hexchristmas.github.io/p/1.png">
-<meta property="og:image" content="https://hexchristmas.github.io/p/2.png">
-<meta property="og:image" content="https://hexchristmas.github.io/p/3.png">
+<meta property="og:image" content="https://hexchristmas.github.io/p/224c.htm/1.png">
+<meta property="og:image" content="https://hexchristmas.github.io/p/224c.htm/2.png">
+<meta property="og:image" content="https://hexchristmas.github.io/p/224c.htm/3.png">
 <meta property="og:updated_time" content="2020-06-28T19:05:24.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="关于web安全...">
 <meta name="twitter:description" content="记录学习web安全各种漏洞的原理，利用，危害，修复方式，本来想单个帖子写的，想了想还是放到一起吧">
-<meta name="twitter:image" content="https://hexchristmas.github.io/p/1.png">
+<meta name="twitter:image" content="https://hexchristmas.github.io/p/224c.htm/1.png">
 
 
 
@@ -335,13 +335,13 @@
 <p>不通源的客户端在没有授权的情况下，是不能读写对方资源的，如果两个页面的协议，端口和域名相同，则可认为是同源。</p>
 <h5 id="如何利用">如何利用</h5>
 <p>我们以dvwa中csrf作为演示,我们更改完密码在请求中发现，以明文形式暴露了我们修改的密码<br>
-<img src="//hexchristmas.github.io/p/1.png" alt><br>
+<img src="/p/224c.htm/1.png" alt><br>
 我们构造一个简单html</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span></span></span><br><span class="line">&lt;img</span><br><span class="line">src="http://10.211.55.11/vulnerabilities/csrf/?password_new=aaa&amp;password_conf=aaa&amp;Change=Change#"&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>404 <span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h2</span>&gt;</span>file not found<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>我们模拟受害者点击恶意链接<br>
-<img src="//hexchristmas.github.io/p/2.png" alt><br>
+<img src="/p/224c.htm/2.png" alt><br>
 那么，此时受害者在尝试eee去登陆，就会发现登陆不上了<br>
-<img src="//hexchristmas.github.io/p/3.png" alt></p>
+<img src="/p/224c.htm/3.png" alt></p>
 <h5 id="如何修复">如何修复</h5>
 <ol>
 <li>通过token或者session来判断当前用户身份</li>
