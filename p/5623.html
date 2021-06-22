@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/57.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/32.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/16.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/57.ico?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="analysis,go,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="HexChristmas's Blog" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="keywords" content="analysis,go">
+<meta property="og:type" content="article">
+<meta property="og:title" content="go样本加载过程分析">
+<meta property="og:url" content="https://hexchristmas.github.io/p/5623.html">
+<meta property="og:site_name" content="HexChristmas&#39;s Blog">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://hexchristmas.github.io/p/5623/1.jpeg">
+<meta property="og:image" content="https://hexchristmas.github.io/p/5623/2.png">
+<meta property="og:image" content="https://hexchristmas.github.io/p/5623/3.png">
+<meta property="og:image" content="https://hexchristmas.github.io/p/5623/go%E6%A0%B7%E6%9C%AC%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B%E5%88%86%E6%9E%908.png">
+<meta property="og:image" content="https://hexchristmas.github.io/p/5623/go%E6%A0%B7%E6%9C%AC%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B%E5%88%86%E6%9E%904.png">
+<meta property="og:image" content="https://hexchristmas.github.io/p/5623/go%E6%A0%B7%E6%9C%AC%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B%E5%88%86%E6%9E%905.png">
+<meta property="og:image" content="https://hexchristmas.github.io/p/5623/go%E6%A0%B7%E6%9C%AC%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B%E5%88%86%E6%9E%906.png">
+<meta property="og:image" content="https://hexchristmas.github.io/p/5623/go%E6%A0%B7%E6%9C%AC%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B%E5%88%86%E6%9E%907.png">
+<meta property="og:updated_time" content="2021-06-22T09:26:42.982Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="go样本加载过程分析">
+<meta name="twitter:image" content="https://hexchristmas.github.io/p/5623/1.jpeg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://hexchristmas.github.io/p/5623.html">
+
+
+
+
+
+  <title>go样本加载过程分析 | HexChristmas's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+<a href="https://github.com/HexChristmas" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">HexChristmas's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hexchristmas.github.io/p/5623.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Hex Christmas">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="HexChristmas's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">go样本加载过程分析</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-06-22T09:23:58+00:00">
+                2021-06-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+              <div class="post-description">
+                  true
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1>go样本加载过程分析</h1>
+<h2 id="descriptions">descriptions</h2>
+<p>在某一次投稿时候，审核的大佬发现我分析的偏了(其实就是菜)，分析了很多的库函数，还犯了些很有意思的错误，既然分析偏了，那就把go的加载过程好好研究一番，弄明白了，本篇文章只是站在样本分析的角度去看go的加载，更加的详细的直接看底部的引用链接。</p>
+<h2 id="加载符号表">加载符号表</h2>
+<p>当我们将样本投入<code>exeinfo</code>或者<code>die</code>查壳发现是go的样本，然后在投入<code>ida</code>分析的时候，我们发现<code>ida</code>没有识别函数符号，都是<code>sub_xxxxxx</code>这样的函数，此时我们是没有办法分析的，我们需要加载go的符号表</p>
+<hr>
+<h2 id="项目地址">项目地址</h2>
+<p><a href="https://github.com/sibears/IDAGolangHelper" target="_blank" rel="noopener">https://github.com/sibears/IDAGolangHelper</a></p>
+<h3 id="使用以及安装方法">使用以及安装方法</h3>
+<p><code>git clone</code>之后，将<code>GO_Utils</code>和<code>go_entry.py</code>移动到<code>ida</code>的<code>python</code>内<br>
+然后重启<code>ida</code>，<code>File——&gt;Script Command</code>，载入插件<br>
+<img src="/p/5623/1.jpeg" alt="image|690x255"></p>
+<p>然后点击<code>run</code></p>
+<p><img src="/p/5623/2.png" alt="image|609x500"></p>
+<p>看以上图片 ，第一步第二步是检测样本go版本，检测结果会输出到<code>OUTPUT Windows</code></p>
+<p><img src="/p/5623/3.png" alt="image|690x422"><br>
+基本就识别出来了，<code>function names</code>对应的函数名也会相应的显示出来<br>
+类似的项目还有</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">https://github.com/strazzere/golang_loader_assist</span><br><span class="line"></span><br><span class="line">https://github.com/0xjiayu/go_parser</span><br></pre></td></tr></table></figure>
+<h2 id="Go程序是怎么运行起来的">Go程序是怎么运行起来的</h2>
+<p>当我们开始之前，我们先看一个图<br>
+<img src="/p/5623/go%E6%A0%B7%E6%9C%AC%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B%E5%88%86%E6%9E%908.png" alt><br>
+因为golang最关键的就是<code>runtime</code>，有点类似<code>java</code>的虚拟机，不过<code>runtime</code>不是虚拟机，把它理解成标准库更贴切，这张图目的就是让我们更好的了解，当样本被执行的时候，究竟都发生了什么，有一个整体分析的思路<br>
+我们这里通过一个小的样本来说明，当我们直接把样本投入到<code>IDA</code>进行调试<br>
+<img src="/p/5623/go%E6%A0%B7%E6%9C%AC%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B%E5%88%86%E6%9E%904.png" alt></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.text:0000000000465CC0 ; [00000005 BYTES: COLLAPSED FUNCTION _rt0_amd64_windows. PRESS CTRL-NUMPAD+ TO EXPAN</span><br></pre></td></tr></table></figure>
+<p>直接停在了<code>_rt0_amd64_windows</code>，那为什么会停在这个函数？<br>
+这里就不得不提一下程序的执行过程中的<code>编译过程</code>和<code>链接过程</code></p>
+<p>编译过程是把预处理完的文件进行一系列词法分析，语法分析，语义分析，优化后生成相应的汇编代码文件。</p>
+<p>链接过程是把源代码模块独立的编译，然后按照需要将他们“组装”起来，这其中包括地址和空间分配，符号，重定位等等</p>
+<p><code>go</code>也不例外，<code>go</code>需要使用链接器将单个的文件进行链接组装，我们来简单看一下代码</p>
+<blockquote>
+<p><a href="https://tip.golang.org/src/cmd/link/internal/ld/lib.go" target="_blank" rel="noopener">https://tip.golang.org/src/cmd/link/internal/ld/lib.go</a></p>
+</blockquote>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//linux build</span></span><br><span class="line"><span class="keyword">if</span> *flagEntrySymbol == <span class="string">""</span> &#123;</span><br><span class="line">  <span class="keyword">switch</span> ctxt.BuildMode &#123;</span><br><span class="line">  <span class="keyword">case</span> BuildModeCShared, BuildModeCArchive:</span><br><span class="line">    *flagEntrySymbol = fmt.Sprintf(<span class="string">"_rt0_%s_%s_lib"</span>, buildcfg.GOARCH, buildcfg.GOOS)</span><br><span class="line">  <span class="keyword">case</span> BuildModeExe, BuildModePIE:</span><br><span class="line">    *flagEntrySymbol = fmt.Sprintf(<span class="string">"_rt0_%s_%s"</span>, buildcfg.GOARCH, buildcfg.GOOS)</span><br><span class="line">  <span class="keyword">case</span> BuildModeShared, BuildModePlugin:</span><br><span class="line">    <span class="comment">// No *flagEntrySymbol for -buildmode=shared and plugin</span></span><br><span class="line">  <span class="keyword">default</span>:</span><br><span class="line">    Errorf(<span class="literal">nil</span>, <span class="string">"unknown *flagEntrySymbol for buildmode %v"</span>, ctxt.BuildMode)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//windows build</span></span><br><span class="line"><span class="keyword">if</span>(INITENTRY == <span class="literal">nil</span>) &#123;</span><br><span class="line">		INITENTRY = mal(strlen(goarch)+strlen(goos)+<span class="number">20</span>);</span><br><span class="line">		<span class="keyword">if</span>(!flag_shared) &#123;</span><br><span class="line">			sprint(INITENTRY, <span class="string">"_rt0_%s_%s"</span>, goarch, goos);</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">			sprint(INITENTRY, <span class="string">"_rt0_%s_%s_lib"</span>, goarch, goos);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	lookup(INITENTRY, <span class="number">0</span>)-&gt;<span class="keyword">type</span> = SXREF;</span><br></pre></td></tr></table></figure>
+<p>我们综合代码分析出，如果用户没有指定用户地址，那么在<code>x84_64</code>下生成的<code>exe</code>程序默认入口地址就是<code>_rt0_amd64_windows</code>，这时候你分析样本时候，样本在<code>ida</code>一打开，如果是<code>PE</code>的就会自动跳转到<code>_rt0_amd64_windows</code>，如果是<code>ELF</code>就会自动跳转到<code>_rt0_amd64_linux</code><br>
+<img src="/p/5623/go%E6%A0%B7%E6%9C%AC%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B%E5%88%86%E6%9E%905.png" alt><br>
+然后我们<code>F8</code>继续调试，程序进行一系列的调用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">.text:000000000046271E loc_46271E:                             ; CODE XREF: _rt0_amd64+A1↑j</span><br><span class="line">.text:000000000046271E lea     rdi, qword_570438</span><br><span class="line">.text:0000000000462725 call    runtime_settls</span><br><span class="line">.text:000000000046272A mov     rbx, gs:28h</span><br><span class="line">.text:0000000000462733 mov     qword ptr [rbx+0], 123h</span><br><span class="line">.text:000000000046273E mov     rax, cs:qword_570438</span><br><span class="line">.text:0000000000462745 cmp     rax, 123h</span><br><span class="line">.text:000000000046274B jz      short loc_462752</span><br><span class="line">.text:000000000046274D call    runtime_abort                   ; 设置线程本地存储</span><br><span class="line">.text:0000000000462752 ; ---------------------------------------------------------------------------</span><br><span class="line">.text:0000000000462752</span><br><span class="line">.text:0000000000462752 loc_462752:                             ; CODE XREF: _rt0_amd64+10B↑j</span><br><span class="line">.text:0000000000462752 mov     rbx, gs:28h</span><br><span class="line">.text:000000000046275B lea     rcx, unk_570260                  </span><br><span class="line">.text:0000000000462762 mov     [rbx+0], rcx</span><br><span class="line">.text:0000000000462769 lea     rax, unk_5703E0                  </span><br><span class="line">.text:0000000000462770 mov     [rax], rcx</span><br><span class="line">.text:0000000000462773 mov     [rcx+30h], rax</span><br><span class="line">.text:0000000000462777 cld                                       </span><br><span class="line">.text:0000000000462778 call    runtime_check                   </span><br><span class="line">.text:000000000046277D mov     eax, dword ptr [rsp+28h+var_18]</span><br><span class="line">.text:0000000000462781 mov     [rsp+28h+var_28], eax</span><br><span class="line">.text:0000000000462784 mov     rax, [rsp+28h+var_10]</span><br><span class="line">.text:0000000000462789 mov     [rsp+28h+var_20], rax</span><br><span class="line">.text:000000000046278E call    runtime_args                    ; 初始化执行文件绝对路径</span><br><span class="line">.text:0000000000462793 call    runtime_osinit                  ; 初始化cpu核数以及内存</span><br><span class="line">.text:0000000000462798 call    runtime_schedinit               ; 初始化命令行参数、环境变量、gc、栈空间等等</span><br><span class="line">.text:000000000046279D lea     rax, off_4EEB20                 ;</span><br><span class="line">.text:00000000004627A4 push    rax</span><br><span class="line">.text:00000000004627A5 push    0</span><br><span class="line">.text:00000000004627A7 call    runtime_newproc                 ; 创建新的goroutine，只是获取参数的起始地址与相关寄存器，真正干活的是newproc1()</span><br><span class="line">.text:00000000004627AC pop     rax</span><br><span class="line">.text:00000000004627AD pop     rax</span><br><span class="line">.text:00000000004627AE call    runtime_mstart                  ; 启动线程M</span><br><span class="line">.text:00000000004627B3 call    runtime_abort                   ; 初始化，内存管理，调用用户自己开发的main_xxx</span><br><span class="line">.text:00000000004627B3 _rt0_amd64 endp</span><br></pre></td></tr></table></figure>
+<p>go bootstarp的流程就是首先，检查<code>cpu</code>是否符合，配置好样本运行相关的参数，然后，进行tls初始化(具体看第三个链接)，然后调用<code>runtime.args</code>、<code>runtime.osinit</code>、<code>runtime.schedinit</code>配置好样本加载时候的各种变量以及调度器，总结如下<br>
+<img src="/p/5623/go%E6%A0%B7%E6%9C%AC%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B%E5%88%86%E6%9E%906.png" alt><br>
+然后执行到<code>main</code>这，这块基本就执行攻击者自己实现的恶意代码了，就是以<code>main_xxxx</code>开头的基本都是攻击者自己实现的，我们分析的时候主要分析这块就可以<br>
+<img src="/p/5623/go%E6%A0%B7%E6%9C%AC%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B%E5%88%86%E6%9E%907.png" alt><br>
+那么，我们了解完以上，如果攻击者自己实现了一个包或者模块时候，会在<code>main_main</code>之前启动，比如说<code>init_xxx()</code>,<code>xxxx_init</code>,<code>xxx_initx</code>等等，常用来运行前的注册，比如说decoder，parser的注册，运行时只需计算一次的模块，比如<code>sync.once </code>或者全局数据库连接句柄的初始化等等<br>
+我们怎么判断是不是，<code>init()</code>函数具有以下特点</p>
+<ol>
+<li>不能被其他函数调用，这里我们可以按<code>x</code>，查看交叉引用情况</li>
+<li>该函数没有输入参数和返回值</li>
+<li>每个包可能有多个<code>init</code>函数</li>
+<li>包的每个源文件可以有多个<code>init</code>函数</li>
+<li>简单理解就是，导入包依赖关系决定<code>init</code>函数执行顺序(官方解释，不同包的<code>init</code>函数，按照导入包的依赖关系决定<code>init</code>函数的执行顺序)</li>
+<li><code>init</code>函数在<code>main</code>执行之前，会由<code>runtime</code>来调用</li>
+</ol>
+<h2 id="参考链接">参考链接</h2>
+<p><a href="https://jiayu0x.com/2020/09/28/go-binary-reverse-engineering-tips-and-example/" target="_blank" rel="noopener">https://jiayu0x.com/2020/09/28/go-binary-reverse-engineering-tips-and-example/</a><br>
+<a href="https://www.cnblogs.com/qcrao-2018/p/11124360.html" target="_blank" rel="noopener">https://www.cnblogs.com/qcrao-2018/p/11124360.html</a><br>
+<a href="https://www.cnblogs.com/flhs/p/12657348.html" target="_blank" rel="noopener">https://www.cnblogs.com/flhs/p/12657348.html</a><br>
+<a href="https://jiayu0x.com/2020/09/28/go-binary-reverse-engineering-tips-and-example/" target="_blank" rel="noopener">https://jiayu0x.com/2020/09/28/go-binary-reverse-engineering-tips-and-example/</a><br>
+<a href="https://blog.iceinto.com/posts/go/start/" target="_blank" rel="noopener">https://blog.iceinto.com/posts/go/start/</a><br>
+<a href="https://zhuanlan.zhihu.com/p/111370792" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/111370792</a></p>
+
+      
+    </div>
+    
+    
+    
+
+<div>
+    
+        
+
+    
+</div>
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/analysis/" rel="tag"><i class="fa fa-tag"></i> analysis</a>
+          
+            <a href="/tags/go/" rel="tag"><i class="fa fa-tag"></i> go</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/p/6cec.html" rel="next" title="skylarinst-winc(10.199.1.19_80).exe样本分析">
+                <i class="fa fa-chevron-left"></i> skylarinst-winc(10.199.1.19_80).exe样本分析
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="Hex Christmas">
+            
+              <p class="site-author-name" itemprop="name">Hex Christmas</p>
+              <p class="site-description motion-element" itemprop="description">Security Researcher</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">44</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tag/index.html">
+                  <span class="site-state-item-count">55</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">go样本加载过程分析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#descriptions"><span class="nav-number">1.1.</span> <span class="nav-text">descriptions</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#加载符号表"><span class="nav-number">1.2.</span> <span class="nav-text">加载符号表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#项目地址"><span class="nav-number">1.3.</span> <span class="nav-text">项目地址</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用以及安装方法"><span class="nav-number">1.3.1.</span> <span class="nav-text">使用以及安装方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Go程序是怎么运行起来的"><span class="nav-number">1.4.</span> <span class="nav-text">Go程序是怎么运行起来的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考链接"><span class="nav-number">1.5.</span> <span class="nav-text">参考链接</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hex Christmas</span>
+
+  
+</div>
+<!--
+
+ <div class="powered-by">{#
+  }由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动
+
+
+  <span class="post-meta-divider">|</span>
+
+
+<div class="theme-info">{#
+  <div class="theme-info">{#
+  }主题 &mdash; {#
+  }<a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">{#
+    }NexT.Gemini v5.1.4
+
+
+-->
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
