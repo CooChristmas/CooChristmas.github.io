@@ -362,9 +362,9 @@
 </blockquote>
 <p>DLL(Dynamic-link library)劫持，这通常是红队权限维持的常见手段，可以理解为攻击者劫持(替换)程序目录下合法的DLL为恶意DLL。那为什么红队喜欢劫持dll来实现持久化权限维持呢，因为红队通常不会自己传个带签名的程序到机器上，大多数都会选择在目标机器上寻找带有微软签名的程序进行dll劫持，数字签名也是分三六九等的，一般微软签名的数字证书的程序会相对一般的数字证书更安全，更加不会被应急响应人发现对吧。</p>
 <h2 id="各版本dll加载顺序">各版本dll加载顺序</h2>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">/* windows xp sp2 before*/</span><br><span class="line">1. 进程对应的应用程序所在目录；</span><br><span class="line">2. 当前目录（Current Directory）；</span><br><span class="line">3. 系统目录（通过 GetSystemDirectory 获取）；</span><br><span class="line">4. 16位系统目录；</span><br><span class="line">5. Windows目录（通过 GetWindowsDirectory 获取）；</span><br><span class="line">6. PATH环境变量中的各个目录；</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">/* windows xp sp2 later*/</span><br><span class="line">1. 进程对应的应用程序所在目录（可理解为程序安装目录比如C:ProgramFilesuTorrent）；</span><br><span class="line">2. 系统目录（即%windir%system32）；</span><br><span class="line">3. 16位系统目录（即%windir%system）；</span><br><span class="line">4. Windows目录（即%windir%）；</span><br><span class="line">5. 当前目录（运行的某个文件所在目录，比如C:DocumentsandSettingsAdministratorDesktoptest）；</span><br><span class="line">5. PATH环境变量中的各个目录；</span><br><span class="line">```</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">## 常见的dll劫持手法</span><br><span class="line">### DLL劫持技术与白利用结合</span><br><span class="line"></span><br><span class="line">## 排查过程</span><br></pre></td></tr></table></figure>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* windows xp sp2 before*/</span></span><br><span class="line"><span class="number">1.</span> 进程对应的应用程序所在目录；</span><br><span class="line"><span class="number">2.</span> 当前目录（Current Directory）；</span><br><span class="line"><span class="number">3.</span> 系统目录（通过 GetSystemDirectory 获取）；</span><br><span class="line"><span class="number">4.</span> <span class="number">16</span>位系统目录；</span><br><span class="line"><span class="number">5.</span> Windows目录（通过 GetWindowsDirectory 获取）；</span><br><span class="line"><span class="number">6.</span> PATH环境变量中的各个目录；</span><br></pre></td></tr></table></figure>
+<figure class="highlight mel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* windows xp sp2 later*/</span></span><br><span class="line"><span class="number">1.</span> 进程对应的应用程序所在目录（可理解为程序安装目录比如C:ProgramFilesuTorrent）；</span><br><span class="line"><span class="number">2.</span> 系统目录（即%windir%system32）；</span><br><span class="line"><span class="number">3.</span> <span class="number">16</span>位系统目录（即%windir%system）；</span><br><span class="line"><span class="number">4.</span> Windows目录（即%windir%）；</span><br><span class="line"><span class="number">5.</span> 当前目录（运行的某个文件所在目录，比如C:DocumentsandSettingsAdministratorDesktoptest）；</span><br><span class="line"><span class="number">5.</span> PATH环境变量中的各个目录；</span><br><span class="line"><span class="string">``</span><span class="string">`</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">## 常见的dll劫持手法</span><br><span class="line">### DLL劫持技术与白利用结合</span><br><span class="line"></span><br><span class="line">## 排查过程</span><br></pre></td></tr></table></figure>
 <p>可疑进程</p>
 <p>网络流量</p>
 <p>启动项</p>
@@ -501,7 +501,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">45</span>
+                  <span class="site-state-item-count">46</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -513,8 +513,8 @@
               
               
               <div class="site-state-item site-state-tags">
-                <a href="/tag/index.html">
-                  <span class="site-state-item-count">56</span>
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">57</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

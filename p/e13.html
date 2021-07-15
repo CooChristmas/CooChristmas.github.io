@@ -376,7 +376,7 @@
 <h2 id="网络">网络</h2>
 <p>建议使用有线，先插网线在开机，就不用使用wifi-menu这个东西了，这个东西实话讲我一直也没弄明白，你插上网线在ping，就能看到网络通了</p>
 <h4 id="编辑pacman的源">编辑pacman的源</h4>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/pacman.d/mirrorlist</span><br></pre></td></tr></table></figure>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi <span class="regexp">/etc/</span>pacman.d<span class="regexp">/mirrorlist</span></span><br></pre></td></tr></table></figure>
 <p><img src="/p/e13/10.png" alt><br>
 将China的源移到到最前</p>
 <h2 id="分区">分区</h2>
@@ -428,78 +428,78 @@
 <p><img src="/p/e13/9.gif" alt></p>
 <h2 id="挂载分区">挂载分区</h2>
 <p>挂载**/<strong>分区到</strong>/mnt**</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mount /dev/sda3 /mnt</span><br></pre></td></tr></table></figure>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mount <span class="string">/dev/sda3</span> <span class="string">/mnt</span></span><br></pre></td></tr></table></figure>
 <p>创建EFI挂载点,并挂载</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /mnt/boot/EFI</span><br><span class="line">mount /dev/sda1 /mnt/boot/EFI</span><br></pre></td></tr></table></figure>
+<figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p <span class="meta-keyword">/mnt/</span>boot/EFI</span><br><span class="line">mount <span class="meta-keyword">/dev/</span>sda1 <span class="meta-keyword">/mnt/</span>boot/EFI</span><br></pre></td></tr></table></figure>
 <h2 id="安装基本软件包">安装基本软件包</h2>
 <blockquote>
 <p>基本的软件包包括了系统运行所必需的所有软件包。比如有 GNU BASH shell、文件压缩工具、文件系统管理工具、C 语言库、压缩工具、Linux 内核及其模块，类库、系统工具、USB 设备工具、Vi 文本编辑器等等</p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pacstrap -i /mnt base base-devel</span><br></pre></td></tr></table></figure>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pacstrap -i /mnt <span class="keyword">base</span> <span class="keyword">base</span>-devel</span><br></pre></td></tr></table></figure>
 <h2 id="生成fstab文件">生成fstab文件</h2>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">genfstab -U /mnt &gt;&gt; /mnt/etc/fstab</span><br></pre></td></tr></table></figure>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">genfstab -U <span class="regexp">/mnt &gt;&gt; /m</span>nt<span class="regexp">/etc/</span>fstab</span><br></pre></td></tr></table></figure>
 <h2 id="检查fstab是否生成有问题">检查fstab是否生成有问题</h2>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># &lt;file system&gt;                           &lt;dir&gt;         &lt;type&gt;    &lt;options&gt;             &lt;dump&gt; &lt;pass&gt;</span><br><span class="line"></span><br><span class="line">tmpfs                                     /tmp          tmpfs     nodev,nosuid          0      0</span><br><span class="line"></span><br><span class="line">UUID=24f28fc6-717e-4bcd-a5f7-32b959024e26 /     ext4              defaults,noatime      0      1</span><br><span class="line">UUID=03ec5dd3-45c0-4f95-a363-61ff321a09ff /home ext4              defaults,noatime      0      2</span><br><span class="line">UUID=4209c845-f495-4c43-8a03-5363dd433153 none  swap              defaults              0      0</span><br></pre></td></tr></table></figure>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># &lt;file system&gt;                           &lt;dir&gt;         &lt;type&gt;    &lt;options&gt;             &lt;dump&gt; &lt;pass&gt;</span><br><span class="line"></span><br><span class="line">tmpfs                                     /tmp          tmpfs     nodev,nosuid          <span class="number">0</span>      <span class="number">0</span></span><br><span class="line"></span><br><span class="line">UUID=<span class="number">24</span>f28fc6<span class="number">-717e-4</span>bcd-a5f7<span class="number">-32</span>b959024e26 /     ext4              defaults,noatime      <span class="number">0</span>      <span class="number">1</span></span><br><span class="line">UUID=<span class="number">03</span>ec5dd3<span class="number">-45</span>c0<span class="number">-4</span>f95-a363<span class="number">-61</span>ff321a09ff /home ext4              defaults,noatime      <span class="number">0</span>      <span class="number">2</span></span><br><span class="line">UUID=<span class="number">4209</span>c845-f495<span class="number">-4</span>c43<span class="number">-8</span>a03<span class="number">-5363</span>dd433153 none  swap              defaults              <span class="number">0</span>      <span class="number">0</span></span><br></pre></td></tr></table></figure>
 <p>如果你和我一样，在options 列有relatime 可改成noatime能够提升性能</p>
 <h2 id="切换新安装到系统">切换新安装到系统</h2>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">arch-chroot /mnt</span><br></pre></td></tr></table></figure>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">arch-chroot <span class="string">/mnt</span></span><br></pre></td></tr></table></figure>
 <h2 id="update-system">update system</h2>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pacman -Syu</span><br></pre></td></tr></table></figure>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">pacman -Syu</span></span><br></pre></td></tr></table></figure>
 <h2 id="system-settings">system settings</h2>
 <h3 id="安装常用软件">安装常用软件</h3>
 <p>pacman -S vim sudo</p>
 <h3 id="设置时钟">设置时钟</h3>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime</span><br></pre></td></tr></table></figure>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ln -sf <span class="regexp">/usr/</span>share<span class="regexp">/zoneinfo/</span>Asia<span class="regexp">/Shanghai /</span>etc<span class="regexp">/localtime</span></span><br></pre></td></tr></table></figure>
 <p>使用hwclock命里该设置硬件时钟</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hwclock --systohc --utc</span><br></pre></td></tr></table></figure>
+<figure class="highlight brainfuck"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">hwclock</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">systohc</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">utc</span></span><br></pre></td></tr></table></figure>
 <h3 id="中文环境">中文环境</h3>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># vim /etc/locale.gen</span><br><span class="line">...</span><br><span class="line">en_US.UTF-8 UTF-8</span><br><span class="line">zh_CN.UTF-8 UTF-8</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># vim /etc/locale.gen</span><br><span class="line">...</span><br><span class="line">en_US.UTF<span class="number">-8</span> UTF<span class="number">-8</span></span><br><span class="line">zh_CN.UTF<span class="number">-8</span> UTF<span class="number">-8</span></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
 <p>找到以上两行取消注释</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">locale-gen</span><br></pre></td></tr></table></figure>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">locale-gen</span></span><br></pre></td></tr></table></figure>
 <p>生成新的<br>
 创建<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">```</span><br><span class="line"># vim /etc/locale.conf</span><br><span class="line">LANG=en_US.UTF-8</span><br></pre></td></tr></table></figure></p>
 <h3 id="设置主机名">设置主机名</h3>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo archlinux &gt; /etc/hostname</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># vim /etc/hosts</span><br><span class="line">127.0.0.1    localhost</span><br><span class="line">::1            localhost</span><br><span class="line">127.0.1.1    arch.localdomain    archlinux</span><br></pre></td></tr></table></figure>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">echo</span> archlinux &gt; <span class="string">/etc/hostname</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># vim /etc/hosts</span><br><span class="line"><span class="number">127.0</span><span class="meta">.0</span><span class="meta">.1</span>    localhost</span><br><span class="line">::<span class="number">1</span>            localhost</span><br><span class="line"><span class="number">127.0</span><span class="meta">.1</span><span class="meta">.1</span>    arch.localdomain    archlinux</span><br></pre></td></tr></table></figure>
 <h3 id="设置有线连接">设置有线连接</h3>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl enable dhcpcd</span><br></pre></td></tr></table></figure>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl <span class="builtin-name">enable</span> dhcpcd</span><br></pre></td></tr></table></figure>
 <h3 id="设置无线连接">设置无线连接</h3>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pacman -S iw wpa_supplicant dialog</span><br></pre></td></tr></table></figure>
+<figure class="highlight autohotkey"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pacman -S iw wp<span class="built_in">a_supplicant</span> dialog</span><br></pre></td></tr></table></figure>
 <h3 id="设置root密码">设置root密码</h3>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">passwd root</span><br></pre></td></tr></table></figure>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">passwd root</span></span><br></pre></td></tr></table></figure>
 <h3 id="添加普通用户">添加普通用户</h3>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">useradd -m -g users -G wheel -s /bin/bash archuser</span><br></pre></td></tr></table></figure>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">useradd -m -g<span class="built_in"> users </span>-G wheel -s /bin/bash archuser</span><br></pre></td></tr></table></figure>
 <p>使用<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">```</span><br><span class="line">visudo</span><br></pre></td></tr></table></figure></p>
 <h2 id="安装引导程序">安装引导程序</h2>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pacman -S grub efibootmgr</span><br><span class="line">grub-install --target=x86_64-efi --efi-directory=/boot/EFI --bootloader-id=grub</span><br><span class="line">grub-mkconfig -o /boot/grub/grub.cfg</span><br></pre></td></tr></table></figure>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pacman -S grub efibootmgr</span><br><span class="line">grub-install <span class="attribute">--target</span>=x86_64-efi <span class="attribute">--efi-directory</span>=/boot/EFI <span class="attribute">--bootloader-id</span>=grub</span><br><span class="line">grub-mkconfig -o /boot/grub/grub.cfg</span><br></pre></td></tr></table></figure>
 <h2 id="卸载挂载的分区并重启">卸载挂载的分区并重启</h2>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">exit   //退出到chroot</span><br><span class="line">umount -r /dev/sda3</span><br><span class="line">umount -r /dev/sda1</span><br><span class="line">reboot</span><br></pre></td></tr></table></figure>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">exit</span>   <span class="regexp">//</span>退出到chroot</span><br><span class="line">umount -r <span class="regexp">/dev/</span>sda3</span><br><span class="line">umount -r <span class="regexp">/dev/</span>sda1</span><br><span class="line">reboot</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>如果你此时重启之后发现引导没生效，那么大概率事件就是你哪一步出问题了，这就需要你的linux排查经验了，拿到你的linux live进行急救,希望以下方法可以挽救你的grub</p>
 </blockquote>
 <h2 id="再次手动生成grub">再次手动生成grub</h2>
 <p>复制内核文件到esp分区</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cp /boot/vmlinuz-linux /esp/vmlinuz-linux</span><br><span class="line">cp /boot/initramfs-linux.img /esp/initramfs-linux.img</span><br><span class="line">cp /boot/initramfs-linux-fallback.img /esp/initramfs-linux-fallback.img</span><br></pre></td></tr></table></figure>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cp <span class="regexp">/boot/</span>vmlinuz-linux <span class="regexp">/esp/</span>vmlinuz-linux</span><br><span class="line">cp <span class="regexp">/boot/i</span>nitramfs-linux.img <span class="regexp">/esp/i</span>nitramfs-linux.img</span><br><span class="line">cp <span class="regexp">/boot/i</span>nitramfs-linux-fallback.img <span class="regexp">/esp/i</span>nitramfs-linux-fallback.img</span><br></pre></td></tr></table></figure>
 <p>安装并更新efi启动文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">bootctl --path=/esp install</span><br><span class="line">bootctl --path=/esp update</span><br></pre></td></tr></table></figure>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">bootctl <span class="attribute">--path</span>=/esp install</span><br><span class="line">bootctl <span class="attribute">--path</span>=/esp update</span><br></pre></td></tr></table></figure>
 <p>编辑启动文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /esp/loader/loader.conf</span><br></pre></td></tr></table></figure>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">vim</span> /esp/loader/loader.<span class="keyword">conf</span></span><br></pre></td></tr></table></figure>
 <p>文件中有一行注释，不需要动，直接添加如下内容即可</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">default arch-*</span><br><span class="line">timeout 3（这个数值可以改为0）</span><br><span class="line">editor 0</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nano /esp/loader/entries/arch.conf</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">title Arch Linux</span><br><span class="line">linux /vmlinuz-linux</span><br><span class="line">initrd /initramfs-linux.img</span><br><span class="line">options root=PARTUUID=14420948-2cea-4de7-b042-40f67c618660 rw</span><br></pre></td></tr></table></figure>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">default</span> arch-*</span><br><span class="line">timeout <span class="number">3</span>（这个数值可以改为<span class="number">0</span>）</span><br><span class="line">editor <span class="number">0</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nano <span class="regexp">/esp/</span>loader<span class="regexp">/entries/</span>arch.conf</span><br></pre></td></tr></table></figure>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">title Arch Linux</span><br><span class="line">linux /vmlinuz-linux</span><br><span class="line">initrd /initramfs-linux.img</span><br><span class="line">options root=PARTUUID=<span class="number">14420948</span><span class="number">-2</span>cea<span class="number">-4</span>de7-b042<span class="number">-40</span>f67c618660 rw</span><br></pre></td></tr></table></figure>
 <p>注意以上的<strong>14420948-2cea-4de7-b042-40f67c618660</strong>这个是你的分区的UUID，你需要手动去找<br>
 命令是：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">使用 blkid -s PARTUUID -o value /dev/sdxY</span><br></pre></td></tr></table></figure>
+<figure class="highlight q"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">使用 blkid -s PARTUUID -o <span class="built_in">value</span> /<span class="built_in">dev</span>/sdxY</span><br></pre></td></tr></table></figure>
 <p>找到之后替换就行，再次开机重启就应该有引导了</p>
 <h2 id="安装kde桌面">安装kde桌面</h2>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pacman -S xorg xorg-server xorg-xinit xorg-apps plasma kde-applications sddm sddm-kcm networkmanager net-tools alsa-utils pulseaudio pulseaudio-alsa</span><br></pre></td></tr></table></figure>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pacman -S <span class="keyword">xorg </span><span class="keyword">xorg-server </span><span class="keyword">xorg-xinit </span><span class="keyword">xorg-apps </span>plasma kde-applications sddm sddm-kcm networkmanager net-tools alsa-utils pulseaudio pulseaudio-alsa</span><br></pre></td></tr></table></figure>
 <p>启动网络管理器</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl enable NetworkManager</span><br></pre></td></tr></table></figure>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl <span class="builtin-name">enable</span> NetworkManager</span><br></pre></td></tr></table></figure>
 <p>登录器自启动</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl enable sddm</span><br></pre></td></tr></table></figure>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl <span class="builtin-name">enable</span> sddm</span><br></pre></td></tr></table></figure>
 <p>安装字体</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pacman -S wqy-microhei wqy-microhei-lite wqy-bitmapfont wqy-zenhei ttf-arphic-ukai ttf-arphic-uming adobe-source-han-sans-cn-fonts adobe-source-han-serif-cn-fonts noto-fonts-cjk</span><br></pre></td></tr></table></figure>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pacman -S wqy-microhei wqy-microhei-lite wqy-bitmapfont wqy-zenhei ttf-arphic-ukai ttf-arphic-uming adobe-<span class="keyword">source</span>-han-sans-<span class="keyword">cn</span>-fonts adobe-<span class="keyword">source</span>-han-serif-<span class="keyword">cn</span>-fonts noto-fonts-cjk</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -660,7 +660,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">45</span>
+                  <span class="site-state-item-count">46</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -672,8 +672,8 @@
               
               
               <div class="site-state-item site-state-tags">
-                <a href="/tag/index.html">
-                  <span class="site-state-item-count">56</span>
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">57</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

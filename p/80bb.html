@@ -373,13 +373,13 @@
 然后查看——&gt;刷新，<br>
 <img src="/p/80bb/10.png" alt></p>
 <h2 id="新建隐藏账户">新建隐藏账户</h2>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">net user test$ test123 /add</span><br><span class="line">net localgroup administrator test$ /add</span><br></pre></td></tr></table></figure>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">net<span class="built_in"> user </span>test$ test123 /add</span><br><span class="line">net localgroup administrator test$ /add</span><br></pre></td></tr></table></figure>
 <p><img src="/p/80bb/1.png" alt><br>
 但此时我们在控制面板的账户管理是可以看到这个隐藏账户的<br>
 <img src="/p/80bb/2.png" alt></p>
 <h2 id="导出注册表">导出注册表</h2>
 <p>找到用户名的注册表</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">HKEY_LOCAL_MACHINE\SAM\SAM\Domains\Account\Users\Names</span><br></pre></td></tr></table></figure>
+<figure class="highlight taggerscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">HKEY_LOCAL_MACHINE<span class="symbol">\S</span>AM<span class="symbol">\S</span>AM<span class="symbol">\D</span>omains<span class="symbol">\A</span>ccount<span class="symbol">\U</span>sers<span class="symbol">\N</span>ames</span><br></pre></td></tr></table></figure>
 <p>我们找到test用户的注册表将它导出为<code>aaa.reg</code><br>
 <img src="/p/80bb/3.png" alt><br>
 然后我们在找到用户名为test默认类型为<code>0x3F0</code>的注册表将它导出为<code>bbb.reg</code></p>
@@ -387,15 +387,15 @@
 <img src="/p/80bb/4.png" alt><br>
 我们发现F值有所不同，那么我们其实就是这一点进行账户隐藏，我们将<code>ccc.reg</code>中的F值替换到<code>bbb.reg</code>的F值那块，</p>
 <h2 id="删除创建的用户">删除创建的用户</h2>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net user test$ /del</span><br></pre></td></tr></table></figure>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net<span class="built_in"> user </span>test$ /del</span><br></pre></td></tr></table></figure>
 <p><img src="/p/80bb/5.png" alt></p>
 <h2 id="导入注册表">导入注册表</h2>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">regedit /s aaa.reg</span><br><span class="line">regedit /s bbb.reg</span><br></pre></td></tr></table></figure>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">regedit <span class="string">/s</span> aaa.reg</span><br><span class="line">regedit <span class="string">/s</span> bbb.reg</span><br></pre></td></tr></table></figure>
 <p><img src="/p/80bb/6.png" alt><br>
 然后我们使用<code>net user</code>查看用户<br>
 <img src="/p/80bb/7.png" alt><br>
 我们发现是看不见的，但是</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net user test$</span><br></pre></td></tr></table></figure>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net<span class="built_in"> user </span>test$</span><br></pre></td></tr></table></figure>
 <p><img src="/p/80bb/8.png" alt><br>
 我们发现还是可以看到的</p>
 
@@ -560,7 +560,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">45</span>
+                  <span class="site-state-item-count">46</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -572,8 +572,8 @@
               
               
               <div class="site-state-item site-state-tags">
-                <a href="/tag/index.html">
-                  <span class="site-state-item-count">56</span>
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">57</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

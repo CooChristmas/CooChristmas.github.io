@@ -367,25 +367,25 @@
       
         <h1>Centos7扩容</h1>
 <p>只写了命令大概是怎么用的，我自己理解的解释没写，你们自己百度理解一下</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fdisk -l /* 列出磁盘 */</span><br></pre></td></tr></table></figure>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fdisk -l <span class="comment">/* 列出磁盘 */</span></span><br></pre></td></tr></table></figure>
 <p><img src="/p/ef9b8f0e/q1.png" alt="WX20200228-210617|661x500"></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fdisk /dev/vda /*vda即你要扩容的那块盘，进行分区*/</span><br></pre></td></tr></table></figure>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fdisk <span class="regexp">/dev/</span>vda <span class="regexp">/*vda即你要扩容的那块盘，进行分区*/</span></span><br></pre></td></tr></table></figure>
 <p><img src="/p/ef9b8f0e/q2.png" alt="WX20200228-210726|538x500"></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">partprobe /*为了让系统识别新的分区*/</span><br></pre></td></tr></table></figure>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">partprobe <span class="comment">/*为了让系统识别新的分区*/</span></span><br></pre></td></tr></table></figure>
 <p><img src="/p/ef9b8f0e/q3.png" alt="WX20200228-210937|550x500"></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pvcreate /dev/vda3 /*将物理硬盘初始化为物理卷*/</span><br></pre></td></tr></table></figure>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pvcreate <span class="regexp">/dev/</span>vda3 <span class="regexp">/*将物理硬盘初始化为物理卷*/</span></span><br></pre></td></tr></table></figure>
 <p><img src="/p/ef9b8f0e/q4.png" alt="WX20200228-210937|550x500"></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vgscan /*查看所有卷组,重点看卷组名称*/</span><br></pre></td></tr></table></figure>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vgscan <span class="comment">/*查看所有卷组,重点看卷组名称*/</span></span><br></pre></td></tr></table></figure>
 <p><img src="/p/ef9b8f0e/q5.png" alt="WX20200228-211010|690x153"></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vgextend centos  /dev/vda3 /*扩展卷组*/</span><br></pre></td></tr></table></figure>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vgextend centos  <span class="regexp">/dev/</span>vda3 <span class="regexp">/*扩展卷组*/</span></span><br></pre></td></tr></table></figure>
 <p><img src="/p/ef9b8f0e/q6.png" alt="WX20200228-211045|690x97"></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vgdisplay /*显示卷组信息*/</span><br></pre></td></tr></table></figure>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vgdisplay <span class="comment">/*显示卷组信息*/</span></span><br></pre></td></tr></table></figure>
 <p><img src="/p/ef9b8f0e/q7.png" alt="WX20200228-211223|690x460"></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lvextend -l+100%FREE /dev/mapper/centos-root /*扩展逻辑卷*/</span><br></pre></td></tr></table></figure>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lvextend -l+<span class="number">100</span>%FREE <span class="regexp">/dev/m</span>apper<span class="regexp">/centos-root /</span>*扩展逻辑卷*<span class="regexp">/</span></span><br></pre></td></tr></table></figure>
 <p><img src="/p/ef9b8f0e/q8.png" alt="WX20200228-211256|690x200"></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xfs_growfs /dev/mapper/centos-root /*对挂载目录进行扩容*/</span><br></pre></td></tr></table></figure>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xfs_growfs <span class="regexp">/dev/m</span>apper<span class="regexp">/centos-root /</span>*对挂载目录进行扩容*<span class="regexp">/</span></span><br></pre></td></tr></table></figure>
 <p><img src="/p/ef9b8f0e/q9.png" alt="WX20200228-211318|690x276"></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df -h</span><br></pre></td></tr></table></figure>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">df -h</span></span><br></pre></td></tr></table></figure>
 <p><img src="/p/ef9b8f0e/q10.png" alt="image|690x291"><br>
 步骤是这样的，测试的时候没扩容成功，你们研究这看一下，我觉得总体步骤是没问题的。</p>
 
@@ -550,7 +550,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">45</span>
+                  <span class="site-state-item-count">46</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -562,8 +562,8 @@
               
               
               <div class="site-state-item site-state-tags">
-                <a href="/tag/index.html">
-                  <span class="site-state-item-count">56</span>
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">57</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
